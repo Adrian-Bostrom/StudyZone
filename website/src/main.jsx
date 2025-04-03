@@ -4,6 +4,7 @@ import './index.css';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
 import Signup from './pages/Signup.jsx';
+import Moduler from './pages/Moduler.jsx';
 import Navbar from './pages/components/Navbar.jsx';
 import Footer from './pages/components/Footer.jsx';
 import Overview from './pages/Overview.jsx';
@@ -47,6 +48,10 @@ const router = createBrowserRouter([
       {
         path: '/overview',
         element: <Overview />,
+      },
+      {
+        path: '/Moduler',
+        element: <Moduler />,
       }
     ],
   },
