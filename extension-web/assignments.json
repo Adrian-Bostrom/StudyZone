@@ -1,0 +1,145 @@
+[
+  {
+    "courseName": "Assignments: II1305 VT25 Project in Information and Communication Technology (TCOMK+CINTE)",
+    "url": "https://canvas.kth.se/courses/53175/assignments",
+    "assignments": [
+      {
+        "title": "Name and description",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327445",
+        "dueDate": "14 May at 12:00"
+      },
+      {
+        "title": "Product image or icon",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327446",
+        "dueDate": "14 May at 12:00"
+      },
+      {
+        "title": "Link to expo-page for the team",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327444",
+        "dueDate": "14 May at 12:30"
+      },
+      {
+        "title": "Product poster",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327447",
+        "dueDate": "14 May at 12:00"
+      },
+      {
+        "title": "Attendance during sprints",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327439",
+        "dueDate": "No due date"
+      },
+      {
+        "title": "1. Beginning with Scrum",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327432",
+        "dueDate": "26 Mar at 12:30"
+      },
+      {
+        "title": "2. Sprint planning",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327433",
+        "dueDate": "26 Mar at 12:30"
+      },
+      {
+        "title": "3. The sprint",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327437",
+        "dueDate": "26 Mar at 12:30"
+      },
+      {
+        "title": "4. End of the sprint",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327436",
+        "dueDate": "26 Mar at 12:30"
+      },
+      {
+        "title": "5. Git version control (basic)",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327434",
+        "dueDate": "26 Mar at 12:30"
+      },
+      {
+        "title": "6. Git version control (team)",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327435",
+        "dueDate": "26 Mar at 12:30"
+      },
+      {
+        "title": "Feedback from the expo",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327440",
+        "dueDate": "16 May at 16:00"
+      },
+      {
+        "title": "Individual Project Reflection",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327441",
+        "dueDate": "16 May at 16:00"
+      }
+    ]
+  },
+  {
+    "courseName": "Assignments: IL1333/FIL3030 VT25 Hardware Security",
+    "url": "https://canvas.kth.se/courses/52577/assignments",
+    "assignments": [
+      {
+        "title": "Project",
+        "link": "https://canvas.kth.se/courses/52577/assignments/325105",
+        "dueDate": "1 Apr at 23:59"
+      }
+    ]
+  },
+  {
+    "courseName": "Assignments: IV1350 VT25 Objektorienterad design (60104)",
+    "url": "https://canvas.kth.se/courses/53321/assignments",
+    "assignments": [
+      {
+        "title": "Additional Higher Grade Tasks Report",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326942",
+        "dueDate": "3 Jun at 0:10"
+      },
+      {
+        "title": "Seminar 1, Analysis",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326953",
+        "dueDate": "24 Mar at 23:59"
+      },
+      {
+        "title": "Peer Assessment DURING Seminar 1",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326943",
+        "dueDate": "26 Mar at 10:00"
+      },
+      {
+        "title": "Seminar 2, Design",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326954",
+        "dueDate": "8 Apr at 0:10"
+      },
+      {
+        "title": "Peer Assessment DURING Seminar 2",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326944",
+        "dueDate": "9 Apr at 10:10"
+      },
+      {
+        "title": "Seminar 3, Implementation",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326955",
+        "dueDate": "5 May at 0:10"
+      },
+      {
+        "title": "Peer Assessment DURING Seminar 3",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326945",
+        "dueDate": "6 May at 10:10"
+      },
+      {
+        "title": "Seminar 4, Exceptions and Design Patterns",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326956",
+        "dueDate": "20 May at 0:10"
+      },
+      {
+        "title": "Peer Assessment DURING Seminar 4",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326946",
+        "dueDate": "21 May at 10:10"
+      },
+      {
+        "title": "Seminar 5, Improve Your Score",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326957",
+        "dueDate": "2 Jun at 0:10"
+      },
+      {
+        "title": "Peer Assessment DURING Seminar 5",
+        "link": "https://canvas.kth.se/courses/53321/assignments/326947",
+        "dueDate": "3 Jun at 10:10"
+      }
+    ]
+  }
+]

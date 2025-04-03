@@ -16,7 +16,7 @@ document.getElementById("sendData").addEventListener("click", async () => {
     return new Promise((resolve) => {
       chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
         const tabId = tabs[0].id;
-        const assignmentUrl = courseUrl + "/assignment"; // Append "/assignment" to the course URL
+        const assignmentUrl = courseUrl + "/assignments"; // Append "/assignments" to the course URL
   
         // Navigate to the assignment page
         chrome.tabs.update(tabId, { url: assignmentUrl });
@@ -47,7 +47,7 @@ document.getElementById("sendData").addEventListener("click", async () => {
      // Extract due date from the <span data-html-tooltip-title="">
      const dueDateElement = assignmentContainer?.querySelector('span[data-html-tooltip-title]');
      const dueDate = dueDateElement ? dueDateElement.getAttribute("data-html-tooltip-title").trim() : "No due date";
-
+  
      return {
        title: el.innerText.trim(),
        link: el.href,

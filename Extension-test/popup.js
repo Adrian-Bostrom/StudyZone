@@ -30,7 +30,7 @@ async function processCourse(courseUrl) {
           });
 
           // Delay before moving to the next course
-          setTimeout(resolve, 3000); 
+          setTimeout(resolve, 5000); 
         }
       });
     });
