@@ -39,10 +39,10 @@ function askQuestion(query) {
 async function main() {
     while(1){
         const question = await askQuestion("What do you need help with?\n");
+        if(question == "quit") break;
         await request(question);
         console.log(messages[messages.length - 1].content);
         sleep(1000);
-        console.log("b" + "a" + + "a" + "a");
         index++;
         if(index == 10) break;
     }
