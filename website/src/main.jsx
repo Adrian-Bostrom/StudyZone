@@ -3,6 +3,7 @@ import { createRoot } from 'react-dom/client';
 import './index.css';
 import Home from './pages/Home.jsx';
 import About from './pages/About.jsx';
+import Course from './pages/Course.jsx';
 import Signup from './pages/Signup.jsx';
 import Navbar from './pages/components/Navbar.jsx';
 import Footer from './pages/components/Footer.jsx';
@@ -38,6 +39,10 @@ const router = createBrowserRouter([
       {
         path: '/about',
         element: <About />,
+      },
+      {
+        path: '/course',
+        element: <Course />,
       },
       {
         path: '/signup',
