@@ -2,18 +2,12 @@
     "manifest_version": 3,
     "name": "Data Grabber",
     "version": "1.0",
-    "permissions": ["activeTab", "scripting"],
+    "permissions": ["activeTab", "scripting", "tabs"],
     "background": {
       "service_worker": "background.js"
     },
-    "host_permissions": ["http://localhost:5000/*"],
+    "host_permissions": ["https://canvas.kth.se/*", "http://localhost:5000/*"],
     "action": {
       "default_popup": "popup.html"
-    },
-    "content_scripts": [
-      {
-        "matches": ["<all_urls>"],
-        "js": ["content.js"]
-      }
-    ]
+    }
 }
