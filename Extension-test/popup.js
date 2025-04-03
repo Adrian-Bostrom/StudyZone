@@ -1,48 +1,61 @@
-document.getElementById("sendData").addEventListener("click", () => {
-  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
-    const tabId = tabs[0].id;
-    //const assignmentsUrl = "https://canvas.kth.se/courses/52615/modules";
-    const assignmentsUrl = tabs[0].url + "/modules";
+document.getElementById("sendData").addEventListener("click", async () => {
+  try {
+    // Fetch course URLs from a JSON file
+    const response = await fetch("urls.json");
+    const courses = await response.json(); // Assuming JSON is an array of course URLs
 
-    // Navigate to the assignments page
-    chrome.tabs.update(tabId, { url: assignmentsUrl });
+    for (const courseUrl of courses) {
+      await processCourse(courseUrl); // Process each course sequentially
+    }
+  } catch (error) {
+    console.error("Error fetching course URLs:", error);
+  }
+});
 
-    // Wait for the page to load before executing the script
-    chrome.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
-      if (updatedTabId === tabId && changeInfo.status === "complete") {
-        chrome.tabs.onUpdated.removeListener(listener); // Remove listener after execution
+async function processCourse(courseUrl) {
+  return new Promise((resolve) => {
+    chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+      const tabId = tabs[0].id;
+      const assignmentsUrl = courseUrl + "/assignments"; // Navigate to assignments page
 
-        // Delay script execution slightly to ensure elements are loaded
-        setTimeout(() => {
+      chrome.tabs.update(tabId, { url: assignmentsUrl });
+
+      chrome.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
+        if (updatedTabId === tabId && changeInfo.status === "complete") {
+          chrome.tabs.onUpdated.removeListener(listener);
+
           chrome.scripting.executeScript({
             target: { tabId: tabId },
             function: grabAssignments
           });
-        }, 2000); // Adjust delay if needed
-      }
+
+          // Delay before moving to the next course
+          setTimeout(resolve, 3000); 
+        }
+      });
     });
   });
-});
+}
 
 function grabAssignments() {
-  // Select all assignment rows
-  const assignments = [...document.querySelectorAll(".ig-row")].map(row => {
-    const titleElement = row.querySelector("a.ig-title");
-    const dueDateElement = row.querySelector(".due_date_display");
-    const pointsElement = row.querySelector(".points_possible_display");
+  const assignments = [...document.querySelectorAll("a.ig-title")].map(el => {
+    const assignmentContainer = el.closest(".ig-row");
+
+    // Extract due date from <span data-html-tooltip-title="">
+    const dueDateElement = assignmentContainer?.querySelector('span[data-html-tooltip-title]');
+    const dueDate = dueDateElement ? dueDateElement.getAttribute("data-html-tooltip-title").trim() : "No due date";
 
     return {
-      title: titleElement ? titleElement.innerText.trim() : "No title",
-      link: titleElement ? titleElement.href : "#",
-      dueDate: dueDateElement ? dueDateElement.innerText.trim() : "No due date",
-      points: pointsElement ? pointsElement.innerText.trim() : "No points info",
+      title: el.innerText.trim(),
+      link: el.href,
+      dueDate: dueDate,
     };
   });
 
   const data = {
     url: window.location.href,
     title: document.title,
-    assignments: assignments, // Store assignment details
+    assignments: assignments,
   };
 
   fetch("http://localhost:5000/log", {
