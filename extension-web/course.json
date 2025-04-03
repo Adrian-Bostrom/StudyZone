@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "name": "Introduction to Programming",
+        "duration": "4 weeks",
+        "level": "Beginner"
+    },
+    {
+        "id": 2,
+        "name": "Web Development Basics",
+        "duration": "6 weeks",
+        "level": "Intermediate"
+    },
+    {
+        "id": 3,
+        "name": "Data Science Fundamentals",
+        "duration": "8 weeks",
+        "level": "Advanced"
+    }
+]

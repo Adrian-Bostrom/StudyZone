@@ -1,0 +1,26 @@
+[
+  {
+    "id": "1",
+    "username": "john_doe",
+    "password": "$2b$10$hashedpasswordhere",
+    "email": "john@example.com"
+  },
+  {
+    "id": "2",
+    "username": "jane_doe",
+    "password": "$2b$10$anotherhashedpassword",
+    "email": "jane@example.com"
+  },
+  {
+    "id": "e5f889ad-9699-4bce-8570-3dc910c137ae",
+    "username": "adrian",
+    "password": "b3e1886e6a0073cfe52722c15ad6639e8143690c2769a2eed2cfb01044debfe6",
+    "email": "bostromadrian@gmail.com"
+  },
+  {
+    "id": "9c683dc8-8e85-4d37-8256-b5ddaf9b147e",
+    "username": "adrian01",
+    "password": "69ac4ded6d62e030ceb48156e68f3b14df53f67abcd03dfc012b815c096939c3",
+    "email": "bostromadrian2@gmail.com"
+  }
+]
