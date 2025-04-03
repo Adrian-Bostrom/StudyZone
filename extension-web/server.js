@@ -34,27 +34,19 @@ function writeUsers(users) {
   fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
 }
 
-// Add a new user
-async function hash(string) {
-  return createHash('sha256').update(string).digest('hex');
-}
-
 async function addUser(username, password, email) {
   const users = readUsers();
 
   // Check if the username or email already exists
-  if (users.some((user) => user.username === username || user.email === email)) {
+  if (users.some((user) => user.username == username || user.email == email)) {
     throw new Error("Username or email already exists");
   }
-
-  // Hash the password
-  const hashedPassword = await hash(password);
 
   // Create a new user object
   const newUser = {
     id: uuidv4(), // Generate a unique ID
     username,
-    password: hashedPassword,
+    password,
     email,
   };
 
@@ -64,13 +56,21 @@ async function addUser(username, password, email) {
 
   return newUser;
 }
+
 async function login(email, password) {
   const users = readUsers();
-  // Check if the username or email already exists
-  if (users.some((user) => user.email === email && user.password === hash(password))) {
-    return true;
+
+  // Find the user by email
+  const user = users.find((user) => user.email === email);
+  if (!user) {
+    throw new Error("User not found");
   }
-  else return false;
+  // Hash the provided password and compare it with the stored hashed password
+  if (user.password == password) {
+    return "200"; // Login successful
+  } else {
+    throw new Error("Invalid password");
+  }
 }
 
 app.post("/signup", (req, res) => {
@@ -82,13 +82,19 @@ app.post("/signup", (req, res) => {
   res.send("User added");
 });
 
-app.post("/login", (req, res) => {
+app.post("/login", async (req, res) => {
   console.log("Received Data:", req.body);
-  
+
   const { email, password } = req.body; // Destructure the data from req.body
 
-  let answer = login(req.body.email, req.body.password);
-  res.send(answer? "200" : "400");
+  try {
+    const answer = await login(email, password); // Await the login function
+    console.log("User logged in!");
+    res.status(200).send(answer); // Send success response
+  } catch (error) {
+    console.log("Wrong password or email");
+    res.status(400).send(error.message); // Send error response
+  }
 });
 
 // Handle any request to /api/:variable
