@@ -2,6 +2,7 @@ import { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import './index.css';
 import Home from './pages/Home.jsx';
+import Login from './pages/Login.jsx';
 import About from './pages/About.jsx';
 import Signup from './pages/Signup.jsx';
 import Navbar from './pages/components/Navbar.jsx';
@@ -35,6 +36,10 @@ const router = createBrowserRouter([
       {
         path: '/',
         element: <Home />,
+      },
+      {
+        path: '/Login',
+        element: <Login />,
       },
       {
         path: '/about',
