@@ -1,48 +1,56 @@
-function scrapeAssignments() {
-    console.log("Starting assignment scraping...");
+document.getElementById("sendData").addEventListener("click", () => {
+  chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
+    const tabId = tabs[0].id;
+    //const assignmentsUrl = "https://canvas.kth.se/courses/52615/modules";
+    const assignmentsUrl = tabs[0].url + "/modules";
 
-    // Ensure we're on the assignments page
-    if (!window.location.href.includes("/assignments")) {
-        console.log("Redirecting to Assignments page...");
-        window.location.href = window.location.href + "/assignments";
-        return;
-    }
+    // Navigate to the assignments page
+    chrome.tabs.update(tabId, { url: assignmentsUrl });
 
-    console.log("Scraping assignments...");
+    // Wait for the page to load before executing the script
+    chrome.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
+      if (updatedTabId === tabId && changeInfo.status === "complete") {
+        chrome.tabs.onUpdated.removeListener(listener); // Remove listener after execution
 
-    // Find all assignment elements
-    const assignments = [...document.querySelectorAll("a[href*='/assignments/']")].map(a => {
-        let title = a.innerText.trim();
-        
-        // Remove extra content like "7 out of 8"
-        title = title.split("\n")[0].trim(); 
-
-        // Remove score patterns (e.g., "7 out of 8")
-        title = title.replace(/\s*\d+(\.\d+)?\s*out\s+of\s+\d+/g, "").trim();
-
-        // Find due date if available
-        let dueDateElement = a.closest("tr")?.querySelector(".due-date-class"); // Adjust selector as needed
-        let dueDate = dueDateElement ? dueDateElement.innerText.trim() : "No due date";
-
-        return {
-            title: title,
-            url: a.href,
-            dueDate: dueDate
-        };
+        // Delay script execution slightly to ensure elements are loaded
+        setTimeout(() => {
+          chrome.scripting.executeScript({
+            target: { tabId: tabId },
+            function: grabAssignments
+          });
+        }, 2000); // Adjust delay if needed
+      }
     });
+  });
+});
 
-    console.log("Scraped Assignments:", assignments);
+function grabAssignments() {
+  // Select all assignment rows
+  const assignments = [...document.querySelectorAll(".ig-row")].map(row => {
+    const titleElement = row.querySelector("a.ig-title");
+    const dueDateElement = row.querySelector(".due_date_display");
+    const pointsElement = row.querySelector(".points_possible_display");
 
-    // Send data to backend
-    fetch("http://localhost:5000/log", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ assignments }),
-    })
+    return {
+      title: titleElement ? titleElement.innerText.trim() : "No title",
+      link: titleElement ? titleElement.href : "#",
+      dueDate: dueDateElement ? dueDateElement.innerText.trim() : "No due date",
+      points: pointsElement ? pointsElement.innerText.trim() : "No points info",
+    };
+  });
+
+  const data = {
+    url: window.location.href,
+    title: document.title,
+    assignments: assignments, // Store assignment details
+  };
+
+  fetch("http://localhost:5000/log", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(data),
+  })
     .then(response => response.text())
-    .then(result => console.log("Data sent:", result))
+    .then(result => console.log("Assignments sent:", result))
     .catch(error => console.error("Error:", error));
 }
-
-// Run the script when clicking the extension button
-document.getElementById("sendData").addEventListener("click", scrapeAssignments);
