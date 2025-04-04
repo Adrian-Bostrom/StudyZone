@@ -1,0 +1,28 @@
+[
+  {
+    "courseName": "Assignments: II1305 VT25 Project in Information and Communication Technology (TCOMK+CINTE)",
+    "url": "https://canvas.kth.se/courses/53175/assignments",
+    "assignments": []
+  },
+  {
+    "courseName": "Assignments: IL1333/FIL3030 VT25 Hardware Security",
+    "url": "https://canvas.kth.se/courses/52577/assignments",
+    "assignments": [
+      {
+        "title": "Project",
+        "link": "https://canvas.kth.se/courses/52577/assignments/325105",
+        "dueDate": "1 Apr at 23:59"
+      }
+    ]
+  },
+  {
+    "courseName": "Assignments: IV1350 VT25 Objektorienterad design (60104)",
+    "url": "https://canvas.kth.se/courses/53321/assignments",
+    "assignments": []
+  },
+  {
+    "courseName": "Uppgifter: CINTE Programrum för Civilingenjörsutbildning i informationsteknik, 300.0 hp",
+    "url": "https://canvas.kth.se/courses/44330/assignments",
+    "assignments": []
+  }
+]
