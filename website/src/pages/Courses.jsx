@@ -1,6 +1,6 @@
 import ChatBox  from "./components/ChatBox";
 
-function Course() {
+function Courses() {
     return (
       <>
         <div className="flex flex-col h-[calc(100vh-80px)] bg-gray-100 p-12">
@@ -15,4 +15,4 @@ function Course() {
     );
   }
   
-  export default Course;
+  export default Courses;

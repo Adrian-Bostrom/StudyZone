@@ -4,7 +4,7 @@ import './index.css';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import About from './pages/About.jsx';
-import Course from './pages/Course.jsx';
+import Courses from './pages/Courses.jsx';
 import Signup from './pages/Signup.jsx';
 import Navbar from './pages/components/Navbar.jsx';
 import Footer from './pages/components/Footer.jsx';
@@ -47,8 +47,8 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: '/course',
-        element: <Course />,
+        path: '/courses',
+        element: <Courses />,
       },
       {
         path: '/signup',
