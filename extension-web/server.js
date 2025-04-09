@@ -7,6 +7,8 @@ import { v4 as uuidv4 } from "uuid";
 import {requestChat} from "../OpenAI/chat.js";
 import { fileURLToPath } from "url";
 import { log } from "console";
+import {addUser} from "./login.js";
+import {login} from "./login.js";
 const app = express();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -23,66 +25,16 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 */
 
-// Helper function to read users from the JSON file
-function readUsers() {
-  if (!fs.existsSync(usersFilePath)) {
-    fs.writeFileSync(usersFilePath, JSON.stringify([])); // Create file if it doesn't exist
-  }
-  const data = fs.readFileSync(usersFilePath, "utf8");
-  return JSON.parse(data);
-}
-
-// Helper function to write users to the JSON file
-function writeUsers(users) {
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-}
-
-async function addUser(username, password, email) {
-  const users = readUsers();
-
-  // Check if the username or email already exists
-  if (users.some((user) => user.username == username || user.email == email)) {
-    throw new Error("Username or email already exists");
-  }
-
-  // Create a new user object
-  const newUser = {
-    id: uuidv4(), // Generate a unique ID
-    username,
-    password,
-    email,
-  };
-
-  // Add the new user to the list and save it
-  users.push(newUser);
-  writeUsers(users);
-
-  return newUser;
-}
-
-async function login(email, password) {
-  const users = readUsers();
-
-  // Find the user by email
-  const user = users.find((user) => user.email === email);
-  if (!user) {
-    throw new Error("User not found");
-  }
-  // Hash the provided password and compare it with the stored hashed password
-  if (user.password == password) {
-    return "200"; // Login successful
-  } else {
-    throw new Error("Invalid password");
-  }
-}
-
 app.post("/signup", (req, res) => {
   console.log("Received Data:", req.body);
   
   const { username, password, email } = req.body; // Destructure the data from req.body
 
-  addUser(req.body.username, req.body.password, req.body.email);
-  res.send("User added");
+  const user = addUser(req.body.username, req.body.password, req.body.email);
+  let ret = {
+    userID: user.sessiontoken
+  };
+  res.send(ret);
 });
 
 app.post("/login", async (req, res) => {
@@ -161,3 +113,8 @@ const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+app.post("/api/:variable", (req, res) => {
+  const variable = req.params.variable;
+  
+})
