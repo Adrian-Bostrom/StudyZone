@@ -10,7 +10,7 @@ import { log } from "console";
 import {addUser} from "./login.js";
 import {login} from "./login.js";
 const app = express();
-
+const FILE_PATH = "assignments.json"; // File where assignments will be stored
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "database", "users.json");
 
@@ -66,6 +66,7 @@ app.get("/api/:variable", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(data); // Send JSON file contents
   });
+
 });
 const logFilePath = path.join(__dirname, "database", "chatlog.json");
 function readLog() {
@@ -109,6 +110,7 @@ app.post("/chat", (req, res) => {
 });
 
 
+// Start the server
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);

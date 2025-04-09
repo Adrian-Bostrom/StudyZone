@@ -49,7 +49,7 @@ function ChatBox() {
     }, [messages]);
 
     return (
-        <div>
+        <div className='z-10'>
             {isOpen ? (
                 <div className='w-[40vh] h-fit fixed bg-gray-100 right-10 bottom-10 rounded-2xl overflow-clip shadow-2xl'>
                     <div className='w-full h-[6vh] flex'>
