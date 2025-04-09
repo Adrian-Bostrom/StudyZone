@@ -7,11 +7,10 @@ app.use(express.json()); // Parse JSON requests
 
 app.post("/api/chat", (req, res) => {
     const { message } = req.body;
-
     setTimeout(() => {
-        let response = "this is a test response Lorem ipsum dolor sit amet, consectetur...";        
-        res.json({ reply: response });
-    }, 1500);
+            let response = "this is a test response to " + message;
+            res.json({reply: response});
+        }, 1500);   
 });
 
-app.listen(3333, () => console.log("Server running on port 3333"));
+app.listen(1234, () => console.log("Server running on port 1234"));

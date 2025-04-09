@@ -49,7 +49,11 @@ const router = createBrowserRouter([
       },
       {
         path: '/course',
-        element: <Course />,
+        element: <Course 
+        CourseCode={"MM0161"}
+        CourseName={"Fanny course"}
+        CourseDescription={"This course covers the basics of networking, including protocols, architectures, and security."}
+        />,
       },
       {
         path: '/signup',

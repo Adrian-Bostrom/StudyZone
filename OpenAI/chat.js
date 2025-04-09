@@ -8,6 +8,17 @@ let messages = [
     {"role": "developer", "content": "You are a helpful assistant."},
     ];
 
+export async function requestChat(question, chatlog) {
+    chatlog.push({"role": "user", "content": question});
+    const completion = await openai.chat.completions.create({
+        model: "gpt-4o-mini",
+        messages: chatlog,
+        store: true
+    });
+    //console.log(completion.choices[0]);
+    chatlog.push({"role": "assistant", "content": completion.choices[0].message.content});
+    return chatlog;
+}
 async function request(question) {
     messages.push({"role": "user", "content": question});
     const completion = await openai.chat.completions.create({
@@ -55,6 +66,6 @@ function sleep (time) {
 /*
 while loop
 gör fråga, ha index och modulu för var i array man ska lägga till*/
-main();
+//main();
 
 

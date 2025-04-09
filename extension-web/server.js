@@ -1,12 +1,17 @@
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
-const fs = require("fs");
-const { createHash } = require('crypto');
-const { v4: uuidv4 } = require("uuid");
-
+import express from "express";
+import cors from "cors";
+import path from "path";
+import fs from "fs";
+import { createHash } from "crypto";
+import { v4 as uuidv4 } from "uuid";
+import {requestChat} from "../OpenAI/chat.js";
+import { fileURLToPath } from "url";
+import { log } from "console";
+import {addUser} from "./login.js";
+import {login} from "./login.js";
 const app = express();
-
+const FILE_PATH = "assignments.json"; // File where assignments will be stored
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "database", "users.json");
 
 app.use(cors());
@@ -20,66 +25,16 @@ app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 */
 
-// Helper function to read users from the JSON file
-function readUsers() {
-  if (!fs.existsSync(usersFilePath)) {
-    fs.writeFileSync(usersFilePath, JSON.stringify([])); // Create file if it doesn't exist
-  }
-  const data = fs.readFileSync(usersFilePath, "utf8");
-  return JSON.parse(data);
-}
-
-// Helper function to write users to the JSON file
-function writeUsers(users) {
-  fs.writeFileSync(usersFilePath, JSON.stringify(users, null, 2));
-}
-
-async function addUser(username, password, email) {
-  const users = readUsers();
-
-  // Check if the username or email already exists
-  if (users.some((user) => user.username == username || user.email == email)) {
-    throw new Error("Username or email already exists");
-  }
-
-  // Create a new user object
-  const newUser = {
-    id: uuidv4(), // Generate a unique ID
-    username,
-    password,
-    email,
-  };
-
-  // Add the new user to the list and save it
-  users.push(newUser);
-  writeUsers(users);
-
-  return newUser;
-}
-
-async function login(email, password) {
-  const users = readUsers();
-
-  // Find the user by email
-  const user = users.find((user) => user.email === email);
-  if (!user) {
-    throw new Error("User not found");
-  }
-  // Hash the provided password and compare it with the stored hashed password
-  if (user.password == password) {
-    return "200"; // Login successful
-  } else {
-    throw new Error("Invalid password");
-  }
-}
-
 app.post("/signup", (req, res) => {
   console.log("Received Data:", req.body);
   
   const { username, password, email } = req.body; // Destructure the data from req.body
 
-  addUser(req.body.username, req.body.password, req.body.email);
-  res.send("User added");
+  const user = addUser(req.body.username, req.body.password, req.body.email);
+  let ret = {
+    userID: user.sessiontoken
+  };
+  res.send(ret);
 });
 
 app.post("/login", async (req, res) => {
@@ -111,9 +66,57 @@ app.get("/api/:variable", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(data); // Send JSON file contents
   });
+
+});
+const logFilePath = path.join(__dirname, "database", "chatlog.json");
+function readLog() {
+  if (!fs.existsSync(logFilePath)) {
+    fs.writeFileSync(logFilePath, JSON.stringify([])); // Create file if it doesn't exist
+  }
+  const data = fs.readFileSync(logFilePath, "utf8");
+  return JSON.parse(data);
+}
+function writeLog(chatlog) {
+  fs.writeFileSync(logFilePath, JSON.stringify(chatlog, null, 2));
+}
+app.post("/chat", (req, res) => {
+  const { message } = req.body;
+  console.log(message);
+  let readlog;
+  if(message == "clear"){
+    readlog = [
+      {
+        "role": "developer",
+        "content": "You are a helpful assistant."
+      }
+    ];
+    writeLog(readlog);
+    res.json({ reply: "Chat has been cleared!" });
+  }
+  else{readlog = readLog();
+  requestChat(message, readlog)
+    .then((chatlog) => {
+      console.log(chatlog);
+      let response = chatlog[chatlog.length - 1].content;
+      res.json({ reply: response });
+      writeLog(chatlog);
+    })
+    .catch((error) => {
+      console.error("Error in requestChat:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }); 
+  }
+
 });
 
+
+// Start the server
 const PORT = 5000;
 app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
+
+app.post("/api/:variable", (req, res) => {
+  const variable = req.params.variable;
+  
+})
