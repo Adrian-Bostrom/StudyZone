@@ -2,7 +2,10 @@ import OpenAI from "openai";
 import "dotenv/config";
 const conversationlength = 10;
 let index = 0;
-const openai = new OpenAI({ apiKey: `${process.env.OPENAI_API_KEY}` });
+const openai = new OpenAI({
+  baseURL:"https://openrouter.ai/api/v1",
+  apiKey:"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",
+})
 
 let messages = [
     {"role": "developer", "content": "You are a helpful assistant."},
@@ -11,7 +14,7 @@ let messages = [
 export async function requestChat(question, chatlog) {
     chatlog.push({"role": "user", "content": question});
     const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "nvidia/llama-3.3-nemotron-super-49b-v1:free",
         messages: chatlog,
         store: true
     });
@@ -19,10 +22,11 @@ export async function requestChat(question, chatlog) {
     chatlog.push({"role": "assistant", "content": completion.choices[0].message.content});
     return chatlog;
 }
+
 async function request(question) {
     messages.push({"role": "user", "content": question});
     const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
+        model: "nvidia/llama-3.3-nemotron-super-49b-v1:free",
         messages: messages,
         store: true
     });

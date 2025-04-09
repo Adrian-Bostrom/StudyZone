@@ -1,7 +1,7 @@
 {
   "dependencies": {
     "dotenv": "^16.4.7",
-    "openai": "^4.91.1"
+    "openai": "^4.93.0"
   },
   "type": "module"
 }
