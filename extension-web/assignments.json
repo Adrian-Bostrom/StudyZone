@@ -71,15 +71,9 @@
     ]
   },
   {
-    "courseName": "Assignments: IL1333/FIL3030 VT25 Hardware Security",
-    "url": "https://canvas.kth.se/courses/52577/assignments",
-    "assignments": [
-      {
-        "title": "Project",
-        "link": "https://canvas.kth.se/courses/52577/assignments/325105",
-        "dueDate": "1 Apr at 23:59"
-      }
-    ]
+    "courseName": "Assignments: IK1203 VT25 Nätverk och kommunikation",
+    "url": "https://canvas.kth.se/courses/52321/assignments",
+    "assignments": []
   },
   {
     "courseName": "Assignments: IV1350 VT25 Objektorienterad design (60104)",
