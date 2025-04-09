@@ -2,10 +2,14 @@
 node_modules
 ./OpenAI/.env
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 .vscode
 ./extension-web/database/users.json
 users.json
 chatlog.json
+=======
+.vscode
+>>>>>>> Stashed changes
 =======
 .vscode
 >>>>>>> Stashed changes
