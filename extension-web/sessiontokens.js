@@ -1,0 +1,3 @@
+function createSessionToken(email){
+    
+}

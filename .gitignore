@@ -2,3 +2,5 @@
 node_modules
 ./OpenAI/.env
 ./extension-web/database/users.json
+users.json
+chatlog.json
