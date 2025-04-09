@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import sha256 from 'crypto-js/sha256';
+import localStorage from 'local-storage-fallback'; // Use local-storage-fallback for better compatibility
 
 const LoginCard = () => {
 
@@ -18,6 +20,8 @@ const LoginCard = () => {
         });
     };
 
+    const navigate = useNavigate(); // Use useNavigate for programmatic navigation
+
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -29,6 +33,11 @@ const LoginCard = () => {
         try {
             const response = await axios.post('http://localhost:5000/login', hashedFormData);
             console.log('Login request was successful:', response.data);
+            if (response.userID != null) {
+                localStorage.setItem('userID', response.userID);
+                console.log('User ID stored in local storage:', response.userID);
+                navigate('/Overview')
+            }
         } catch (error) {
             console.error('Error during login:', error);
             // Handle error (e.g., show error message)
@@ -127,4 +136,4 @@ const styles = {
     },
 };
 
-export default LoginCard;
+export default LoginCard;  
