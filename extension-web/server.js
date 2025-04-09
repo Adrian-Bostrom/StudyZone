@@ -1,12 +1,15 @@
-const express = require("express");
-const cors = require("cors");
-const path = require("path");
-const fs = require("fs");
-const { createHash } = require('crypto');
-const { v4: uuidv4 } = require("uuid");
-
+import express from "express";
+import cors from "cors";
+import path from "path";
+import fs from "fs";
+import { createHash } from "crypto";
+import { v4 as uuidv4 } from "uuid";
+import {requestChat} from "../OpenAI/chat.js";
+import { fileURLToPath } from "url";
+import { log } from "console";
 const app = express();
 
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "database", "users.json");
 
 app.use(cors());
@@ -112,6 +115,47 @@ app.get("/api/:variable", (req, res) => {
     res.send(data); // Send JSON file contents
   });
 });
+const logFilePath = path.join(__dirname, "database", "chatlog.json");
+function readLog() {
+  if (!fs.existsSync(logFilePath)) {
+    fs.writeFileSync(logFilePath, JSON.stringify([])); // Create file if it doesn't exist
+  }
+  const data = fs.readFileSync(logFilePath, "utf8");
+  return JSON.parse(data);
+}
+function writeLog(chatlog) {
+  fs.writeFileSync(logFilePath, JSON.stringify(chatlog, null, 2));
+}
+app.post("/chat", (req, res) => {
+  const { message } = req.body;
+  console.log(message);
+  let readlog;
+  if(message == "clear"){
+    readlog = [
+      {
+        "role": "developer",
+        "content": "You are a helpful assistant."
+      }
+    ];
+    writeLog(readlog);
+    res.json({ reply: "Chat has been cleared!" });
+  }
+  else{readlog = readLog();
+  requestChat(message, readlog)
+    .then((chatlog) => {
+      console.log(chatlog);
+      let response = chatlog[chatlog.length - 1].content;
+      res.json({ reply: response });
+      writeLog(chatlog);
+    })
+    .catch((error) => {
+      console.error("Error in requestChat:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }); 
+  }
+
+});
+
 
 const PORT = 5000;
 app.listen(PORT, () => {
