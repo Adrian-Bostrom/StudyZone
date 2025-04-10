@@ -32,27 +32,6 @@ function Course({CourseCode, CourseName, CourseDescription}) {
               ModuleNr="Module alpha"
               ModuleName="Introduction to Networkingidejdoij doijdo iwjdjdjoiwj doiwjwoi ihjuwhuhu hudwhudwhd iuhwudh uw uh uw"
             />
-            <ModuleCard
-              targetPage="/module2"
-              ModuleNr="Module Beta"
-              ModuleName="Introduction to Netw"
-            /><ModuleCard
-            targetPage="/module2"
-            ModuleNr="Module Beta"
-            ModuleName="Introduction to Netw"
-          /><ModuleCard
-          targetPage="/module2"
-          ModuleNr="Module Beta"
-          ModuleName="Introduction to Netw"
-        /><ModuleCard
-        targetPage="/module2"
-        ModuleNr="Module Beta"
-        ModuleName="Introduction to Netw"
-      /><ModuleCard
-      targetPage="/module2"
-      ModuleNr="Module Beta"
-      ModuleName="Introduction to Netw"
-    />
           </ModuleBox>
         </div>
 
@@ -60,17 +39,22 @@ function Course({CourseCode, CourseName, CourseDescription}) {
         <div className="right-0 top-0 h-full flex-col items-start">
           <DeadlineBox>
             <DeadlineCard
-              AssignmentType="homework on react med den underbara mackand wdw dw dw wd w dwd wd wdwd w wdwd wd wd w dwdwdw dwdw w w wdwdw wd wd "
-              DueDate="2025-04-10"
-              targetPage="/signup"
-            />
-            <DeadlineCard
               AssignmentType="w3school training with mackan"
               DueDate="2025-04-10"
               targetPage="/signup"
             />
             <DeadlineCard
               AssignmentType="scrum 101 with DANTE SOLENDER"
+              DueDate="2025-04-10"
+              targetPage="/signup"
+            />
+            <DeadlineCard
+              AssignmentType="Expressen artiklar med John"
+              DueDate="2025-04-10"
+              targetPage="/signup"
+            />
+            <DeadlineCard
+              AssignmentType="backend fingering med adrian"
               DueDate="2025-04-10"
               targetPage="/signup"
             />
