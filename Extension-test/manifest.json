@@ -2,7 +2,12 @@
     "manifest_version": 3,
     "name": "Data Grabber",
     "version": "1.0",
-    "permissions": ["activeTab", "scripting"],
+    "key": "MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAwbYFf+F1+5hK+SUoIN7nhLj7MlTS8ppGdf9FgAIkzz65XMRFrXWsy8ocP8X6ex6myhF+9mGVZdzXYFhTxuOvZ+xPoUOfGIdqkNUzSKdQmKfJK94kEBZXM1lSKu71+8gSLQCuZfdjVi+ugGpH8hRpeLTkRm3R0BckBhCUeMH5FY9jO7Ivf6DF5lz5uePUECe1OxMJ7hNZIoMDAe4++MyBPQ9X1K8CHXJ2UlOQnXqvAbyPO0a3toCBLz0UO1E3LFKLMr+xn4SRaIuXqXoCRYVGvL5Jxy5WYvHAvIUCYXJUSDRmPkzIFsYcbVjYbgPfZ0n3hXvW2gLXPIfjDUyzylPR3QIDAQAB",
+    "permissions": ["activeTab","scripting","identity"],
+    "oauth2": {
+      "client_id": "726590587489-opvsm92l9au2i076keuj3mrq83mkr6qg.apps.googleusercontent.com",
+      "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
+    },
     "background": {
       "service_worker": "background.js"
     },
