@@ -99,6 +99,7 @@ app.post("/store-user", (req, res) => {
 
   if (existingUser) {
     console.log("User found:", existingUser.username);
+    fs.writeFileSync(FILE_PATH, JSON.stringify(data, null, 2));
     res.status(200).send(`User ${existingUser.username} found.`);
   } else {
     console.log("User not found");
@@ -106,12 +107,33 @@ app.post("/store-user", (req, res) => {
   }
 });
 
+function getUserIdByEmail(email) {
+  try {
+    // Read the users.json file
+    const users = JSON.parse(fs.readFileSync(usersFilePath, "utf8"));
+
+    // Find the user by email
+    const existingUser = users.find((user) => user.email === email);
+
+    if (existingUser) {
+      console.log("User found:", existingUser.username);
+      return existingUser.id; // Return the userID of the found user
+    } else {
+      console.log("User not found");
+      return null; // Return null if user is not found
+    }
+  } catch (error) {
+    console.error("Error reading users file:", error);
+    return null; // In case of an error, return null
+  }
+}
+
+
 
 // Handle individual assignment submission
 app.post("/log", (req, res) => {
-  const { url, title, dueDate, content } = req.body;
+  const { url, title, dueDate, content, courseName, email } = req.body;
 
-  // Derive course URL from assignment URL (e.g., /courses/53321/assignments/123)
   const match = url.match(/(https:\/\/canvas\.kth\.se\/courses\/\d+)/);
   if (!match) {
     return res.status(400).send("Invalid assignment URL format");
@@ -127,28 +149,29 @@ app.post("/log", (req, res) => {
 
   let assignmentsData = loadAssignments();
 
-  // Find existing course
-  const courseIndex = assignmentsData.findIndex((course) => course.url === courseUrl);
+  const courseIndex = assignmentsData.findIndex(
+    (course) => course.url === courseUrl && course.email === email
+  );
 
   if (courseIndex !== -1) {
     const course = assignmentsData[courseIndex];
 
-    // Avoid duplicate entries
     const existingAssignmentIndex = course.assignments.findIndex((a) => a.link === url);
     if (existingAssignmentIndex !== -1) {
-      course.assignments[existingAssignmentIndex] = assignmentEntry; // Overwrite existing
+      course.assignments[existingAssignmentIndex] = assignmentEntry;
     } else {
       course.assignments.push(assignmentEntry);
     }
   } else {
-    // New course entry
     assignmentsData.push({
-      courseName: req.body.courseName, // Can replace with nicer name if needed
+      courseName,
       url: courseUrl,
+      email,
       assignments: [assignmentEntry],
     });
   }
-
+  console.log(assignmentsData[0].email);
+  console.log(getUserIdByEmail(assignmentsData[0].email));
   saveAssignments(assignmentsData);
   res.send("Assignment saved successfully.");
 });
