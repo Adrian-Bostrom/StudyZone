@@ -9,7 +9,8 @@ import Signup from './pages/Signup.jsx';
 import Navbar from './pages/components/Navbar.jsx';
 import Footer from './pages/components/Footer.jsx';
 import Overview from './pages/Overview.jsx';
-import courses from './data/courses.json'; // Import the JSON file
+import Module from './pages/Module.jsx';
+import courses from './data/courses.json';
 import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
 
 // Layout component to include Navbar
@@ -30,17 +31,16 @@ const ErrorPage = () => (
   </div>
 );
 
-// Wrapper component for dynamic course route
 const CourseWrapper = () => {
-  const { courseCode } = useParams(); // Access the dynamic parameter
-  const course = courses.find(c => c.CourseCode === courseCode); // Find the course by CourseCode
+  const { courseCode } = useParams();
+  const course = courses.find(c => c.CourseCode === courseCode);
 
   if (!course) {
-    return <ErrorPage />; // Show error if course not found
+    return <ErrorPage />;
   }
 
   return (
-    <Course
+    <Courses
       CourseCode={course.CourseCode}
       CourseName={course.CourseName}
       CourseDescription={course.CourseDescription}
@@ -66,8 +66,8 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: '/course/:courseCode', // Dynamic route for courses
-        element: <CourseWrapper />, // Use the wrapper component
+        path: '/courses/:courseCode',
+        element: <CourseWrapper />,
       },
       {
         path: '/signup',
