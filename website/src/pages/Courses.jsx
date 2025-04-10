@@ -5,13 +5,22 @@ import ModuleBox from "./components/ModuleBox";
 import ModuleCard from "./components/ModuleCard";
 import DeadlineBox from "./components/DeadlineBox";
 
-function Course() {
+function Courses({CourseCode, CourseName, CourseDescription}) {
     return (
       <>
-        <div className="flex flex-col h-[calc(100vh-80px)] bg-gray-100 p-12">
-        <ChatBox/>
-          <h1 className="text-5xl font-bold mb-1">IK1203</h1>
-          <h2 className="text-2xl font-bold mb-4 text-gray-600">Derivation and Integration</h2>
+      <div className="flex flex-row min-h-screen relative">
+        {/* Left Column */}
+        <div className="flex flex-col bg-gray-100 p-12 flex-grow">
+          <ChatBox />
+          {/* Course Code */}
+          <h1 
+            className="text-5xl font-bold mb-1">{CourseCode}
+          </h1>
+          {/* Course Name */}
+          <h2 className="text-2xl font-bold mb-4 text-gray-600">
+            {CourseName}
+          </h2>
+          {/* Course description */}
           <p className="text-gray-600 text-center max-w-2xl">
             {CourseDescription}
           </p>
@@ -51,8 +60,9 @@ function Course() {
             />
           </DeadlineBox>
         </div>
+        </div>
     </>
   );
 }
 
-export default Course;
+export default Courses;
