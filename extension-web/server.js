@@ -13,17 +13,9 @@ const app = express();
 const FILE_PATH = "assignments.json"; // File where assignments will be stored
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "database", "users.json");
-
 app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
-
-/* 
-  TO DO:
-  Take info from /signup and add them to a json file with encrypted passwords
-  then make an id for each person so that we can have a users page
-
-*/
 
 app.post("/signup", (req, res) => {
   console.log("Received Data:", req.body);
@@ -34,7 +26,17 @@ app.post("/signup", (req, res) => {
   let ret = {
     userID: user.sessiontoken
   };
+  const userCourses = path.join(__dirname, "database", user.id);
+  fs.mkdir(dirpath, { recursive: true })
   res.send(ret);
+  
+});
+app.post("/api/courses", (req, res) => {
+  console.log("Received Data:", req);
+  const users = readUsers();
+  // Find the user by email
+  let user = users.find((user) => user.sessiontoken == req.userID);
+
 });
 
 app.post("/login", async (req, res) => {
