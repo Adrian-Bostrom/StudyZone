@@ -6,3 +6,5 @@ node_modules
 users.json
 chatlog.json
 .vscode
+Extension-test.pem
+Extension-test.crx
