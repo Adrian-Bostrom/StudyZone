@@ -94,35 +94,39 @@ const saveAssignments = (data, userid) => {
 function extractSpecificParts(userID) {
   // Read the original assignments data from the file
   const assignmentsData = JSON.parse(fs.readFileSync('assignments.json', 'utf8'));
-
-  // Extract assignments and courses from the json, flattening the array
-  const coursesOnly = assignmentsData.map(course => ({
-    courseName: course.courseName,
-    courseUrl: course.url
-  }))
-  const assignmentsOnly = assignmentsData.map(course => course.assignments).flat();
+  // Extract courses only
+  const coursesOnly = assignmentsData.map(course => {
+    const courseId = course.url.split("/").pop(); // Extract course ID from URL
+    return {
+      courseId: courseId,
+      courseName: course.courseName,
+      courseUrl: course.url
+    };
+  });
 
   // Define the folder path for the user (using userID)
   const userFolder = path.join(__dirname, 'database', userID);
-  const courseFolder = path.join(__dirname, 'database', userID, 'course1');
+  // Loop through each course
+  coursesOnly.forEach(course => {
+    const courseFolder = path.join(userFolder, course.courseId);
+    // Ensure the folder exists, create it if necessary
+    if (!fs.existsSync(courseFolder)) {
+      fs.mkdirSync(courseFolder, { recursive: true });
+    }
+    // Filter assignments for this specific course
+    const assignmentsForCourse = assignmentsData.find(courseData => courseData.url === course.courseUrl)?.assignments || [];
+    // Define the file path to save the assignments.json file
+    const assignmentsFilePath = path.join(courseFolder, 'assignments.json');
+    // Define the file path to save the courses.json file (one file for all courses)
+    const courseFilePath = path.join(userFolder, 'course.json');
+    fs.writeFileSync(assignmentsFilePath, JSON.stringify(assignmentsForCourse, null, 2));
+    fs.writeFileSync(courseFilePath, JSON.stringify(coursesOnly, null, 2));
 
-
-  // Ensure the folder exists, create it if necessary
-  if (!fs.existsSync(courseFolder)) {
-    fs.mkdirSync(courseFolder, { recursive: true });
-  }
-
-  // Define the file path to save the assignments.json file
-  const assignmentsFilePath = path.join(courseFolder, 'assignments.json');
-  // Define the file path to save the courses.json file
-  const courseFilePath = path.join(userFolder, 'course.json');
-
-  // Write the assignments and course to the file
-  fs.writeFileSync(assignmentsFilePath, JSON.stringify(assignmentsOnly, null, 2));
-  fs.writeFileSync(courseFilePath, JSON.stringify(coursesOnly, null, 2));
-  console.log("Assignments extracted and saved to", assignmentsFilePath);
-  console.log("Courses saved to", courseFilePath);
+    console.log(`Assignments for course ${course.courseName} saved to ${assignmentsFilePath}`);
+    console.log(`Courses saved to ${courseFilePath}`);
+  });
 }
+
 
 app.post("/store-user", (req, res) => {
   const { email } = req.body;
