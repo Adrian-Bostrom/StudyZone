@@ -1,0 +1,35 @@
+.roboto-mono{
+    font-family: "Roboto", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: normal;
+    font-style: normal;
+    font-variation-settings:
+      "wdth" 100;
+  }
+
+body {
+    width: 200px;
+    height: 100px;
+    display: flex;
+    flex-direction: column;
+    background-color: #1E1E1E;
+    color: white;
+    align-items: center;
+    font-family: "Roboto", sans-serif;
+}
+
+button {
+    background-color: #2484E1;
+    border: none;
+    padding: 10px;
+    width: 80%;
+    border-radius: 10px;
+    color: white;
+    transition: ease;
+    transition-duration: 100ms;
+    font-size: large;
+}
+
+button:hover {
+    transform: scale(1.05);
+}
