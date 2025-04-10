@@ -67,7 +67,6 @@ function Course() {
             />
           </DeadlineBox>
         </div>
-      </div>
     </>
   );
 }

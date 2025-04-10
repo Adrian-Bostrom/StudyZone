@@ -26,10 +26,6 @@ app.post("/signup", (req, res) => {
   let ret = {
     userID: user.sessiontoken
   };
-  const userCourses = path.join(__dirname, "database", user.id);
-  fs.mkdir(dirpath, { recursive: true })
-  res.send(ret);
-  
 });
 app.post("/api/courses", (req, res) => {
   console.log("Received Data:", req);
@@ -52,6 +48,7 @@ app.post("/login", async (req, res) => {
     console.log("Wrong password or email");
     res.status(400).send(error.message); // Send error response
   }
+  
 });
 
 // Handle any request to /api/:variable
@@ -68,8 +65,95 @@ app.get("/api/:variable", (req, res) => {
     res.setHeader("Content-Type", "application/json");
     res.send(data); // Send JSON file contents
   });
-
 });
+// Load existing assignments or initialize empty array
+const loadAssignments = () => {
+  if (fs.existsSync(FILE_PATH)) {
+    try {
+      return JSON.parse(fs.readFileSync(FILE_PATH, "utf8"));
+    } catch (err) {
+      console.error("Error reading JSON file:", err);
+      return [];
+    }
+  }
+  return [];
+};
+
+// Save assignments to the JSON file
+const saveAssignments = (data) => {
+  try {
+    fs.writeFileSync(FILE_PATH, JSON.stringify(data, null, 2));
+    console.log("Assignments saved successfully.");
+  } catch (err) {
+    console.error("Error saving assignments:", err);
+  }
+};
+
+app.post("/store-user", (req, res) => {
+  const { email } = req.body;
+  console.log("Received email from extension:", email);
+
+  const users = JSON.parse(fs.readFileSync(usersFilePath, "utf8"));
+
+  const existingUser = users.find((user) => user.email === email);
+
+  if (existingUser) {
+    console.log("User found:", existingUser.username);
+    res.status(200).send(`User ${existingUser.username} found.`);
+  } else {
+    console.log("User not found");
+    res.status(404).send("User not found");
+  }
+});
+
+
+// Handle individual assignment submission
+app.post("/log", (req, res) => {
+  const { url, title, dueDate, content } = req.body;
+
+  // Derive course URL from assignment URL (e.g., /courses/53321/assignments/123)
+  const match = url.match(/(https:\/\/canvas\.kth\.se\/courses\/\d+)/);
+  if (!match) {
+    return res.status(400).send("Invalid assignment URL format");
+  }
+
+  const courseUrl = match[1];
+  const assignmentEntry = {
+    title,
+    link: url,
+    dueDate,
+    content,
+  };
+
+  let assignmentsData = loadAssignments();
+
+  // Find existing course
+  const courseIndex = assignmentsData.findIndex((course) => course.url === courseUrl);
+
+  if (courseIndex !== -1) {
+    const course = assignmentsData[courseIndex];
+
+    // Avoid duplicate entries
+    const existingAssignmentIndex = course.assignments.findIndex((a) => a.link === url);
+    if (existingAssignmentIndex !== -1) {
+      course.assignments[existingAssignmentIndex] = assignmentEntry; // Overwrite existing
+    } else {
+      course.assignments.push(assignmentEntry);
+    }
+  } else {
+    // New course entry
+    assignmentsData.push({
+      courseName: req.body.courseName, // Can replace with nicer name if needed
+      url: courseUrl,
+      assignments: [assignmentEntry],
+    });
+  }
+
+  saveAssignments(assignmentsData);
+  res.send("Assignment saved successfully.");
+});
+
+// Start the server
 const logFilePath = path.join(__dirname, "database", "chatlog.json");
 function readLog() {
   if (!fs.existsSync(logFilePath)) {
