@@ -1,5 +1,10 @@
 import { v4 as uuidv4 } from "uuid";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
 // Helper function to read users from the JSON file
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const usersFilePath = path.join(__dirname, "database", "users.json");
 function readUsers() {
   if (!fs.existsSync(usersFilePath)) {
     fs.writeFileSync(usersFilePath, JSON.stringify([])); // Create file if it doesn't exist
@@ -41,7 +46,7 @@ export async function login(email, password) {
     const users = readUsers();
     
     // Find the user by email
-    const user = users.find((user) => user.email == email);
+    let user = users.find((user) => user.email == email);
     let ret = {
         userID: uuidv4()
     };
@@ -53,6 +58,7 @@ export async function login(email, password) {
     }
     if (user.password == password) {
         user.sessionToken = ret.userID;
+        writeUsers(users);
         return ret;
     } else {
         //if wrong password
