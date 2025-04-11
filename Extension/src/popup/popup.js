@@ -12,59 +12,18 @@ document.getElementById("sendData").addEventListener("click", async () => {
     const email = userInfo.email;
     console.log("User email:", email);
 
-    // Go to the Canvas dashboard and extract favorited course URLs
-    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
-      const tabId = tabs[0].id;
+    try {
+      const response = await fetch("urls.json");
+      const courses = await response.json();
 
-      chrome.tabs.update(tabId, { url: "https://canvas.kth.se/" });
-
-      chrome.tabs.onUpdated.addListener(function dashboardListener(updatedTabId, changeInfo) {
-        if (updatedTabId === tabId && changeInfo.status === "complete") {
-          chrome.tabs.onUpdated.removeListener(dashboardListener);
-      
-          // Inject script to extract course hrefs
-          chrome.scripting.executeScript({
-            target: { tabId: tabId },
-            func: () => {
-              // Get all course links inside the list items
-              const baseUrl = "https://canvas.kth.se";
-              const courseLinks = Array.from(document.querySelectorAll('css-k078sd-view-listItem.css-q13fpi-view-link[href^="/courses/"]'))
-                  .map(a => baseUrl + a.getAttribute("href"));
-              return courseLinks;
-            }
-          }, async (results) => {
-            // Remove duplicates (if any)
-            const courseUrls = [...new Set(results[0].result)];
-      
-            console.log(courseUrls);
-            // Save the course URLs to urls.json via your local server (API)
-            await fetch("http://localhost:5000/saveUrls", {
-              method: "POST",
-              headers: { "Content-Type": "application/json" },
-              body: JSON.stringify(courseUrls),
-            });
-      
-            // Log the URLs saved successfully
-            console.log("Saved course URLs:", courseUrls);
-            
-            // Now continue with the rest of the original logic
-            try {
-              const response = await fetch("urls.json");
-              const courses = await response.json();
-      
-              for (const courseUrl of courses) {
-                await processCourse(courseUrl, email);
-              }
-            } catch (error) {
-              console.error("Error fetching course URLs:", error);
-            }
-          });
-        }
-      });
-    });
+      for (const courseUrl of courses) {
+        await processCourse(courseUrl, email);
+      }
+    } catch (error) {
+      console.error("Error fetching course URLs:", error);
+    }
   });
 });
-
 
 async function processCourse(courseUrl, email) {
   return new Promise((resolve) => {
