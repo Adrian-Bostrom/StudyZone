@@ -4,11 +4,10 @@ import path from "path";
 import fs from "fs";
 import { createHash } from "crypto";
 import { v4 as uuidv4 } from "uuid";
-import {requestChat} from "../OpenAI/chat.js";
+import {requestChat} from "./OpenAI/chat.js";
 import { fileURLToPath } from "url";
 import { log } from "console";
-import {addUser} from "./login.js";
-import {login} from "./login.js";
+import {addUser,login} from "./website/login.js";
 const app = express();
 const FILE_PATH = "assignments.json"; // File where assignments will be stored
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -18,14 +17,20 @@ app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
 app.post("/signup", (req, res) => {
-  console.log("Received Data:", req.body);
-  
-  const { username, password, email } = req.body; // Destructure the data from req.body
+    console.log("Received Data:", req.body);
 
-  const user = addUser(req.body.username, req.body.password, req.body.email);
-  let ret = {
-    userID: user.sessiontoken
-  };
+    const { username, password, email } = req.body;
+
+    try {
+        const user = addUser(username, password, email); // Call addUser
+        const ret = {
+            userID: user.sessiontoken, // Return the sessiontoken
+        };
+        res.status(200).send(ret); // Send the response
+    } catch (error) {
+        console.error("Error during signup:", error.message);
+        res.status(400).send({ error: error.message }); // Handle errors
+    }
 });
 app.post("/api/courses", (req, res) => {
   console.log("Received Data:", req);

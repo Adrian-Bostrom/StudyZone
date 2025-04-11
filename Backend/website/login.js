@@ -4,7 +4,7 @@ import path from "path";
 import { fileURLToPath } from "url";
 // Helper function to read users from the JSON file
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
-const usersFilePath = path.join(__dirname, "database", "users.json");
+const usersFilePath = path.join(__dirname, "..", "database", "users.json");
 function readUsers() {
   if (!fs.existsSync(usersFilePath)) {
     fs.writeFileSync(usersFilePath, JSON.stringify([])); // Create file if it doesn't exist
