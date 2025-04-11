@@ -16,16 +16,17 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
-app.post("/signup", (req, res) => {
+app.post("/signup", async (req, res) => {
     console.log("Received Data:", req.body);
 
     const { username, password, email } = req.body;
 
     try {
-        const user = addUser(username, password, email); // Call addUser
+        const user = await addUser(username, password, email); // Call addUser
         const ret = {
-            userID: user.sessiontoken, // Return the sessiontoken
+            userID: user.sessionToken, // Return the sessiontoken
         };
+        console.log("created user:", user);
         res.status(200).send(ret); // Send the response
     } catch (error) {
         console.error("Error during signup:", error.message);
@@ -47,8 +48,11 @@ app.post("/login", async (req, res) => {
 
   try {
     const answer = await login(email, password); // Await the login function
-    console.log("User logged in!");
-    res.status(200).send(answer); // Send success response
+    console.log("User logged in!", answer);
+    const ret = {
+      userID: user.userID // Return the sessiontoken
+    };
+    res.status(200).send(ret); // Send success response
   } catch (error) {
     console.log("Wrong password or email");
     res.status(400).send(error.message); // Send error response

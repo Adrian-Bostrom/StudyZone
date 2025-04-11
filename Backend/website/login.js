@@ -54,17 +54,17 @@ export async function login(email, password) {
     if (!user) {
         ret.userID = null;
         console.log("User doesnt exist");
-        return ret;
+        return ret.userID;
     }
     if (user.password == password) {
         user.sessionToken = ret.userID;
         writeUsers(users);
-        return ret;
+        return ret.userID;
     } else {
         //if wrong password
         ret.userID = null;
         console.log("Wrong password");
-        return ret;
+        return ret.userID;
     }
     // Hash the provided password and compare it with the stored hashed password
 }
