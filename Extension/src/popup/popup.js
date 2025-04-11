@@ -12,18 +12,39 @@ document.getElementById("sendData").addEventListener("click", async () => {
     const email = userInfo.email;
     console.log("User email:", email);
 
-    try {
-      const response = await fetch("urls.json");
-      const courses = await response.json();
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+      const tabId = tabs[0].id;
 
-      for (const courseUrl of courses) {
-        await processCourse(courseUrl, email);
-      }
-    } catch (error) {
-      console.error("Error fetching course URLs:", error);
-    }
+      chrome.tabs.update(tabId, { url: "https://canvas.kth.se/" });
+
+      chrome.tabs.onUpdated.addListener(function dashboardListener(updatedTabId, changeInfo) {
+        if (updatedTabId === tabId && changeInfo.status === "complete") {
+          chrome.tabs.onUpdated.removeListener(dashboardListener);
+
+          chrome.scripting.executeScript({
+            target: { tabId: tabId },
+            func: () => {
+              const baseUrl = "https://canvas.kth.se";
+              const courseLinks = Array.from(document.querySelectorAll('a.ic-DashboardCard__link[href^="/courses/"]'))
+                .map(a => baseUrl + a.getAttribute("href"));
+              return [...new Set(courseLinks)]; // Remove duplicates here already
+            }
+          }, async (results) => {
+            const courseUrls = results[0].result;
+            console.log("Extracted course URLs:", courseUrls);
+
+            // Use the extracted URLs directly — no need to save or fetch from urls.json
+            for (const courseUrl of courseUrls) {
+              await processCourse(courseUrl, email);
+            }
+          });
+        }
+      });
+    });
   });
 });
+
+
 
 async function processCourse(courseUrl, email) {
   return new Promise((resolve) => {
