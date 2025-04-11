@@ -257,6 +257,27 @@ app.post("/chat", (req, res) => {
 
 });
 
+// Save course URLs to urls.json
+app.post("/saveUrls", (req, res) => {
+  const urls = req.body;
+
+  if (!Array.isArray(urls)) {
+    return res.status(400).send("Invalid data. Expected an array of URLs.");
+  }
+
+  const filePath = path.join(__dirname, "urls.json");
+
+  fs.writeFile(filePath, JSON.stringify(urls, null, 2), (err) => {
+    if (err) {
+      console.error("Error saving URLs:", err);
+      return res.status(500).send("Failed to save URLs.");
+    }
+
+    console.log("URLs saved to urls.json");
+    res.send("URLs saved successfully.");
+  });
+});
+
 
 // Start the server
 const PORT = 5000;
