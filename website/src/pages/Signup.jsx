@@ -1,6 +1,8 @@
 import React, { useState } from 'react';
 import axios from 'axios';
 import sha256 from 'crypto-js/sha256';
+ 
+const backendURL = import.meta.env.VITE_BACKEND_URL; // Fallback to localhost if not set
 
 const Signup = () => {
     const [formData, setFormData] = useState({
@@ -18,6 +20,7 @@ const Signup = () => {
     };
 
     const handleSubmit = (e) => {
+        console.log('backendURL: ', backendURL);
         e.preventDefault();
         const hashedFormData = {
             ...formData,
@@ -30,7 +33,7 @@ const Signup = () => {
 
     const handleSignup = async (hashedFormData) => {
         try {
-            const response = await axios.post('http://localhost:5000/signup', hashedFormData);
+            const response = await axios.post(`${backendURL}/login`, hashedFormData);
             console.log('Signup successful:', response.data);
             // Handle successful signup (e.g., redirect to login page)
         } catch (error) {

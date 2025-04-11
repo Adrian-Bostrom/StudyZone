@@ -20,6 +20,8 @@ const LoginCard = () => {
         });
     };
 
+    const backendURL = import.meta.env.VITE_BACKEND_URL;
+
     const navigate = useNavigate(); // Use useNavigate for programmatic navigation
 
 
@@ -31,12 +33,12 @@ const LoginCard = () => {
         };
         console.log(hashedFormData);
         try {
-            const response = await axios.post('http://localhost:5000/login', hashedFormData);
+            const response = await axios.post(`${backendURL}/login`, hashedFormData);
             console.log('Login request was successful:', response.data);
-            if (response.userID != null) {
-                localStorage.setItem('userID', response.data.userID);
+            if (response.data.userID != null) {
+                localStorage.setItem('userID', response.data.userID); 
                 console.log('User ID stored in local storage:', response.data.userID);
-                navigate('/Overview')
+                navigate('/Overview');
             }
         } catch (error) {
             console.error('Error during login:', error);

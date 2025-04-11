@@ -22,7 +22,7 @@ return (
       <div className="flex flex-row w-full justify-between">
         <div className="text-left flex flex-col flex-grow">{AssignmentType}</div>
         <div className="ml-2 text-right whitespace-nowrap">{DueDate}</div>  
-              </div>
+      </div>
     </button>
   );
 };

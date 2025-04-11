@@ -10,7 +10,8 @@ import Navbar from './pages/components/Navbar.jsx';
 import Footer from './pages/components/Footer.jsx';
 import Overview from './pages/Overview.jsx';
 import Module from './pages/Module.jsx';
-import { createBrowserRouter, RouterProvider, Outlet, Link } from 'react-router-dom';
+import courses from './data/courses.json';
+import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
 
 // Layout component to include Navbar
 const Layout = () => (
@@ -29,6 +30,23 @@ const ErrorPage = () => (
     <Link to="/" className="mt-4 text-blue-600 hover:underline">Go back to Home</Link>
   </div>
 );
+
+const CourseWrapper = () => {
+  const { courseCode } = useParams();
+  const course = courses.find(c => c.CourseCode === courseCode);
+
+  if (!course) {
+    return <ErrorPage />;
+  }
+
+  return (
+    <Courses
+      CourseCode={course.CourseCode}
+      CourseName={course.CourseName}
+      CourseDescription={course.CourseDescription}
+    />
+  );
+};
 
 const router = createBrowserRouter([
   {
@@ -50,6 +68,10 @@ const router = createBrowserRouter([
       {
         path: '/courses',
         element: <Courses />,
+      },
+      {
+        path: '/courses/:courseCode',
+        element: <CourseWrapper />,
       },
       {
         path: '/signup',

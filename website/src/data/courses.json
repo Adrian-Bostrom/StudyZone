@@ -1,0 +1,27 @@
+[
+    {
+      "CourseCode": "MM0161",
+      "CourseName": "Fanny course",
+      "CourseDescription": "This course covers the basics of networking, including protocols, architectures, and security."
+    },
+    {
+      "CourseCode": "CS101",
+      "CourseName": "Introduction to Computer Science",
+      "CourseDescription": "Learn the fundamentals of computer science, including algorithms, data structures, and programming."
+    },
+    {
+        "CourseCode": "CS102",
+        "CourseName": "Data Structures and Algorithms",
+        "CourseDescription": "Dive deeper into data structures and algorithms, with a focus on efficiency and optimization."
+    },
+    {
+        "CourseCode": "CS103",
+        "CourseName": "Web Development",
+        "CourseDescription": "Learn how to build dynamic websites using HTML, CSS, and JavaScript."
+    },
+    {
+        "CourseCode": "CS104",
+        "CourseName": "Database Management Systems",
+        "CourseDescription": "Understand the principles of database design, SQL, and data management."
+    }
+]
