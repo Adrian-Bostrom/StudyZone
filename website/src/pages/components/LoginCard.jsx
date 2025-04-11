@@ -35,7 +35,7 @@ const LoginCard = () => {
         try {
             const response = await axios.post(`${backendURL}/login`, hashedFormData);
             console.log('Login request was successful:', response.data);
-            if (response.userID != null) {
+            if (response.data.userID != null) {
                 localStorage.setItem('userID', response.data.userID); 
                 console.log('User ID stored in local storage:', response.data.userID);
                 navigate('/Overview');
