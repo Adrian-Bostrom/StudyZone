@@ -265,7 +265,7 @@ app.post("/chat", (req, res) => {
 
 // Start the server
 const PORT = 5000;
-app.listen(PORT, "130.229.139.157", () => {
+app.listen(PORT, () => {
   console.log(`Server running on http://localhost:${PORT}`);
 });
 
