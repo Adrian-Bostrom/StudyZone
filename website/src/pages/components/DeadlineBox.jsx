@@ -4,7 +4,7 @@ import DeadlineCard from "./DeadlineCard";
 
 const DeadlineBox = () => {
   return (
-    <div className="relative h-dvh top-0 right-0 w-full gap-4 p-4 bg-gray-300 shadow-lg">
+    <div className="Reletive h-dvh top-0 right-0 w-100 gap-4 p-4 bg-gray-300 shadow-lg">
       <h2 className="pt-12 pl-6 font-bold text-[30px]">Deadlines</h2>
       <div className="flex flex-col gap-4">
         {deadlines.map((deadline, index) => (
