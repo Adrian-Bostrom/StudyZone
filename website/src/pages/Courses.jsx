@@ -36,31 +36,11 @@ function Courses({CourseCode, CourseName, CourseDescription}) {
         </div>
 
         {/* Right Column */}
-        <div className="right-0 top-0 h-full flex-col items-start">
+        <div className="right-0 top-0 w-250 flex-col items-start">
           <DeadlineBox>
-            <DeadlineCard
-              AssignmentType="w3school training with mackan"
-              DueDate="2025-04-10"
-              targetPage="/signup"
-            />
-            <DeadlineCard
-              AssignmentType="scrum 101 with DANTE SOLENDER"
-              DueDate="2025-04-10"
-              targetPage="/signup"
-            />
-            <DeadlineCard
-              AssignmentType="Expressen artiklar med John"
-              DueDate="2025-04-10"
-              targetPage="/signup"
-            />
-            <DeadlineCard
-              AssignmentType="backend fingering med adrian"
-              DueDate="2025-04-10"
-              targetPage="/signup"
-            />
           </DeadlineBox>
         </div>
-        </div>
+      </div>
     </>
   );
 }
