@@ -33,7 +33,7 @@ const Signup = () => {
 
     const handleSignup = async (hashedFormData) => {
         try {
-            const response = await axios.post(`${backendURL}/login`, hashedFormData);
+            const response = await axios.post(`${backendURL}/signup`, hashedFormData);
             console.log('Signup successful:', response.data);
             // Handle successful signup (e.g., redirect to login page)
         } catch (error) {
