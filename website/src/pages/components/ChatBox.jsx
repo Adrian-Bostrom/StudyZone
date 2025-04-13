@@ -4,7 +4,7 @@ import { motion, AnimatePresence } from 'framer-motion';
 import sendIcon from '../../assets/paperplaneIcon.svg'
 import crossIcon from '../../assets/crossIcon.svg'
 import chatIcon from '../../assets/chatIcon.svg'
-
+const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000"; // Fallback to localhost if not set
 
 function ChatBox() {
 
@@ -28,7 +28,7 @@ function ChatBox() {
         // setLoading(true);
 
         try {
-            const response = await fetch("http://localhost:5000/chat", {
+            const response = await fetch(`${backendURL}/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"

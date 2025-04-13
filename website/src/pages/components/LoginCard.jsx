@@ -20,7 +20,7 @@ const LoginCard = () => {
         });
     };
 
-    const backendURL = import.meta.env.VITE_BACKEND_URL;
+    const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000"; // Fallback to localhost if not set
 
     const navigate = useNavigate(); // Use useNavigate for programmatic navigation
 
