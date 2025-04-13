@@ -2,7 +2,7 @@ import express from "express";
 
 const router = express.Router();
 
-router.post("/store-user", (req, res) => {
+router.post("/", (req, res) => {
     const { email } = req.body;
     console.log("Received email from extension:", email);
   
@@ -19,3 +19,5 @@ router.post("/store-user", (req, res) => {
       res.status(404).send("User not found");
     }
 });
+
+export default router;

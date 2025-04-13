@@ -8,6 +8,7 @@ import signupRoute from "./routes/signup.js"
 import coursesRoute from "./routes/courses.js"
 import chatRoute from "./routes/chat.js"
 import logRoute from "./routes/log.js"
+import storeRoute from "./routes/store-user.js"
 
 const app = express();
 app.use(cors());
@@ -19,7 +20,7 @@ app.use("/signup", signupRoute);
 app.use("/api/courses", coursesRoute);
 app.use("/chat", chatRoute); 
 app.use("/log", logRoute);
-app.use("/store-user", logRoute);
+app.use("/store-user", storeRoute);
 // Start the server depending if env variable is IP or localhost
 const PORT = 5000;
 if(process.env.IP){
