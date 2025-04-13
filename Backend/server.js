@@ -15,9 +15,10 @@ app.use(cors());
 app.use(express.json({ limit: "50mb" }));
 app.use(express.urlencoded({ limit: "50mb", extended: true }));
 
+// all endpoints:
 app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
-app.use("/api/courses", coursesRoute);
+app.use("/courses", coursesRoute);
 app.use("/chat", chatRoute); 
 app.use("/log", logRoute);
 app.use("/store-user", storeRoute);

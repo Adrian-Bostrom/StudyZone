@@ -1,5 +1,7 @@
 import {addUser} from "../website/login.js";
 import express from "express";
+import fs from "fs";
+import path from "path";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -12,6 +14,10 @@ router.post("/", async (req, res) => {
         const ret = {
             userID: user.sessionToken, // Return the sessiontoken
         };
+        const userFolderPath = path.join(__dirname, "../database", user.id);
+        if (!fs.existsSync(userFolderPath)) {
+            fs.mkdirSync(userFolderPath, { recursive: true });
+        }
         console.log("created user:", user);
         res.status(200).send(ret); // Send the response
     } catch (error) {

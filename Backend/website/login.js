@@ -23,7 +23,8 @@ export async function addUser(username, password, email) {
 
   // Check if the username or email already exists
   if (users.some((user) => user.username == username || user.email == email)) {
-    throw new Error("Username or email already exists");
+    console.log("Username or email already exists");
+    return null;
   }
 
   // Create a new user object
