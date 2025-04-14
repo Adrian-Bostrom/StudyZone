@@ -12,17 +12,16 @@ function Courses({CourseCode, CourseName, CourseDescription}) {
         {/* Left Column */}
         <div className="flex flex-col bg-gray-100 p-12 flex-grow">
           <ChatBox />
-          <h1 className="text-5xl font-bold mb-1">{CourseCode}</h1>
+          <h1 className="text-5xl font-bold mb-1">
+            {CourseCode}</h1>
           <h2 className="text-2xl font-bold mb-4 text-gray-600">
-            {CourseName}
-          </h2>
-          <p className="text-gray-600 text-center max-w-2xl">
-            {CourseDescription}
-          </p>
+            {CourseName}</h2>
+          <p className="text-gray-600 text-start max-w-2xl">
+            {CourseDescription}</p>
           <ModuleBox/>
         </div>
         {/* Deadline box */}
-        <div className="absolut right-0 top-0 w-250 flex-col items-start">
+        <div className="right-0 top-0 w-100 flex-col items-start">
           <DeadlineBox/>
         </div>
       </div>
