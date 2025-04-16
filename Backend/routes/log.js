@@ -64,16 +64,16 @@ function extractSpecificParts(userID) {
     // Append to the global array
     allUserAssignments.push(...assignmentsForCourse);
 
-    const assignmentID = assignmentsForCourse.map(assignment => {
+    const id = assignmentsForCourse.map(assignment => {
       return {
-        assignmentID: assignment.assignmentID
+        id: assignment.id
       };
     });
 
     const assignmentsFilePath = path.join(courseFolder, "courseDeadlines.json"); //course deadline ids
     const courseFilePath = path.join(userFolder, "course.json");
 
-    fs.writeFileSync(assignmentsFilePath, JSON.stringify(assignmentID, null, 2));
+    fs.writeFileSync(assignmentsFilePath, JSON.stringify(id, null, 2));
     fs.writeFileSync(courseFilePath, JSON.stringify(coursesOnly, null, 2));
 
     console.log(`Assignments for course ${course.courseName} saved to ${assignmentsFilePath}`);
@@ -109,7 +109,7 @@ function getUserIdByEmail(email) {
 }
 
 router.post("/", (req, res) => {
-    const { url, title, assignmentID, dueDate, content, courseName, email, courseCode } = req.body;
+    const { url, title, id, dueDate, content, courseName, email, courseCode } = req.body;
   
     const match = url.match(/(https:\/\/canvas\.kth\.se\/courses\/\d+)/);
     if (!match) {
@@ -121,7 +121,7 @@ router.post("/", (req, res) => {
     const courseUrl = match[1];
     const assignmentEntry = {
       title,
-      assignmentID,
+      id,
       link: url,
       dueDate,
       content,
