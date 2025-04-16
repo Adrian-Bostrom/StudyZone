@@ -2,7 +2,7 @@ import express from "express";
 import fs from "fs";
 import path from "path";
 import { fileURLToPath } from "url";
-const FILE_PATH = "./database/assignments.json";
+let FILE_PATH = "./database";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "..", "database", "users.json");
 const router = express.Router();
@@ -32,13 +32,15 @@ const loadAssignments = () => {
 };
 
 function extractSpecificParts(userID) {
-  const assignmentsData = JSON.parse(fs.readFileSync('./database/assignments.json', 'utf8'));
+  const assignmentsData = JSON.parse(fs.readFileSync(FILE_PATH, 'utf8'));
 
   const coursesOnly = assignmentsData.map(course => {
     const courseId = course.url.split("/").pop();
     return {
       courseId: courseId,
       courseName: course.courseName,
+      courseCode: course.courseCode,
+      description: "No description added yet",
       courseUrl: course.url
     };
   });
@@ -68,7 +70,7 @@ function extractSpecificParts(userID) {
       };
     });
 
-    const assignmentsFilePath = path.join(courseFolder, "courseDeadlines.json"); //assignments --> deadlines?
+    const assignmentsFilePath = path.join(courseFolder, "courseDeadlines.json"); //course deadline ids
     const courseFilePath = path.join(userFolder, "course.json");
 
     fs.writeFileSync(assignmentsFilePath, JSON.stringify(assignmentID, null, 2));
@@ -107,12 +109,14 @@ function getUserIdByEmail(email) {
 }
 
 router.post("/", (req, res) => {
-    const { url, title, assignmentID, dueDate, content, courseName, email } = req.body;
+    const { url, title, assignmentID, dueDate, content, courseName, email, courseCode } = req.body;
   
     const match = url.match(/(https:\/\/canvas\.kth\.se\/courses\/\d+)/);
     if (!match) {
       return res.status(400).send("Invalid assignment URL format");
     }
+    const userid = getUserIdByEmail(email);
+    FILE_PATH =  "./database/" + userid + "/courseAndAssignments.json"
   
     const courseUrl = match[1];
     const assignmentEntry = {
@@ -141,13 +145,13 @@ router.post("/", (req, res) => {
     } else {
       assignmentsData.push({
         courseName,
+        courseCode,
         url: courseUrl,
         email,
         assignments: [assignmentEntry],
       });
     }
     console.log(assignmentsData[0].email);
-    const userid = getUserIdByEmail(assignmentsData[0].email);
     saveAssignments(assignmentsData, userid);
     res.send("Assignment saved successfully.");
   });

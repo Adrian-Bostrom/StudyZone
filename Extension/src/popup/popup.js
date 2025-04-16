@@ -21,6 +21,7 @@ document.getElementById("sendData").addEventListener("click", async () => {
         if (updatedTabId === tabId && changeInfo.status === "complete") {
           chrome.tabs.onUpdated.removeListener(dashboardListener);
 
+          // Extract course links from the homepage
           chrome.scripting.executeScript({
             target: { tabId: tabId },
             func: () => {
@@ -33,10 +34,29 @@ document.getElementById("sendData").addEventListener("click", async () => {
             const courseUrls = results[0].result;
             console.log("Extracted course URLs:", courseUrls);
 
-            // Use the extracted URLs directly — no need to save or fetch from urls.json
-            for (const courseUrl of courseUrls) {
-              await processCourse(courseUrl, email);
-            }
+            // Extract course name from the homepage after extracting course links
+            chrome.scripting.executeScript({
+              target: { tabId: tabId },
+              func: () => {
+                // Modify the selector to match the element(s) that contain the course names
+                const courseNames = Array.from(document.querySelectorAll('h2.ic-DashboardCard__header-title.ellipsis'))
+                  .map(h2 => h2.textContent.trim());  // Extract the text content of the course name
+                return [...new Set(courseNames)];  // Remove duplicates if needed
+              }
+            }, async (results) => {
+              const courseNames = results[0].result;
+              console.log(courseNames);
+              console.log("Extracted course names:", courseNames);
+              // Use the extracted course URLs and course name
+              let i = 0;
+              for (const courseUrl of courseUrls) {
+                let courseName = courseNames[i];
+                let words = courseName.split(" "); // Split the sentence by spaces
+                let courseCode = words[0];
+                await processCourse(courseUrl, courseName, courseCode, email);  // Pass the courseName to the processCourse function
+                i++;
+              }
+            });
           });
         }
       });
@@ -46,7 +66,8 @@ document.getElementById("sendData").addEventListener("click", async () => {
 
 
 
-async function processCourse(courseUrl, email) {
+
+async function processCourse(courseUrl, courseName, courseCode, email) {
   return new Promise((resolve) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0].id;
@@ -58,24 +79,20 @@ async function processCourse(courseUrl, email) {
         if (updatedTabId === tabId && changeInfo.status === "complete") {
           chrome.tabs.onUpdated.removeListener(listener);
 
+          // Removed the part that extracts the course name
+          // Instead, directly extract the assignment links
           chrome.scripting.executeScript({
             target: { tabId: tabId },
-            func: extractCourseName,
-          }, async (nameResult) => {
-            const courseName = nameResult[0].result;
+            func: extractAssignmentLinks
+          }, async (injectionResults) => {
+            const links = injectionResults[0].result;
 
-            chrome.scripting.executeScript({
-              target: { tabId: tabId },
-              func: extractAssignmentLinks
-            }, async (injectionResults) => {
-              const links = injectionResults[0].result;
+            // Since we no longer have the courseName, we can skip passing it to visitAssignmentPage
+            for (const link of links) {
+              await visitAssignmentPage(tabId, link, courseName, courseCode, email);  // Now only passing email
+            }
 
-              for (const link of links) {
-                await visitAssignmentPage(tabId, link, courseName, email);
-              }
-
-              setTimeout(resolve, 1000);
-            });
+            setTimeout(resolve, 1000);
           });
         }
       });
@@ -85,13 +102,14 @@ async function processCourse(courseUrl, email) {
 
 
 
+
 // Extract assignment links from the /assignments page
 function extractAssignmentLinks() {
   return [...document.querySelectorAll("a.ig-title")].map(a => a.href);
 }
 
 // Visit each assignment page and extract info
-async function visitAssignmentPage(tabId, link, courseName, email) {
+async function visitAssignmentPage(tabId, link, courseName, courseCode, email) {
   return new Promise((resolve) => {
     chrome.tabs.update(tabId, { url: link });
 
@@ -105,6 +123,7 @@ async function visitAssignmentPage(tabId, link, courseName, email) {
         }, (results) => {
           const assignmentData = results[0].result;
           assignmentData.courseName = courseName;
+          assignmentData.courseCode = courseCode;
           assignmentData.email = email; // Attach email
 
           fetch("http://localhost:5000/log", {
@@ -144,10 +163,16 @@ function scrapeAssignmentDetails() {
 }
 
 function extractCourseName() {
-  const titles = Array.from(document.querySelectorAll('h2.ic-DashboardCard__header-title'))
-  .map(el => el.innerText.trim());
-
-  console.log(titles);
-
-  return titles; // Return only the text content
+  const dashboardCard = document.querySelector('.ic-DashboardCard'); // Or however you're getting the .ic-DashboardCard
+  if (dashboardCard) {
+    const h2Element = dashboardCard.querySelector('h2.ic-DashboardCard__header-title.ellipsis');
+    if (h2Element) {
+      console.log(h2Element.textContent); // Access the h2's text content
+    } else {
+      console.log("h2 element not found within this .ic-DashboardCard");
+    }
+  } else {
+      console.log(".ic-DashboardCard not found");
+  }
+  return h2Element;
 }
