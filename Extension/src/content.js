@@ -1,4 +1,4 @@
-const banlist = ["grade", "people", "users", "user", "grades", "discussion", "discuss", "evaluation", "announcement", "file"]
+const banlist = ["grade", "people", "users", "user", "grades", "discussion", "discuss", "evaluation", "announcement", "file", "anslag", "rubric"]
 
 if (window.location.pathname.includes("/courses/")) {
     const nav = document.querySelector("#section-tabs");

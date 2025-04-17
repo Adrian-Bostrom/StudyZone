@@ -17,6 +17,7 @@ import { existsSync, mkdirSync } from "fs";
 import { basename } from "path";
 
 import * as dotenv from "dotenv";
+import { error } from 'console';
 dotenv.config();
 
 // Set up model
@@ -66,10 +67,12 @@ const embeddings = new OpenAIEmbeddings({
 });
 
 
-for (const path of filePaths) {
+async function loadFile(path) {
   const extension = path.slice(path.lastIndexOf("."));
   const loaderFn = loaders[extension];
-  if (!loaderFn) continue;
+  if (!loaderFn) {
+    throw new error(`Loader doenst support : ${extension}`);
+  };
 
   const name = basename(path, extension);
   const storePath = `vector_store/${name}`
@@ -91,6 +94,11 @@ for (const path of filePaths) {
 
   allStores.push(store);
 }
+
+for (const path of filePaths) {
+  await loadFile(path);
+}
+
 let allDocs = [];
 
 for (const store of allStores) {
