@@ -70,4 +70,4 @@ export async function login(email, password) {
     // Hash the provided password and compare it with the stored hashed password
 }
 
-export default login();
+export default login;
