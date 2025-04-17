@@ -155,7 +155,7 @@ function scrapeAssignmentDetails() {
 
   return {
     url: window.location.href,
-    assignmentID: assignmentID,
+    id: assignmentID,
     title: title,
     dueDate: dueDate,
     content: content,
