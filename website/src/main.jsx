@@ -12,6 +12,8 @@ import Overview from './pages/Overview.jsx';
 import Module from './pages/Module.jsx';
 import courses from './data/courses.json';
 import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the AssignmentWrapper component
+import Schedule from './pages/Schedule.jsx';
+
 import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
 
 // Layout component to include Navbar
@@ -79,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: '/overview',
         element: <Overview />,
+      },
+      {
+        path: '/Schedule',
+        element: <Schedule />,
       },
       {
         path: '/module',
