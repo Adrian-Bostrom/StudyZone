@@ -11,6 +11,7 @@ import Footer from './pages/components/Footer.jsx';
 import Overview from './pages/Overview.jsx';
 import Module from './pages/Module.jsx';
 import courses from './data/courses.json';
+import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the AssignmentWrapper component
 import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
 
 // Layout component to include Navbar
@@ -34,11 +35,9 @@ const ErrorPage = () => (
 const CourseWrapper = () => {
   const { courseCode } = useParams();
   const course = courses.find(c => c.CourseCode === courseCode);
-
   if (!course) {
     return <ErrorPage />;
   }
-
   return (
     <Courses
       CourseCode={course.CourseCode}
@@ -66,12 +65,12 @@ const router = createBrowserRouter([
         element: <About />,
       },
       {
-        path: '/courses',
-        element: <Courses />,
-      },
-      {
         path: '/courses/:courseCode',
         element: <CourseWrapper />,
+      },
+      {
+        path: '/assignments/:id', // Dynamic route for assignments
+        element: <AssignmentWrapper />, // Use the wrapper component
       },
       {
         path: '/signup',

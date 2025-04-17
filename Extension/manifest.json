@@ -9,16 +9,16 @@
       "scopes": ["https://www.googleapis.com/auth/userinfo.email"]
     },
     "background": {
-      "service_worker": "src/background.js"
+      "service_worker": "./src/background.js"
     },
     "host_permissions": ["http://localhost:5000/*"],
     "action": {
-      "default_popup": "src/popup/popup.html"
+      "default_popup": "./src/popup/popup.html"
     },
     "content_scripts": [
       {
         "matches": ["<all_urls>"],
-        "js": ["src/scraper.js"]
+        "js": ["./src/background.js"]
       }
     ]
 }

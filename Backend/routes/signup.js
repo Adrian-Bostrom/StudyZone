@@ -2,6 +2,7 @@ import {addUser} from "../website/login.js";
 import express from "express";
 import fs from "fs";
 import path from "path";
+import { fileURLToPath } from "url";
 const router = express.Router();
 
 router.post("/", async (req, res) => {
@@ -14,7 +15,8 @@ router.post("/", async (req, res) => {
         const ret = {
             userID: user.sessionToken, // Return the sessiontoken
         };
-        const userFolderPath = path.join(__dirname, "../database", user.id);
+        const __dirname = path.dirname(fileURLToPath(import.meta.url));
+        const userFolderPath = path.join(__dirname,"..", "database", user.id);
         if (!fs.existsSync(userFolderPath)) {
             fs.mkdirSync(userFolderPath, { recursive: true });
         }

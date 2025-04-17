@@ -1,4 +1,10 @@
 import express from "express";
+import fs from "fs";
+import path from "path";
+import { fileURLToPath } from "url";
+let FILE_PATH = "./database";
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+const usersFilePath = path.join(__dirname, "..", "database", "users.json");
 const router = express.Router();
 
 // Save assignments to the JSON file
@@ -26,40 +32,60 @@ const loadAssignments = () => {
 };
 
 function extractSpecificParts(userID) {
-    // Read the original assignments data from the file
-    const assignmentsData = JSON.parse(fs.readFileSync('assignments.json', 'utf8'));
-    // Extract courses only
-    const coursesOnly = assignmentsData.map(course => {
-      const courseId = course.url.split("/").pop(); // Extract course ID from URL
+  const assignmentsData = JSON.parse(fs.readFileSync(FILE_PATH, 'utf8'));
+
+  const coursesOnly = assignmentsData.map(course => {
+    const courseId = course.url.split("/").pop();
+    return {
+      courseId: courseId,
+      courseName: course.courseName,
+      courseCode: course.courseCode,
+      description: "No description added yet",
+      courseUrl: course.url
+    };
+  });
+
+  const userFolder = path.join(__dirname, "..", "database", userID);
+  if (!fs.existsSync(userFolder)) {
+    fs.mkdirSync(userFolder, { recursive: true });
+  }
+
+  let allUserAssignments = [];
+
+  coursesOnly.forEach(course => {
+    const courseFolder = path.join(userFolder, course.courseId);
+    if (!fs.existsSync(courseFolder)) {
+      fs.mkdirSync(courseFolder, { recursive: true });
+    }
+
+    const assignmentsForCourse =
+      assignmentsData.find(courseData => courseData.url === course.courseUrl)?.assignments || [];
+
+    // Append to the global array
+    allUserAssignments.push(...assignmentsForCourse);
+
+    const id = assignmentsForCourse.map(assignment => {
       return {
-        courseId: courseId,
-        courseName: course.courseName,
-        courseUrl: course.url
+        id: assignment.id
       };
     });
-  
-    // Define the folder path for the user (using userID)
-    const userFolder = path.join(__dirname, 'database', userID);
-    // Loop through each course
-    coursesOnly.forEach(course => {
-      const courseFolder = path.join(userFolder, course.courseId);
-      // Ensure the folder exists, create it if necessary
-      if (!fs.existsSync(courseFolder)) {
-        fs.mkdirSync(courseFolder, { recursive: true });
-      }
-      // Filter assignments for this specific course
-      const assignmentsForCourse = assignmentsData.find(courseData => courseData.url === course.courseUrl)?.assignments || [];
-      // Define the file path to save the assignments.json file
-      const assignmentsFilePath = path.join(courseFolder, 'assignments.json');
-      // Define the file path to save the courses.json file (one file for all courses)
-      const courseFilePath = path.join(userFolder, 'course.json');
-      fs.writeFileSync(assignmentsFilePath, JSON.stringify(assignmentsForCourse, null, 2));
-      fs.writeFileSync(courseFilePath, JSON.stringify(coursesOnly, null, 2));
-  
-      console.log(`Assignments for course ${course.courseName} saved to ${assignmentsFilePath}`);
-      console.log(`Courses saved to ${courseFilePath}`);
-    });
+
+    const assignmentsFilePath = path.join(courseFolder, "courseDeadlines.json"); //course deadline ids
+    const courseFilePath = path.join(userFolder, "course.json");
+
+    fs.writeFileSync(assignmentsFilePath, JSON.stringify(id, null, 2));
+    fs.writeFileSync(courseFilePath, JSON.stringify(coursesOnly, null, 2));
+
+    console.log(`Assignments for course ${course.courseName} saved to ${assignmentsFilePath}`);
+    console.log(`Courses saved to ${courseFilePath}`);
+  });
+
+  // Write all user assignments at once
+  const allAssignmentsFilePath = path.join(userFolder, "assignments.json");
+  fs.writeFileSync(allAssignmentsFilePath, JSON.stringify(allUserAssignments, null, 2));
+  console.log(`All user assignments saved to ${allAssignmentsFilePath}`);
 }
+
   
 function getUserIdByEmail(email) {
     try {
@@ -83,16 +109,19 @@ function getUserIdByEmail(email) {
 }
 
 router.post("/", (req, res) => {
-    const { url, title, dueDate, content, courseName, email } = req.body;
+    const { url, title, id, dueDate, content, courseName, email, courseCode } = req.body;
   
     const match = url.match(/(https:\/\/canvas\.kth\.se\/courses\/\d+)/);
     if (!match) {
       return res.status(400).send("Invalid assignment URL format");
     }
+    const userid = getUserIdByEmail(email);
+    FILE_PATH =  "./database/" + userid + "/courseAndAssignments.json"
   
     const courseUrl = match[1];
     const assignmentEntry = {
       title,
+      id,
       link: url,
       dueDate,
       content,
@@ -116,13 +145,13 @@ router.post("/", (req, res) => {
     } else {
       assignmentsData.push({
         courseName,
+        courseCode,
         url: courseUrl,
         email,
         assignments: [assignmentEntry],
       });
     }
     console.log(assignmentsData[0].email);
-    const userid = getUserIdByEmail(assignmentsData[0].email);
     saveAssignments(assignmentsData, userid);
     res.send("Assignment saved successfully.");
   });
