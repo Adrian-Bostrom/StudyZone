@@ -1,0 +1,140 @@
+kth.se
+Student web
+Intranet
+Login
+Skip to content
+Dashboard
+Theodor Wattman
+Account
+Dashboard
+Courses
+Groups
+Calendar
+Inbox
+History
+Help
+IV1350 VT25 (60104)PagesSeminar Tasks
+
+2025 VT
+Home
+Piazza
+Modules
+Announcements
+Discussions
+Queue For Tutorials
+Software
+Seminar Tasks
+Additional Higher Grade Tasks
+Assignments
+People
+Grades1
+Course Evaluation
+Seminar Tasks
+The seminars consist of the development of one single object-oriented program, which is reported at five different seminars.
+
+1. Grading Criteria and Requirements for Your Solution
+The first four seminars concern different activities of object-oriented development. Each of these seminars give 0-2 points, where zero means fail, one means pass and two means pass with distinction. To pass the course you must pass (one or two points) all seminars. To pass a seminar with distinction (2p) gives one higher grade point, which raises the final grade as specified on the page Course Layout . The fifth seminar is an opportunity to re-submit seminars you did not pass or to improve your score for one or more seminars. To pass a seminar, you must solve the specified tasks, submit a report describing your solution, and participate in the discussion during the seminar. It's not required that the solution is correct in all parts or that all statements made at the seminar are correct. More specific grading criteria are specified for each seminar together with the seminar tasks.
+
+Design and analysis are always better done in groups than individually, it's therefore strongly recommended that you solve the tasks in groups. You are allowed to create the actual solution in groups of max three students. That is, your solution is allowed to be identical to the solution of at most two other students. You are also allowed to work alone, but that is not recommended. The written report is individual, and may not be written together with any other student.  
+
+2. How to Get Help
+Questions about the seminar tasks can be asked these ways:
+
+At tutorials, tutorials exist only to provide help with project tasks. You are welcome to ask about anything related to project work at tutorials.
+In PiazzaLinks to an external site., don't send direct emails to teachers, instead post questions in Piazza since then all students can be helped by the answers. Mind that posts can be anonymous to other students in Piazza.
+3. Report Template
+All submitted solutions must follow this template, iv1350-report-template.pdf Download iv1350-report-template.pdf. Note that the template is a pdf file, you must create a similar document. Layout changes are allowed, it's the content that's important. The template pdf is created using latex, if you want to try that you can use the following tex file, iv1350-report-template.tex Download iv1350-report-template.tex, which was used to create the template pdf.
+
+4. At the Seminar
+The seminar is divided into two parts, one for assessing solutions and one for presentation.
+
+4.1 First Part, Assessment
+You'll be divided into groups of three, each group will assess the solutions of members of one other group. The results of the assessments shall be uploaded to Canvas and emailed to the assessed student. You're not required to bring a printout of your report, but you have to bring your laptop, or some other device you can use to read other student's reports online.
+
+4.2 Second Part, Presentation
+One randomly chosen student from each group will give a five-minute presentation of their own solution to the entire seminar. The purpose here is not to explain the whole solution, but rather to explain what parts were difficult and why, and if any alternative solutions were considered for those parts. Prepare this presentation before the seminar.
+One randomly chosen student from the assessing group will give comments, and there will be a brief discussion. Five minutes are allocated for comments and discussion together.
+5. Seminar Tasks
+Below are seminar tasks and assessment criteria. These criteria will be used to decide the score (0, 1 or 2) of your submitted solution. You'll also use the same criteria during the seminars, where you will, in groups, assess other students' solutions.
+
+5.1 Seminar 1, Analysis
+In the first seminar you'll create a domain model and a system sequence diagram.
+
+How to Prepare for Seminar 1
+Before solving this task you have to understand all lectures in module 1, analysis, and read chapter four in the textbook. You may also want to attend exercise 1, which is found in module 1.
+
+When to Solve Seminar 1 
+The required time to solve this task is usually about 20 hours, including lectures and reading. Your are recommended to start working on it as soon as possible at course start, but remember to first do the preparations mentioned above. The deadline for submitting the report is found on the seminar 1 assignment page.
+
+Intended Learning Outcomes for Seminar 1 
+Interpret and clarify a given specification by applying established guidelines for analysis.
+Task for Seminar 1 
+Here are the seminar tasks, tasks-seminar1.pdf Download tasks-seminar1.pdf. You shall submit solutions under the assignment Seminar 1, Analysis.
+Here are the assessment criteria, assessment-criteria-seminar1.pdf Download assessment-criteria-seminar1.pdf. These criteria are used in the following three different ways.
+By yourself, when you evaluate your solution in the discussion chapter of your report.
+By your group at the seminar, when you assess other students' solutions and submit your assessment under the assignment Peer Assessment DURING Seminar 1.
+By the teacher, when grading your report.
+5.2 Seminar 2, Design
+In the second seminar you'll design the system under development.
+
+How to Prepare for Seminar 2
+Before solving this task you have to understand all lectures in module 2, design, and read chapter five in the textbook. You may also want to attend exercise 2, which is found in module 2.
+
+When to Solve Seminar 2
+The required time to solve this task is usually about 25 hours, including lectures and reading. Your are recommended to start working on it as soon as possible after seminar 1, but remember to first do the preparations mentioned above. The deadline for submitting the report is found on the seminar 2 assignment page.
+
+Intended Learning Outcomes for Seminar 2
+Develop an object-oriented program by applying established guidelines for object-oriented architecture, design and programming.
+Discuss the quality of a program and then refer to established guidelines for object-oriented architecture, design and programming.
+Task for Seminar 2
+Here are the seminar tasks, tasks-seminar2.pdf Download tasks-seminar2.pdf. You shall submit solutions under the assignment Seminar 2, Design.
+Here are the assessment criteria, assessment-criteria-seminar2.pdf Download assessment-criteria-seminar2.pdf. These criteria are used in the following three different ways.
+By yourself, when you evaluate your solution in the discussion chapter of your report.
+By your group at the seminar, when you assess other students' solutions and submit your assessment under the assignment Peer Assessment DURING Seminar 2.
+By the teacher, when grading your report.
+5.3 Seminar 3, Implementation
+In the third seminar you'll program and test the system under development.
+
+How to Prepare for Seminar 3
+Before solving this task you have to understand all lectures in module 3, implementation and testing, and read chapters six and seven in the textbook. You may also want to attend exercise 3, which is found in module 3.
+
+When to Solve Seminar 3
+The required time to solve this task is usually about 30 hours, including lectures and reading. Your are recommended to start working on it as soon as possible after seminar 2, but remember to first do the preparations mentioned above. The deadline for submitting the report is found on the seminar 3 assignment page.
+
+Intended Learning Outcomes for Seminar 3
+Develop an object-oriented program by applying established guidelines for object-oriented architecture, design and programming.
+Discuss the quality of a program and then refer to established guidelines for object-oriented architecture, design and programming.
+Task for Seminar 3
+Here are the seminar tasks, tasks-seminar3.pdf Download tasks-seminar3.pdf. You shall submit solutions under the assignment Seminar 3, Implementation.
+Here are the assessment criteria, assessment-criteria-seminar3.pdf Download assessment-criteria-seminar3.pdf. These criteria are used in the following three different ways.
+By yourself, when you evaluate your solution in the discussion chapter of your report.
+By your group at the seminar, when you assess other students' solutions and submit your assessment under the assignment Peer Assessment DURING Seminar 3.
+By the teacher, when grading your report.
+5.4 Seminar 4, Exceptions and Design Patterns
+In the fourth seminar you'll implement exception handling, and also use design patterns.
+
+How to Prepare for Seminar 4
+Before solving this task you have to understand all lectures in module 4, exceptions and design patterns, and read chapters 8, 9.1, 9.2 and 9.4 except the pattern Template Method. You may also want to attend exercise 4, which is found in module 4.
+
+When to Solve Seminar 4
+The required time to solve this task is usually about 25 hours, including lectures and reading. Your are recommended to start working on it as soon as possible after seminar 3, but remember to first do the preparations mentioned above. The deadline for submitting the report is found on the seminar 4 assignment page.
+
+Intended Learning Outcomes for Seminar 4
+Develop an object-oriented program by applying established guidelines for object-oriented architecture, design and programming.
+Discuss the quality of a program and then refer to established guidelines for object-oriented architecture, design and programming.
+Task for Seminar 4
+Here are the seminar tasks, tasks-seminar4.pdf Download tasks-seminar4.pdf. You shall submit solutions under the assignment Seminar 4, Exceptions and Design Patterns.
+Here are the assessment criteria, assessment-criteria-seminar4.pdf Download assessment-criteria-seminar4.pdf. These criteria are used in the following three different ways.
+By yourself, when you evaluate your solution in the discussion chapter of your report.
+By your group at the seminar, when you assess other students' solutions and submit your assessment under the assignment Peer Assessment DURING Seminar 4.
+By the teacher, when grading your report.
+ 5.5 Seminar 5, Improve Your Score
+The fifth seminar is an opportunity to re-submit seminars you did not pass or to improve your score from one to two for one or more seminars.
+
+How to Submit Seminar 5
+Submit an updated report under the assignment Seminar 5, Improve Your Score. Clearly explain what you have changed.
+Submit one file per seminar you want to improve.
+At Seminar 5
+If you resubmit a task you have presented at a previous seminar, you do not have to attend the corresponding seminar five session.
+If you have not attended the ordinary seminar, you must attend the corresponding seminar five session, do the peer assessment task, and submit your assessment under the assignment Peer Assessment DURING Seminar 5.
+ 

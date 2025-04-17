@@ -1,10 +1,13 @@
+import path from 'path';
+import { fileURLToPath } from 'url';
 import express from "express";
 import readUsers from "../website/login.js";
+
 const router = express.Router();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-function readCourses(userID) {
+export function readCourses(userID) {
   const courseFilePath = path.join(__dirname, "..", "database", userID, "courses.json");
   if (!fs.existsSync(courseFilePath)) {
     fs.writeFileSync(courseFilePath, JSON.stringify([])); // Create file if it doesn't exist

@@ -1,17 +1,70 @@
 document.getElementById("sendData").addEventListener("click", async () => {
-  try {
-    const response = await fetch("urls.json");
-    const courses = await response.json();
-
-    for (const courseUrl of courses) {
-      await processCourse(courseUrl);
+  chrome.identity.getAuthToken({ interactive: true }, async (token) => {
+    if (chrome.runtime.lastError) {
+      console.error("Auth error:", chrome.runtime.lastError);
+      return;
     }
-  } catch (error) {
-    console.error("Error fetching course URLs:", error);
-  }
+
+    const userInfo = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
+      headers: { Authorization: `Bearer ${token}` },
+    }).then(res => res.json());
+
+    const email = userInfo.email;
+    console.log("User email:", email);
+
+    chrome.tabs.query({ active: true, currentWindow: true }, async (tabs) => {
+      const tabId = tabs[0].id;
+
+      chrome.tabs.update(tabId, { url: "https://canvas.kth.se/" });
+
+      chrome.tabs.onUpdated.addListener(function dashboardListener(updatedTabId, changeInfo) {
+        if (updatedTabId === tabId && changeInfo.status === "complete") {
+          chrome.tabs.onUpdated.removeListener(dashboardListener);
+
+          // Extract course links from the homepage
+          chrome.scripting.executeScript({
+            target: { tabId: tabId },
+            func: () => {
+              const baseUrl = "https://canvas.kth.se";
+              const courseLinks = Array.from(document.querySelectorAll('a.ic-DashboardCard__link[href^="/courses/"]'))
+                .map(a => baseUrl + a.getAttribute("href"));
+              return [...new Set(courseLinks)]; // Remove duplicates here already
+            }
+          }, async (results) => {
+            const courseUrls = results[0].result;
+            console.log("Extracted course URLs:", courseUrls);
+
+            // Extract course name from the homepage after extracting course links
+            chrome.scripting.executeScript({
+              target: { tabId: tabId },
+              func: () => {
+                // Modify the selector to match the element(s) that contain the course names
+                const courseNames = Array.from(document.querySelectorAll('h2.ic-DashboardCard__header-title.ellipsis'))
+                  .map(h2 => h2.textContent.trim());  // Extract the text content of the course name
+                return [...new Set(courseNames)];  // Remove duplicates if needed
+              }
+            }, async (results) => {
+              const courseNames = results[0].result;
+              console.log(courseNames);
+              console.log("Extracted course names:", courseNames);
+              // Use the extracted course URLs and course name
+              let i = 0;
+              for (const courseUrl of courseUrls) {
+                let courseName = courseNames[i];
+                let words = courseName.split(" "); // Split the sentence by spaces
+                let courseCode = words[0];
+                await processCourse(courseUrl, courseName, courseCode, email);  // Pass the courseName to the processCourse function
+                i++;
+              }
+            });
+          });
+        }
+      });
+    });
+  });
 });
 
-async function processCourse(courseUrl) {
+async function processCourse(courseUrl, courseName, courseCode, email) {
   return new Promise((resolve) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
       const tabId = tabs[0].id;
@@ -23,26 +76,20 @@ async function processCourse(courseUrl) {
         if (updatedTabId === tabId && changeInfo.status === "complete") {
           chrome.tabs.onUpdated.removeListener(listener);
 
-          // First extract the course name from assignments page
+          // Removed the part that extracts the course name
+          // Instead, directly extract the assignment links
           chrome.scripting.executeScript({
             target: { tabId: tabId },
-            func: extractCourseName,
-          }, async (nameResult) => {
-            const courseName = nameResult[0].result;
+            func: extractAssignmentLinks
+          }, async (injectionResults) => {
+            const links = injectionResults[0].result;
 
-            // Now extract assignment links
-            chrome.scripting.executeScript({
-              target: { tabId: tabId },
-              func: extractAssignmentLinks
-            }, async (injectionResults) => {
-              const links = injectionResults[0].result;
+            // Since we no longer have the courseName, we can skip passing it to visitAssignmentPage
+            for (const link of links) {
+              await visitAssignmentPage(tabId, link, courseName, courseCode, email);  // Now only passing email
+            }
 
-              for (const link of links) {
-                await visitAssignmentPage(tabId, link, courseName);
-              }
-
-              setTimeout(resolve, 1000);
-            });
+            setTimeout(resolve, 1000);
           });
         }
       });
@@ -50,14 +97,13 @@ async function processCourse(courseUrl) {
   });
 }
 
-
 // Extract assignment links from the /assignments page
 function extractAssignmentLinks() {
   return [...document.querySelectorAll("a.ig-title")].map(a => a.href);
 }
 
 // Visit each assignment page and extract info
-async function visitAssignmentPage(tabId, link, courseName) {
+async function visitAssignmentPage(tabId, link, courseName, courseCode, email) {
   return new Promise((resolve) => {
     chrome.tabs.update(tabId, { url: link });
 
@@ -71,6 +117,8 @@ async function visitAssignmentPage(tabId, link, courseName) {
         }, (results) => {
           const assignmentData = results[0].result;
           assignmentData.courseName = courseName;
+          assignmentData.courseCode = courseCode;
+          assignmentData.email = email; // Attach email
 
           fetch("http://localhost:5000/log", {
             method: "POST",
@@ -81,7 +129,7 @@ async function visitAssignmentPage(tabId, link, courseName) {
             .then(result => console.log("Logged assignment:", result))
             .catch(err => console.error("Error logging assignment:", err));
 
-          setTimeout(resolve, 1000); // Delay to avoid race conditions
+          setTimeout(resolve, 1000);
         });
       }
     });
@@ -96,20 +144,14 @@ function scrapeAssignmentDetails() {
     dueDate = document.querySelector('span[data-html-tooltip-title]')?.getAttribute("data-html-tooltip-title");
   }
   const content = document.querySelector(".description")?.innerText.trim() || "No description";
+  const assignmentID = window.location.href.split("/").pop(); // Gets the assignmentID from the last "/"
+
 
   return {
     url: window.location.href,
+    id: assignmentID,
     title: title,
     dueDate: dueDate,
     content: content,
   };
 }
-
-function extractCourseName() {
-  const elements = document.querySelectorAll('span.ellipsible');
-  const courseName = elements[1]; // Access the second element (index 1)
-  return courseName.textContent; // Return only the text content
-  
-}
-
-
