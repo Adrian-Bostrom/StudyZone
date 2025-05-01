@@ -7,11 +7,15 @@ const router = express.Router();
 
 router.post("/", async (req, res) => {
     console.log("Received Data:", req.body);
-    
+
     const { email, password } = req.body; // Destructure the data from req.body
 
     try {
         const answer = await login(email, password); // Await the login function
+        if (answer == null) {
+            console.log("User doesn't exist or wrong password");
+            return res.status(400).send("User doesn't exist or wrong password"); // Send error response
+        }
         console.log("User logged in!", answer);
         const ret = {
             userID: answer // Return the sessiontoken
