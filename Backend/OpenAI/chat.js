@@ -1,72 +1,121 @@
-import OpenAI from "openai";
-import "dotenv/config";
-const conversationlength = 10;
-let index = 0;
-const openai = new OpenAI({ apiKey: `${process.env.OPENAI_API_KEY}` });
+import { ChatOpenAI } from '@langchain/openai'
+import { ChatPromptTemplate } from '@langchain/core/prompts'
+import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
+import { MultiFileLoader } from "langchain/document_loaders/fs/multi_file";
 
-let messages = [
-    {"role": "developer", "content": "You are a helpful assistant."},
-    ];
+import { TextLoader } from "langchain/document_loaders/fs/text";
+import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 
-export async function requestChat(question, chatlog) {
-    console.log(process.env.OPENAI_API_KEY);
-    chatlog.push({"role": "user", "content": question});
-    const completion = await openai.chat.completions.create({
-        model: "gpt-4o-mini",
-        messages: chatlog,
-        store: true
-    });
-    //console.log(completion.choices[0]);
-    chatlog.push({"role": "assistant", "content": completion.choices[0].message.content});
-    return chatlog;
-}
+import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
-async function request(question) {
-    messages.push({"role": "user", "content": question});
-    const completion = await openai.chat.completions.create({
-        model: "nvidia/llama-3.3-nemotron-super-49b-v1:free",
-        messages: messages,
-        store: true
-    });
-    //console.log(completion.choices[0]);
-    messages.push({"role": "assistant", "content": completion.choices[0].message.content});
-}
+import { OpenAIEmbeddings } from "@langchain/openai";
+import { MemoryVectorStore } from "langchain/vectorstores/memory";
+import { createRetrievalChain } from "langchain/chains/retrieval";
 
-// Replace require with import for readline
-import readline from "readline";
+import { FaissStore } from "@langchain/community/vectorstores/faiss";
+import { existsSync, mkdirSync } from "fs";
+import { basename } from "path";
 
-const rl = readline.createInterface({
-  input: process.stdin,
-  output: process.stdout,
+import dotenv from "dotenv/config"; 
+
+// Set up model
+const model = new ChatOpenAI({
+  modelName: "gpt-4o-mini",
+  temperature: 0.7,
+  store: true,
+  maxTokens: 16384
+})
+
+// Set up prompt template
+const prompt = ChatPromptTemplate.fromTemplate(
+  `Answer the user's question from the following context: 
+  {context}
+  Question: {input}`
+)
+
+const chain = await createStuffDocumentsChain({
+  llm : model,
+  prompt
+})
+
+const filePaths = [
+  "OpenAI/documents/Assignments.txt",
+  "OpenAI/documents/Home.txt",
+  "OpenAI/documents/Modules.txt",
+  "OpenAI/documents/Seminar.txt",
+  "OpenAI/documents/pdf.txt",
+  "OpenAI/documents/Software.txt",
+];
+
+const loaders = {    ".txt": (path) => new TextLoader(path),
+  ".pdf": (path) => new PDFLoader(path)}
+
+
+mkdirSync("vector_store", {recursive: true});
+
+const allStores = [];
+
+const splitter = new RecursiveCharacterTextSplitter({
+  chunkSize: 1500,
+  chunkOverlap: 300,
 });
 
-// Wrap rl.question in a Promise
-function askQuestion(query) {
-  return new Promise((resolve) => {
-    rl.question(query, (answer) => {
-      resolve(answer);
-    });
-  });
-}
+const embeddings = new OpenAIEmbeddings({
+  model: "text-embedding-3-small"
+});
 
-async function main() {
-    while(1){
-        const question = await askQuestion("What do you need help with?\n");
-        if(question == "quit") break;
-        await request(question);
-        console.log(messages[messages.length - 1].content);
-        sleep(1000);
-        index++;
-        if(index == 10) break;
-    }
-    rl.close();
-}
-function sleep (time) {
-    return new Promise((resolve) => setTimeout(resolve, time));
+
+for (const path of filePaths) {
+  const extension = path.slice(path.lastIndexOf("."));
+  const loaderFn = loaders[extension];
+  if (!loaderFn) continue;
+
+  const name = basename(path, extension);
+  const storePath = `vector_store/${name}`
+
+  let store;
+
+  if(existsSync(storePath)) {
+    store = await FaissStore.load(storePath, embeddings);
+    console.log(`Loaded store for ${store}`);
+  } else {
+    const loader = loaderFn(path);
+    const docs = await loader.load();
+
+    const splitDocs = await splitter.splitDocuments(docs);
+    store = await FaissStore.fromDocuments(splitDocs, embeddings);
+    await store.save(storePath);
+    console.log(`Created store for ${store}`);
   }
-  
-/*
-while loop
-gör fråga, ha index och modulu för var i array man ska lägga till*/
-//main();
 
+  allStores.push(store);
+}
+let allDocs = [];
+
+for (const store of allStores) {
+  const docs = await store.similaritySearch("", 50); // Get as many as possible
+  allDocs = allDocs.concat(docs);
+}
+const globalVectorStore = await FaissStore.fromDocuments(allDocs, embeddings);
+console.log("Merged and saved global vector store");
+
+const retriever = globalVectorStore.asRetriever({k:7});
+
+const retrievalChain = await createRetrievalChain({
+  combineDocsChain: chain,
+  retriever
+})
+
+export async function requestChat(question, chatlog) {
+    
+    chatlog.push({"role": "user", "content": question});
+
+    const response = await retrievalChain.invoke({
+      input : question
+    })
+
+    console.log(response);
+
+    chatlog.push({"role": "assistant", "content": response.answer});
+    return chatlog;
+}

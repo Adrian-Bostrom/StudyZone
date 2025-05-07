@@ -20,7 +20,6 @@ function writeLog(chatlog) {
 
 router.post("/", (req, res) => {
     const { message } = req.body;
-    console.log(message);
     let readlog = readLog();
     if(message == "clear"){
       readlog = [
@@ -35,7 +34,6 @@ router.post("/", (req, res) => {
     else{
     requestChat(message, readlog)
       .then((chatlog) => {
-        console.log(chatlog);
         let response = chatlog[chatlog.length - 1].content;
         writeLog(chatlog);
         return res.json({ reply: response });

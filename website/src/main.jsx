@@ -81,6 +81,10 @@ const router = createBrowserRouter([
         element: <Overview />,
       },
       {
+        path: '/courses',
+        element: <Courses />,
+      },
+      {
         path: '/module',
         element: <Module />,
       }

@@ -1,0 +1,79 @@
+kth.se
+Student web
+Intranet
+Login
+Skip to content
+Dashboard
+Theodor Wattman
+Account
+Dashboard
+Courses
+Groups
+Calendar
+Inbox
+History
+Help
+IV1350 VT25 (60104)PagesSoftware
+
+2025 VT
+Home
+Piazza
+Modules
+Announcements
+Discussions
+Queue For Tutorials
+Software
+Seminar Tasks
+Additional Higher Grade Tasks
+Assignments
+People
+Grades1
+Course Evaluation
+Software
+Here are links to programs that are useful for the course.
+
+1. UML Editors
+You must use a UML editor for diagrams in seminar reports, all editors below have enough functionality. Astah is the UML editor that will be used for examples during lectures.
+
+Astah
+AstahLinks to an external site. is made for UML diagrams, and understands the meaning of the diagram that is created. This means it will make sure your diagram has correct UML syntax. On the other hand, it might be hard to make the diagram look like you wish, and you will only be able to use the parts of UML that are implemented in Astah.
+
+All participants in the course are entitled to a license for astah professional, which can be found at the page Astah License .  You may also use the free student edition of astah professional, but avoid the limited time trial editions.
+
+Astah is currently only working with JDK 21, but that does not create any problem for Windows or Mac users, since the correct JDK is included in the installer. Linux users are forced to handle this problem manually.
+
+Astah is used for all diagrams in the course literature, and will be used at lectures.
+
+There is a user guide at http://astah.net/manualLinks to an external site.
+
+Here are videos that show how to create class and sequence diagrams:
+
+3 min lectures for your daily modeling - (1) Fundamental UML Class DiagramLinks to an external site.
+3 min lectures for your daily modeling - (2) Fundamental UML Sequence DiagramLinks to an external site.
+3 TIPS to create UML Class Diagrams fastLinks to an external site.
+Lucidchart
+LucidchartLinks to an external site. is a drawing program that does not understand UML diagrams. This means you're practically always able to draw the diagram you wish, but it is up to you to make sure the UML is correct. There are predefined UML symbols, though not as many as in Astah.
+
+Lucidchart is web based, no installation is required. We don't have a license, but there's a free version. It's however limited to only three documents.
+
+PlantUML
+PlantUMLLinks to an external site. is a drawing program that does not understand UML diagrams. This means you're practically always able to draw the diagram you wish, but it is up to you to make sure the UML is correct. There's no GUI, the diagrams are created in a text language, and then compiled to images.
+
+PlantUML is opensource and free of charge. 
+
+2. Programming
+The course contains quite a lot of programming. It's strongly recommended that you use an IDE, e.g. IntelliJ, Visual Studio Code, NetBeans or Eclipse.
+
+NetBeans
+https://netbeans.apache.org/Links to an external site. NetBeans will be used for all examples at the lectures, but you're free to choose any IDE.
+
+3. LaTeX Editors
+It is perfectly fine to write solutions for seminar tasks with word, but in case you want to try LaTeX, some free LaTeX editors are listed here.
+
+Kile
+http://kile.sourceforge.net/Links to an external site. Kile is originally made for Linux, but there's a Windows version as well. All course pdf documents in the course were created with Kile.
+
+Overleaf
+https://www.overleaf.com/Links to an external site. Overleaf is an online LaTeX editor, which has a free version.
+
+ 

@@ -64,9 +64,6 @@ document.getElementById("sendData").addEventListener("click", async () => {
   });
 });
 
-
-
-
 async function processCourse(courseUrl, courseName, courseCode, email) {
   return new Promise((resolve) => {
     chrome.tabs.query({ active: true, currentWindow: true }, (tabs) => {
@@ -99,9 +96,6 @@ async function processCourse(courseUrl, courseName, courseCode, email) {
     });
   });
 }
-
-
-
 
 // Extract assignment links from the /assignments page
 function extractAssignmentLinks() {
@@ -162,17 +156,3 @@ function scrapeAssignmentDetails() {
   };
 }
 
-function extractCourseName() {
-  const dashboardCard = document.querySelector('.ic-DashboardCard'); // Or however you're getting the .ic-DashboardCard
-  if (dashboardCard) {
-    const h2Element = dashboardCard.querySelector('h2.ic-DashboardCard__header-title.ellipsis');
-    if (h2Element) {
-      console.log(h2Element.textContent); // Access the h2's text content
-    } else {
-      console.log("h2 element not found within this .ic-DashboardCard");
-    }
-  } else {
-      console.log(".ic-DashboardCard not found");
-  }
-  return h2Element;
-}
