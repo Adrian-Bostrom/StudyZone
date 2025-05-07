@@ -63,6 +63,7 @@ router.post("/:variable", (req, res) => {
           const asses = readAssignments(req.userID);
           response.push(asses.find((ass) => ass.id == assignmentID));
         });
+        console.log(response);
         return res.status(200).json(response);
       } catch{
           return res.status(400).json({message: "Assignment id not found"});
