@@ -10,6 +10,7 @@ export function readUsers() {
     fs.writeFileSync(usersFilePath, JSON.stringify([])); // Create file if it doesn't exist
   }
   const data = fs.readFileSync(usersFilePath, "utf8");
+
   return JSON.parse(data);
 }
 
