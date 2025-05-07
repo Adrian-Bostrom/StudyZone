@@ -7,7 +7,7 @@ Unzip
 Setup backend:
 go to the backend directory in the Studyzone-main folder using terminal
 
-write terminal: npm i
+write in terminal: npm i
 
 when one write node .\server.js
 
