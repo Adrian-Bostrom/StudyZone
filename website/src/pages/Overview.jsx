@@ -1,6 +1,8 @@
 import CourseCard from "./components/CourseCard";
+import UseFetchJson from "./components/UseFetchJson";
 
 const Overview = () => {
+  const courses = UseFetchJson('courses.json');
   return (
 
     <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
