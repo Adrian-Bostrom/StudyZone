@@ -2,6 +2,8 @@ import express from "express";
 import { readCourses } from "./courses.js";
 import path from "path";
 import { fileURLToPath } from "url";
+import fs from "fs";
+import { readUsers } from "../website/login.js";
 const router = express.Router();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
@@ -11,7 +13,8 @@ function readAssignments(userID) {
   if (!fs.existsSync(courseFilePath)) {
     fs.writeFileSync(courseFilePath, JSON.stringify([])); // Create file if it doesn't exist
   }
-  const data = fs.readFileSync(assignmentFilePath, "utf8");
+  const data = fs.readFileSync(courseFilePath, "utf8");
+
   return JSON.parse(data);
 }
 

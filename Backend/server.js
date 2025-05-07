@@ -5,7 +5,7 @@ import cors from "cors";
 import loginRoute from "./routes/login.js"
 import signupRoute from "./routes/signup.js"
 import coursesRoute from "./routes/courses.js"
-import assignmentRoute from "./routes/assignment.js"
+import assignmentRoute from "./routes/assignments.js"
 //import chatRoute from "./routes/chat.js"
 import contentRoute from "./routes/content.js"
 // used by extension
@@ -22,7 +22,7 @@ app.use("/login", loginRoute);
 app.use("/signup", signupRoute);
 app.use("/courses", coursesRoute);
 //app.use("/chat", chatRoute); 
-app.use("/assignment", assignmentRoute);
+app.use("/assignments", assignmentRoute);
 app.use("/content", contentRoute);
 //used by extension
 app.use("/log", logRoute);
