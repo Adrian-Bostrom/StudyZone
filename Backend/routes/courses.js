@@ -2,8 +2,6 @@ import path from 'path';
 import { fileURLToPath } from 'url';
 import express from "express";
 import readUsers from "../website/login.js";
-import path from "path";
-import { fileURLToPath } from "url";
 
 const router = express.Router();
 

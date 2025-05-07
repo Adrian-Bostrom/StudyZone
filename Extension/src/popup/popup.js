@@ -162,29 +162,3 @@ function scrapeAssignmentDetails() {
   };
 }
 
-function extractCourseName() {
-  const dashboardCard = document.querySelector('.ic-DashboardCard'); // Or however you're getting the .ic-DashboardCard
-  if (dashboardCard) {
-    const h2Element = dashboardCard.querySelector('h2.ic-DashboardCard__header-title.ellipsis');
-    if (h2Element) {
-      console.log(h2Element.textContent); // Access the h2's text content
-    } else {
-      console.log("h2 element not found within this .ic-DashboardCard");
-    }
-  } else {
-      console.log(".ic-DashboardCard not found");
-  }
-  return h2Element;
-}
-  try {
-    const [tab] = await chrome.tabs.query({ active: true, currentWindow: true });
-    
-    // Inject content script if needed (Manifest V3)
-    await chrome.scripting.executeScript({
-      target: { tabId: tab.id },
-      files: ["src/content.js"]})
-
-  } catch (error) {
-    console.error("Error fetching course URLs:", error);
-  }
-});
