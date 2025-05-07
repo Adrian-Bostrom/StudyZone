@@ -1,32 +1,34 @@
 import path from 'path';
 import { fileURLToPath } from 'url';
 import express from "express";
-import readUsers from "../website/login.js";
+import { readUsers } from "../website/login.js";
+import fs from "fs";
 
 const router = express.Router();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-export function readCourses(userID) {
+export async function readCourses(userID) {
   const courseFilePath = path.join(__dirname, "..", "database", userID, "courses.json");
   if (!fs.existsSync(courseFilePath)) {
     fs.writeFileSync(courseFilePath, JSON.stringify([])); // Create file if it doesn't exist
   }
-  const data = fs.readFileSync(usersFilePath, "utf8");
+  const data = fs.readFileSync(courseFilePath, "utf8");
   return JSON.parse(data);
 }
 
-router.post("/", (req, res) => {
-  console.log("Received Data:", req);
-  const users = readUsers();
+router.post("/", async (req, res) => {
+  console.log("Received Data:", req.body);
+  const users = await readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessiontoken == req.userID);
+  console.log("Users data:", users); 
+  let user = users.find((user) => user.sessiontoken == req.body.userID);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
   else {
     // Read the user's courses
-    const courses = readCourses(user.id);
+    const courses = await readCourses(user.id);
     return res.status(200).json(courses);
   }
 });
