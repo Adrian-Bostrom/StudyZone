@@ -37,6 +37,7 @@ const styles = {
         color: '#fff',
         padding: '20px 0',
         textAlign: 'center',
+        marginTop: '50px', 
     },
     container: {
         display: 'flex',

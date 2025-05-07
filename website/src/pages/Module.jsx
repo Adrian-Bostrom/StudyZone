@@ -1,7 +1,18 @@
 import ChatBox  from "./components/ChatBox";
-import fileIcon from "../assets/fileIcon.svg"
+import fileIcon from "../assets/fileIcon.svg";
+import UseFetchJson from "./components/UseFetchJson";
+import DeadlineCard from "./components/DeadlineCard";
+import { useMemo } from "react";
 
 function Course() {
+    const userSessionID = localStorage.getItem("userID");
+
+    const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
+
+    const { data: assignments, error } = UseFetchJson('http://localhost:5000/assignments', bodyData);
+
+    console.log("Fetched courses:", assignments);
+
     return (
       <>
         <div className="flex h-[calc(100vh-80px)] bg-gray-100 p-12 flex-row">
@@ -38,7 +49,11 @@ function Course() {
                 <div className="w-[100% flex">
                     <button className="p-3 bg-blue-500 rounded-xl text-white mx-2 font-bold transition-transform hover:scale-103 duration-300">Generate a question...</button>
                     <button className="p-3 bg-blue-500 rounded-xl text-white mx-2 font-bold transition-transform hover:scale-103 duration-300">Generate a quiz...</button>
-                    <button className="p-3 bg-blue-500 rounded-xl text-white mx-2 font-bold transition-transform hover:scale-103 duration-300">Generate an exam...</button>                
+                    <button className="p-3 bg-blue-500 rounded-xl text-white mx-2 font-bold transition-transform hover:scale-103 duration-300">Generate an exam...</button>     
+                    {error && <p>Error: {error}</p>}
+                    {assignments && assignments.map((assignment) => (
+                        <DeadlineCard key={assignment.id} AssignmentType={assignment.title} DueDate={assignment.dueDate} TargetType={assignment.id}/>
+                    ))}           
                 </div>
             </div>
         </div>

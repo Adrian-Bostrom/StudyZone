@@ -6,6 +6,7 @@ import Login from './pages/Login.jsx';
 import About from './pages/About.jsx';
 import Courses from './pages/Courses.jsx';
 import Signup from './pages/Signup.jsx';
+import Moduler from './pages/Moduler.jsx';
 import Navbar from './pages/components/Navbar.jsx';
 import Footer from './pages/components/Footer.jsx';
 import Overview from './pages/Overview.jsx';
@@ -13,6 +14,7 @@ import Module from './pages/Module.jsx';
 import courses from './data/courses.json';
 import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the AssignmentWrapper component
 import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
+
 
 // Layout component to include Navbar
 const Layout = () => (
@@ -79,6 +81,10 @@ const router = createBrowserRouter([
       {
         path: '/overview',
         element: <Overview />,
+      },
+      {
+        path: '/Moduler',
+        element: <Moduler />,
       },
       {
         path: '/courses',
