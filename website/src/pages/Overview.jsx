@@ -5,7 +5,7 @@ import { useMemo } from "react";
 
 const Overview = () => {
   // Example userID you pass to backend
-  const userSessionID = "1d617d1e-e409-4f52-adfa-f453320e17b7";
+  const userSessionID = localStorage.getItem('userSessionID');
 
   const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
 
