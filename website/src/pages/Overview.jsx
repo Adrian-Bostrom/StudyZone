@@ -1,25 +1,42 @@
 import React from "react";
 import DeadlineBox from "./components/DeadlineBox";
+import CourseCard from "./components/CourseCard";
+import UseFetchJson from "./components/UseFetchJson";
+
+import { useMemo } from "react";
 
 const Overview = () => {
-  return (
+  // Example userID you pass to backend
+  const userSessionID = localStorage.getItem('userSessionID');
 
-    <div className="border-1 border-e-red-500 flex flex-row min-h-screen">
-        {/* Course Column */}
-        <div className="border-1 flex flex-col bg-gray-100 p-12 flex-grow">
-          
-          <h1 className="border-1 text-5xl font-bold mb-1">
-            Overview</h1>
-          <p className="border-1 text-gray-600 text-start max-w-2xl">
-            Here is an overview of all your courses and their assignments
-            </p>
-          
-        </div>
-        {/* Deadline box */}
-        <div className="border-1 right-0 top-0 w-100 flex-col items-start">
-          <DeadlineBox/>
-        </div>
-      </div>
+  const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
+
+  const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
+  console.log("Fetched courses:", courses);
+
+
+  return (
+    <div className="flex flex-row min-h-screen">
+    {/* Left Column */}
+    <div className="flex flex-col bg-gray-100 p-12 flex-grow"> 
+      <h1 className="text-5xl font-bold mb-1">
+       Overview</h1>
+      <h1 className="text-4xl font-bold mb-4">Overview</h1>
+      <p className="text-gray-600 text-center">This is the overview page.</p>
+
+      {error && <p>Error: {error}</p>}
+      <div className="flex flex-row flex-wrap justify-center">
+        {courses && courses.map((course) => (
+          <CourseCard key={course.courseId} course={course.courseName} />
+        ))}
+    </div>
+
+    </div>
+    {/* Right Column */}
+    <div className="right-0 top-0 w-100 flex-col items-start">
+      <DeadlineBox/>
+    </div>
+    </div>
   );
 }
 
