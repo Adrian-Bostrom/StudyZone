@@ -9,7 +9,7 @@ go to the backend directory in the Studyzone-main folder using terminal
 
 write in terminal: npm i
 
-when one write node .\server.js
+when done write node .\server.js
 
 in backend\database directory, remove any user folders (they have numbers and letters and shit)
 
