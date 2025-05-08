@@ -9,16 +9,22 @@ const Overview = () => {
   const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
   console.log("Fetched courses:", courses);
 
-
   return (
-    <div className="flex flex-col items-center justify-center h-screen bg-gray-100">
+    <div className="flex flex-col items-center justify-center min-h-screen bg-gray-100 p-8">
       <h1 className="text-4xl font-bold mb-4">Overview</h1>
-      <p className="text-gray-600 text-center">This is the overview page.</p>
+      <p className="text-gray-600 text-center mb-8">This is the overview page.</p>
 
       {error && <p>Error: {error}</p>}
-      {courses && courses.map((course) => (
-        <CourseCard key={course.courseId} course={course.courseName} courseId={course.courseCode} />
-      ))}
+
+      <div className="flex flex-wrap gap-4 justify-center">
+        {courses && courses.map((course) => (
+          <CourseCard 
+            key={course.courseId} 
+            course={course.courseName} 
+            courseId={course.courseCode} 
+          />
+        ))}
+      </div>
     </div>
   );
 }
