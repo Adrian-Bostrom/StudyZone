@@ -155,3 +155,4 @@ function scrapeAssignmentDetails() {
     content: content,
   };
 }
+

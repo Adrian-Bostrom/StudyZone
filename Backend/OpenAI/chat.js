@@ -16,8 +16,7 @@ import { FaissStore } from "@langchain/community/vectorstores/faiss";
 import { existsSync, mkdirSync } from "fs";
 import { basename } from "path";
 
-import * as dotenv from "dotenv";
-dotenv.config();
+import dotenv from "dotenv/config"; 
 
 // Set up model
 const model = new ChatOpenAI({

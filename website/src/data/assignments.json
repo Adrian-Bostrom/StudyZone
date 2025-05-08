@@ -1,5 +1,4 @@
 [
-<<<<<<< Updated upstream
     {
       "id": "1",
       "title": "React Homework",
@@ -19,83 +18,3 @@
       "dueDate": "2025-04-20"
     }
   ]
-=======
-  {
-    "title": "Name and description",
-    "link": "https://canvas.kth.se/courses/53175/assignments/327445",
-    "dueDate": "8 May by 12:00",
-    "content": "Scrum Masters, submit the product type, the product name, and the product description.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the submission, please see the page Expo: Instructions for Teams"
-  },
-  {
-    "title": "Product image or icon",
-    "link": "https://canvas.kth.se/courses/53175/assignments/327446",
-    "dueDate": "8 May by 12:00",
-    "content": "Scrum Masters, submit an image file showing the product.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the image, please see the page Expo: Instructions for Teams"
-  },
-  {
-    "title": "Link to expo-page for the team",
-    "link": "https://canvas.kth.se/courses/53175/assignments/327444",
-    "dueDate": "8 May by 12:00",
-    "content": "Scrum Masters, please submit the link to the specific web page your team will use to present the product on the online exhibition.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the expo-page, please see the page Expo: Instructions for Teams"
-  },
-  {
-    "title": "Product poster",
-    "link": "https://canvas.kth.se/courses/53175/assignments/327447",
-    "dueDate": "8 May by 12:00",
-    "content": "Scrum Masters, submit a poster for the product.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the image, please see the page Expo: Instructions for Teams."
-  },
-  {
-    "title": "Attendance during sprints",
-    "link": "https://canvas.kth.se/courses/53175/assignments/327439",
-    "content": "Teachers use this assignment to keep track of your attendance during the project weeks."
-  },
-  {
-    "title": "1. Beginning with Scrum",
-    "link": "https://canvas.kth.se/courses/53175/quizzes/63737",
-    "dueDate": "26 Mar at 12:30",
-    "content": "Answer all questions in the best way you can.\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 7 points (out of 8) to pass this quiz."
-  },
-  {
-    "title": "2. Sprint planning",
-    "link": "https://canvas.kth.se/courses/53175/quizzes/63738",
-    "dueDate": "26 Mar at 12:30",
-    "content": "Scenario: You and your team are having your first sprint planning meeting. You are presented with some good or bad choices. Try to select the good choices, of course!\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 7 points (out of 8) to pass this quiz."
-  },
-  {
-    "title": "3. The sprint",
-    "link": "https://canvas.kth.se/courses/53175/quizzes/63742",
-    "dueDate": "26 Mar at 12:30",
-    "content": "Scenario: You and your team are running your first sprint. You are presented with some good and bad choices. Try to select the good choices, of course!\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 7 points (out of 8) to pass this quiz."
-  },
-  {
-    "title": "4. End of the sprint",
-    "link": "https://canvas.kth.se/courses/53175/quizzes/63741",
-    "dueDate": "26 Mar at 12:30",
-    "content": "Scenario: You and your team have just had your first Sprint Demo (also known as a Sprint Review). You are presented with some good or bad choices. Try to select the good choices, of course!\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 5 points (out of 6) to pass this quiz."
-  },
-  {
-    "title": "5. Git version control (basic)",
-    "link": "https://canvas.kth.se/courses/53175/quizzes/63739",
-    "dueDate": "26 Mar at 12:30",
-    "content": "For each question, type the correct command.\n\nYou need at least 7 points (out of 8) to pass this quiz."
-  },
-  {
-    "title": "6. Git version control (team)",
-    "link": "https://canvas.kth.se/courses/53175/quizzes/63740",
-    "dueDate": "26 Mar at 12:30",
-    "content": "For each question, type the correct answer or command. Some questions are multiple-choice.\n\nYou need at least 7 points (out of 8) to pass this quiz."
-  },
-  {
-    "title": "Feedback from the expo",
-    "link": "https://canvas.kth.se/courses/53175/assignments/327440",
-    "dueDate": "20 May at 16:30",
-    "content": "No description"
-  },
-  {
-    "title": "Individual Project Reflection",
-    "link": "https://canvas.kth.se/courses/53175/assignments/327441",
-    "dueDate": "29 May at 16:30",
-    "content": "No description"
-  }
-]
->>>>>>> Stashed changes
