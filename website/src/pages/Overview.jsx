@@ -18,11 +18,10 @@ const Overview = () => {
     <div className="flex flex-col bg-gray-100 p-12 flex-grow"> 
       <h1 className="text-5xl font-bold mb-1">
        Overview</h1>
-      <h1 className="text-4xl font-bold mb-4">Overview</h1>
-      <p className="text-gray-600 text-center">This is the overview page.</p>
+      <p className="text-gray-600 text-start">This is the overview page.</p>
 
       {error && <p>Error: {error}</p>}
-      <div className="flex flex-row flex-wrap justify-center">
+      <div className="grid grid-cols-3 grid-colsb mt-5 gap-4 p-4">
         {courses && courses.map((course) => (
           <CourseCard key={course.courseId} course={course.courseName} />
         ))}
