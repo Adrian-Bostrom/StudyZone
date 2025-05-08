@@ -13,6 +13,7 @@ import Module from './pages/Module.jsx';
 import courses from './data/courses.json';
 import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the AssignmentWrapper component
 import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
+import UseFetchJson from "./pages/components/UseFetchJson";
 
 // Layout component to include Navbar
 const Layout = () => (
@@ -33,17 +34,21 @@ const ErrorPage = () => (
 );
 
 const CourseWrapper = () => {
-  const { courseCode } = useParams();
-  const course = courses.find(c => c.CourseCode === courseCode);
-  if (!course) {
-    return <ErrorPage />;
-  }
+  const { courseId } = useParams();
+  const userSessionID = localStorage.getItem('userSessionID');
+  
+  const { data: assignments, error } = UseFetchJson(`http://localhost:5000/assignments/${courseId}`, { userSessionID });
+
   return (
-    <Courses
-      CourseCode={course.CourseCode}
-      CourseName={course.CourseName}
-      CourseDescription={course.CourseDescription}
-    />
+    <div className="p-8">
+      <h1 className="text-3xl font-bold mb-4">Course: {courseId}</h1>
+      {error && <p>Error loading assignments</p>}
+      {assignments && assignments.map(ass => (
+        <div key={ass.id} className="p-2 bg-gray-200 my-2 rounded">
+          {ass.title}
+        </div>
+      ))}
+    </div>
   );
 };
 

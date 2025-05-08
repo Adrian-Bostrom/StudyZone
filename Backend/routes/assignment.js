@@ -9,7 +9,7 @@ const router = express.Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function readAssignments(userID) {
-  const assignmentFilePath = path.join(__dirname, "..", "database", userID, "assignments.json");
+  const assignmentFilePath = path.join(__dirname, "..", "database", userID, "assignment.json");
   if (!fs.existsSync(assignmentFilePath)) {
     fs.writeFileSync(assignmentFilePath, JSON.stringify([])); // Create file if it doesn't exist
   }

@@ -17,7 +17,7 @@ const Overview = () => {
 
       {error && <p>Error: {error}</p>}
       {courses && courses.map((course) => (
-        <CourseCard key={course.courseId} course={course.courseName} courseId={course.courseId} />
+        <CourseCard key={course.courseId} course={course.courseName} courseId={course.courseCode} />
       ))}
     </div>
   );
