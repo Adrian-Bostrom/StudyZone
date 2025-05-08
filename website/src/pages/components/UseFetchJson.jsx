@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react";
-
+//url är file path och bodyData är användarens sessionToken.
 const UseFetchJson = (url, bodyData) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
