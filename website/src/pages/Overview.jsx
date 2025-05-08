@@ -1,12 +1,9 @@
 import CourseCard from "./components/CourseCard";
 import UseFetchJson from "./components/UseFetchJson";
-
 import { useMemo } from "react";
 
 const Overview = () => {
-  // Example userID you pass to backend
-  const userSessionID = localStorage.getItem('userSessionID');
-
+  const userSessionID = localStorage.getItem('userID');
   const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
 
   const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
@@ -20,7 +17,7 @@ const Overview = () => {
 
       {error && <p>Error: {error}</p>}
       {courses && courses.map((course) => (
-        <CourseCard key={course.courseId} course={course.courseName} />
+        <CourseCard key={course.courseId} course={course.courseName} courseId={course.courseId} />
       ))}
     </div>
   );

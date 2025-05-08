@@ -1,0 +1,19 @@
+import React from "react";
+
+import UseFetchJson from './pages/components/UseFetchJson';
+
+const CourseWrapper = () => {
+  const { courseCode } = useParams();
+  const { data: course, error } = UseFetchJson(`http://localhost:5000/course/${courseCode}`);
+
+  if (error) return <ErrorPage />;
+  if (!course) return <p>Loading...</p>;
+
+  return (
+    <Courses
+      CourseCode={course.CourseCode}
+      CourseName={course.CourseName}
+      CourseDescription={course.CourseDescription}
+    />
+  );
+};

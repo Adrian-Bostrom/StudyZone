@@ -9,7 +9,7 @@ const router = express.Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function readCourses(userID) {
-  const courseFilePath = path.join(__dirname, "..", "database", userID, "course.json");
+  const courseFilePath = path.join(__dirname, "..", "database", userID, "courses.json");
   try {
     if (!fs.existsSync(courseFilePath)) {
       fs.writeFileSync(courseFilePath, JSON.stringify([])); // Create file if it doesn't exist
@@ -25,7 +25,7 @@ function readCourses(userID) {
 
 router.post("/", async (req, res) => {
   console.log("Received Data:", req.body);
-  const users = await readUsers();
+  const users = readUsers();
   // Find the user by session token
   console.log("Users data:", users); 
   let user = users.find((user) => user.sessiontoken == req.body.userID);
