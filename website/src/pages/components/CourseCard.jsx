@@ -11,7 +11,7 @@ const CourseCard = ({ course, courseId }) => {
 };
 
 CourseCard.defaultProps = {
-    course: 'Invalid Course',
+  course: 'Invalid Course',
 };
 
 export default CourseCard;

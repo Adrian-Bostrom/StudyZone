@@ -11,12 +11,13 @@ import Footer from './pages/components/Footer.jsx';
 import Overview from './pages/Overview.jsx';
 import Module from './pages/Module.jsx';
 import courses from './data/courses.json';
+import CourseWrapper from './pages/CourseWrapper.jsx';
 import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the AssignmentWrapper component
 import Schedule from './pages/Schedule.jsx';
-
 import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
 import { useMemo } from "react";
 import UseFetchJson from "./pages/components/UseFetchJson";
+import { createBrowserRouter, RouterProvider, Outlet, Link, } from 'react-router-dom';
 
 // Layout component to include Navbar
 const Layout = () => (
@@ -35,26 +36,6 @@ const ErrorPage = () => (
     <Link to="/" className="mt-4 text-blue-600 hover:underline">Go back to Home</Link>
   </div>
 );
-
-const CourseWrapper = () => {
-  const { courseCode } = useParams();
-  const userSessionID = localStorage.getItem('userID');
-  const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
-  const { data: assignments, error } = UseFetchJson(`http://localhost:5000/assignment/${courseCode}`, bodyData);
-  console.log('Assignments:', assignments);
-
-  return (
-    <div className="p-8">
-      <h1 className="text-3xl font-bold mb-4">Course: {courseCode}</h1>
-      {error && <p>Error loading assignments</p>}
-      {assignments && assignments.map(ass => (
-        <div key={ass.id} className="p-2 bg-gray-200 my-2 rounded">
-          {ass.title}
-        </div>
-      ))}
-    </div>
-  );
-};
 
 const router = createBrowserRouter([
   {
@@ -78,7 +59,7 @@ const router = createBrowserRouter([
         element: <CourseWrapper />,
       },
       {
-        path: '/assignments/:id', // Dynamic route for assignments
+        path: '/courses/:courseCode/:assignmentId', // Dynamic route for assignments
         element: <AssignmentWrapper />, // Use the wrapper component
       },
       {

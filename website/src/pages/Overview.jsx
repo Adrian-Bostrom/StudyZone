@@ -11,7 +11,6 @@ const Overview = () => {
   const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
   console.log("Fetched courses:", courses);
 
-
   return (
     <div className="flex flex-row min-h-screen">
     {/* Left Column */}
