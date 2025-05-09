@@ -21,7 +21,7 @@ function Courses({CourseCode, CourseName, CourseDescription}) {
           <ModuleBox/>
         </div>
         {/* Deadline box */}
-        <div className="right-0 top-0 w-100 flex-col flex-grow items-start">
+        <div className="right-0 top-0 w-100 flex-col items-start">
           <DeadlineBox/>
         </div>
       </div>

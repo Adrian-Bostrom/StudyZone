@@ -7,9 +7,9 @@ import { useMemo } from "react";
 
 const Overview = () => {
   // Example userID you pass to backend
-  const userSessionID = localStorage.getItem('userSessionID');
+  const userID = localStorage.getItem('userID');
 
-  const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
+  const bodyData = useMemo(() => ({ userID }), [userID]);
 
   const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
   console.log("Fetched courses:", courses);

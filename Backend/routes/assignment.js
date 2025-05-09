@@ -21,26 +21,27 @@ function getAssIDs(userID, courseCode){
   let courses = readCourses(userID);
   //find course ID for course code
   let course = courses.find((course) => course.courseCode == courseCode);
-  const courseID = course.id;
+  const courseID = course.courseId;
   //get ids of assignments which are from that course
   const assFilePath = path.join(__dirname, "..", "database", userID, courseID, "courseDeadlines.json");
-  let courseAssIDS = fs.readFileSync(assFilePath, "utf8");
+  let courseAssIDS = JSON.parse(fs.readFileSync(assFilePath, "utf8"));
   return courseAssIDS;
 }
 
-router.post("/", (req, res) => {
+router.post("/",async (req, res) => {
   console.log("Received Data:", req.body);
-  const users = readUsers();
+  const users = await readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessionToken == req.body.userID);
+  console.log("users found: ",users)
+  let user = await users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
-    console.log("User not found:", req.body.userID);
+    console.log("User not found", user);
     return res.status(404).json({ message: "User not found" });
   }
   else {
     // Read the user's assignment
     const asses = readAssignments(user.id);
-    console.log("Assignments:", asses);
+    console.log("Assignments found:", asses);
     return res.status(200).json(asses);
   }
 });
@@ -50,22 +51,22 @@ router.post("/:variable", (req, res) => {
   console.log("Received Data:", req, variable);
   const users = readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessiontoken == req.userID);
+  let user = users.find((user) => user.sessionToken == req.body.userSessionID);
   try{
     if (!user) {
       return res.status(404).json({ message: "User not found" });
     }
     else {
       // Find assignment ids to retrieve
-      let assIDs = getAssIDs(req.userID, variable);
+      let assIDs = getAssIDs(user.id, variable);
       let response = [];
+      
       try{
         assIDs.forEach((assignment) => {
-          const assignmentID = assignment.assignmentid;
-          const asses = readAssignments(req.userID);
+          const assignmentID = assignment.id;
+          const asses = readAssignments(user.id);
           response.push(asses.find((ass) => ass.id == assignmentID));
         });
-
         return res.status(200).json(response);
       } catch{
           return res.status(400).json({message: "Assignment id not found"});

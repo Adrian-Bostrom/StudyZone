@@ -10,6 +10,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@effect/platform": "^0.80.10",
+    "@effect/platform-bun": "^0.60.20",
     "@fullcalendar/core": "^6.1.17",
     "@fullcalendar/daygrid": "^6.1.17",
     "@fullcalendar/icalendar": "^6.1.17",
@@ -20,8 +22,11 @@
     "axios": "^1.8.4",
     "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
+    "effect": "^3.14.10",
     "express": "^5.1.0",
     "framer-motion": "^12.6.3",
+    "fs": "^0.0.1-security",
+    "ical": "^0.8.0",
     "ical.js": "^1.5.0",
     "local-storage-fallback": "^5.0.0",
     "localstorage": "^1.0.1",
