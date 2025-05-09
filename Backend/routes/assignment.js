@@ -17,10 +17,12 @@ function readAssignments(userID) {
   return JSON.parse(data);
 }
 
-function getAssIDs(userID, courseCode){
-  let courses = readCourses(userID);
+async function getAssIDs(userID, courseCode){
+
+  let courses = await readCourses(userID);
   //find course ID for course code
-  let course = courses.find((course) => course.courseCode == courseCode);
+  let course = await courses.find((course) => course.courseCode == courseCode);
+  console.log("course: ", course, "userID: ", userID, "courseName: ", courseCode)
   const courseID = course.courseId;
   //get ids of assignments which are from that course
   const assFilePath = path.join(__dirname, "..", "database", userID, courseID, "courseDeadlines.json");
@@ -47,7 +49,7 @@ router.post("/", async (req, res) => {
 
 router.post("/:variable", async (req, res) => {
   const { variable } = req.params;
-  console.log("Received Data:", req, variable);
+  console.log("Received Data:", req.body);
   const users = await readUsers();
   // Find the user by session token
   let user = users.find((user) => user.sessionToken == req.body.userID);
@@ -57,7 +59,8 @@ router.post("/:variable", async (req, res) => {
     }
     else {
       // Find assignment ids to retrieve
-      let assIDs = getAssIDs(user.id, variable);
+      let assIDs = await getAssIDs(user.id, variable);
+      console.log(assIDs);
       let response = [];
       
       try{

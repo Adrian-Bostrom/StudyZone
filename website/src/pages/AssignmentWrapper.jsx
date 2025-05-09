@@ -11,7 +11,7 @@ const AssignmentWrapper = () => {
   console.log(userID);
 
   const bodyData = useMemo(() => ({ userID }), [userID]);
-  console.log(courseCode);
+  console.log("courseCode: ", courseCode);
 
   const { data: assignments, error, loading } = UseFetchJson(`http://localhost:5000/assignment/${courseCode}`, bodyData);
   console.log("Assignments:", assignments);

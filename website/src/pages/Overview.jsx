@@ -3,13 +3,19 @@ import DeadlineBox from "./components/DeadlineBox";
 import CourseCard from "./components/CourseCard";
 import UseFetchJson from "./components/UseFetchJson";
 import { useMemo } from "react";
+import { useNavigate } from "react-router-dom";
 
 const Overview = () => {
   const userID = localStorage.getItem('userID');
   const bodyData = useMemo(() => ({ userID }), [userID]);
+  const navigate = useNavigate();
 
   const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
   console.log("Fetched courses:", courses);
+
+  const handleCourseClick = (courseName) => {
+    navigate(`/courses/${courseName}`);
+  };
 
   return (
     <div className="flex flex-row min-h-screen">
@@ -22,7 +28,13 @@ const Overview = () => {
       {error && <p>Error: {error}</p>}
       <div className="grid grid-cols-3 grid-colsb mt-5 gap-4 p-4">
         {courses && courses.map((course) => (
-          <CourseCard key={course.courseId} course={course.courseName} />
+          <div
+              key={course.courseId}
+              onClick={() => handleCourseClick(course.courseCode)}
+              className="cursor-pointer"
+            >
+              <CourseCard course={course.courseName} />
+            </div>
         ))}
     </div>
 
