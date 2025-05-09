@@ -28,9 +28,9 @@ function getAssIDs(userID, courseCode){
   return courseAssIDS;
 }
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   console.log("Received Data:", req.body);
-  const users = readUsers();
+  const users = await readUsers();
   // Find the user by session token
   let user = users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
@@ -45,12 +45,12 @@ router.post("/", (req, res) => {
   }
 });
 
-router.post("/:variable", (req, res) => {
+router.post("/:variable", async (req, res) => {
   const { variable } = req.params;
   console.log("Received Data:", req, variable);
-  const users = readUsers();
+  const users = await readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessionToken == req.body.userSessionID);
+  let user = users.find((user) => user.sessionToken == req.body.userID);
   try{
     if (!user) {
       return res.status(404).json({ message: "User not found" });

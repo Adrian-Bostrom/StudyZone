@@ -7,7 +7,7 @@ import { fileURLToPath } from "url";
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "..", "database", "users.json");
 
-function readUsers() {
+async function readUsers() {
   if (!fs.existsSync(usersFilePath)) {
     fs.writeFileSync(usersFilePath, JSON.stringify([])); // Create file if it doesn't exist
   }
@@ -35,7 +35,7 @@ function writeUsers(users) {
 }
 
 async function addUser(username, password, email) {
-  const users = readUsers();
+  const users = await readUsers();
 
   // Check if the username or email already exists
   if (users.some((user) => user.username == username || user.email == email)) {
@@ -61,8 +61,8 @@ async function addUser(username, password, email) {
 
 async function login(email, password) {
   console.log("Login function called with:", email, password);
-  return new Promise((resolve, reject) => {
-    const users = readUsers(); // Read the users from the file
+  return new Promise(async (resolve, reject) => {
+    const users = await readUsers(); // Read the users from the file
     console.log("Users:", users); // Debugging log to verify users
 
     // Find the user by email

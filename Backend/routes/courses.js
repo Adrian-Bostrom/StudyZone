@@ -25,10 +25,10 @@ function readCourses(userID) {
 
 router.post("/", async (req, res) => {
   console.log("Received Data:", req.body);
-  const users = readUsers();
+  const users = await readUsers();
   // Find the user by session token
   console.log("Users data:", users); 
-  let user = users.find((user) => user.sessiontoken == req.body.userID);
+  let user = users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
@@ -39,13 +39,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/:variable", (req, res) => {
+router.post("/:variable", async (req, res) => {
   const { variable } = req.params;
   console.log("Received Data:", variable);
-  const users = readUsers();
+  const users = await readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessiontoken == req.userID);
+  let user = users.find((user) => user.sessionToken == req.userID);
   if (!user) {
+
     return res.status(400).json({ message: "User not found" });
   }
   else {

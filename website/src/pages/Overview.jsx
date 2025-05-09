@@ -5,8 +5,8 @@ import UseFetchJson from "./components/UseFetchJson";
 import { useMemo } from "react";
 
 const Overview = () => {
-  const userSessionID = localStorage.getItem('userID');
-  const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
+  const userID = localStorage.getItem('userID');
+  const bodyData = useMemo(() => ({ userID }), [userID]);
 
   const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
   console.log("Fetched courses:", courses);

@@ -48,7 +48,7 @@ function addContent(contentFilePath, course) {
 router.post("/", async (req, res) => {
   console.log("Received Data:", req.body);
 
-  const users = readUsers();
+  const users = await readUsers();
   let user = users.find((eachUser) => eachUser.sessionToken === req.body.userID);
 
   if (!user) {
@@ -84,7 +84,7 @@ router.post("/", async (req, res) => {
 router.post("/:variable", async (req, res) => {
   console.log("Received Data:", req.body);
 
-  const users = readUsers();
+  const users = await readUsers();
   let user = users.find((eachUser) => eachUser.sessionToken === req.body.userID);
 
   if (!user) {
