@@ -7,6 +7,7 @@ import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
+import path from 'path';
 import { OpenAIEmbeddings } from "@langchain/openai";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 
@@ -62,9 +63,9 @@ async function loadUserVectorStore(userId, storeName) {
 
   let files = readdirSync(filePath);
 
-  for (const path of files) {
+  for (const _path of files) {
 
-    await loadFile(filePath + path, (storePath + path).split(".")[0]).then((store) => {
+    await loadFile(filePath + _path, storePath + _path).then((store) => {
       allStores.push(store);
     });
   }
@@ -93,6 +94,8 @@ function cacheVectorStore(userID, vectorStore) {
 }
 
 async function loadFile(filePath, storePath) {
+  console.log(filePath)
+  console.log(storePath)
   const extension = filePath.slice(filePath.lastIndexOf("."));
   const loaderFn = loaders[extension];
   if (!loaderFn) {
@@ -122,7 +125,7 @@ export async function requestChat(question, chatlog, userID) {
   let globalVectorStore = getCachedVectorStore(userID);
 
   if(!globalVectorStore) {
-    globalVectorStore = await loadUserVectorStore(userID, "IV1350");
+    globalVectorStore = await loadUserVectorStore(userID, "II1307");
     cacheVectorStore(userID, globalVectorStore);
   }
 
@@ -133,11 +136,13 @@ export async function requestChat(question, chatlog, userID) {
     retriever
   })
 
+  console.log("Ready!")
+
   try {
     const response = await retrievalChain.invoke({
       input : question
     })
-    
+
     return response.answer; 
   } catch(error) {
     console.error('Error during chat request:', error);
