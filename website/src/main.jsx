@@ -14,9 +14,6 @@ import courses from './data/courses.json';
 import CourseWrapper from './pages/CourseWrapper.jsx';
 import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the AssignmentWrapper component
 import Schedule from './pages/Schedule.jsx';
-import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
-import { useMemo } from "react";
-import UseFetchJson from "./pages/components/UseFetchJson";
 import { createBrowserRouter, RouterProvider, Outlet, Link, } from 'react-router-dom';
 
 // Layout component to include Navbar

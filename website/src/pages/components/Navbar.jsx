@@ -44,10 +44,6 @@ const Navbar = () => {
                     <li className="hover:text-gray-300">
                         <Link to="/Schedule">Schedule</Link>
                     </li>
-                    <li 
-                        className="hover:text-gray-300">
-                        <Link to="/overview">Overview</Link>
-                    </li>
                 </ul>
             </div>
         </nav>
