@@ -29,16 +29,18 @@ function getAssIDs(userID, courseCode){
 }
 
 router.post("/", (req, res) => {
-  console.log("Received Data:", req);
+  console.log("Received Data:", req.body);
   const users = readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessionToken == req.body.userSessionID);
+  let user = users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
+    console.log("User not found:", req.body.userID);
     return res.status(404).json({ message: "User not found" });
   }
   else {
     // Read the user's assignment
     const asses = readAssignments(user.id);
+    console.log("Assignments:", asses);
     return res.status(200).json(asses);
   }
 });
@@ -64,6 +66,7 @@ router.post("/:variable", (req, res) => {
           const asses = readAssignments(user.id);
           response.push(asses.find((ass) => ass.id == assignmentID));
         });
+
         return res.status(200).json(response);
       } catch{
           return res.status(400).json({message: "Assignment id not found"});

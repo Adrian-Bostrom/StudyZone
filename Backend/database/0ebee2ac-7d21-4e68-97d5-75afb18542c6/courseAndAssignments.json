@@ -1,0 +1,260 @@
+[
+  {
+    "courseName": "II1305 VT25 Project in Information and Communication Technology (TCOMK+CINTE)",
+    "courseCode": "II1305",
+    "url": "https://canvas.kth.se/courses/53175",
+    "email": "marcus.soderlund04@gmail.com",
+    "assignments": [
+      {
+        "title": "Name and description",
+        "id": "327445",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327445",
+        "dueDate": "Thursday by 12:00",
+        "content": "Scrum Masters, submit the product type, the product name, and the product description.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the submission, please see the page Expo: Instructions for Teams \n\nEdit 2025-05-07: if you are satisfied with the name and description on the page Current and Finished Projects, please just submit the words \"all OK\"."
+      },
+      {
+        "title": "Product image or icon",
+        "id": "327446",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327446",
+        "dueDate": "Thursday by 12:00",
+        "content": "Scrum Masters, submit an image file showing the product.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the image, please see the page Expo: Instructions for Teams"
+      },
+      {
+        "title": "Link to expo-page for the team",
+        "id": "327444",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327444",
+        "dueDate": "Thursday by 12:00",
+        "content": "Scrum Masters, please submit the link to the specific web page your team will use to present the product on the online exhibition.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the expo-page, please see the page Expo: Instructions for Teams"
+      },
+      {
+        "title": "Product poster",
+        "id": "327447",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327447",
+        "dueDate": "Thursday by 12:00",
+        "content": "Scrum Masters, submit a poster for the product.\n\nYou can delegate this submission to any team member.\n\nFor instructions regarding the image, please see the page Expo: Instructions for Teams."
+      },
+      {
+        "title": "Attendance during sprints",
+        "id": "327439",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327439",
+        "content": "Teachers use this assignment to keep track of your attendance during the project weeks."
+      },
+      {
+        "title": "1. Beginning with Scrum",
+        "id": "63737",
+        "link": "https://canvas.kth.se/courses/53175/quizzes/63737",
+        "dueDate": "26 Mar at 12:30",
+        "content": "Answer all questions in the best way you can.\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 7 points (out of 8) to pass this quiz."
+      },
+      {
+        "title": "2. Sprint planning",
+        "id": "63738",
+        "link": "https://canvas.kth.se/courses/53175/quizzes/63738",
+        "dueDate": "26 Mar at 12:30",
+        "content": "Scenario: You and your team are having your first sprint planning meeting. You are presented with some good or bad choices. Try to select the good choices, of course!\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 7 points (out of 8) to pass this quiz."
+      },
+      {
+        "title": "3. The sprint",
+        "id": "63742",
+        "link": "https://canvas.kth.se/courses/53175/quizzes/63742",
+        "dueDate": "26 Mar at 12:30",
+        "content": "Scenario: You and your team are running your first sprint. You are presented with some good and bad choices. Try to select the good choices, of course!\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 7 points (out of 8) to pass this quiz."
+      },
+      {
+        "title": "4. End of the sprint",
+        "id": "63741",
+        "link": "https://canvas.kth.se/courses/53175/quizzes/63741",
+        "dueDate": "26 Mar at 12:30",
+        "content": "Scenario: You and your team have just had your first Sprint Demo (also known as a Sprint Review). You are presented with some good or bad choices. Try to select the good choices, of course!\n\nSometimes, an answer can be more or less correct, but this kind of quiz is too simple to handle that. So if you don't get it right, please have a look at the comments and try again. Discuss your choices with your team, and with the teachers.\n\nYou need at least 5 points (out of 6) to pass this quiz."
+      },
+      {
+        "title": "5. Git version control (basic)",
+        "id": "63739",
+        "link": "https://canvas.kth.se/courses/53175/quizzes/63739",
+        "dueDate": "26 Mar at 12:30",
+        "content": "For each question, type the correct command.\n\nYou need at least 7 points (out of 8) to pass this quiz."
+      },
+      {
+        "title": "6. Git version control (team)",
+        "id": "63740",
+        "link": "https://canvas.kth.se/courses/53175/quizzes/63740",
+        "dueDate": "26 Mar at 12:30",
+        "content": "For each question, type the correct answer or command. Some questions are multiple-choice.\n\nYou need at least 7 points (out of 8) to pass this quiz."
+      },
+      {
+        "title": "Feedback from the expo",
+        "id": "327440",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327440",
+        "dueDate": "20 May at 16:30",
+        "content": "No description"
+      },
+      {
+        "title": "Individual Project Reflection",
+        "id": "327441",
+        "link": "https://canvas.kth.se/courses/53175/assignments/327441",
+        "dueDate": "29 May at 16:30",
+        "content": "No description"
+      }
+    ]
+  },
+  {
+    "courseName": "SF1610 VT25 Diskret matematik (CINTE1)",
+    "courseCode": "SF1610",
+    "url": "https://canvas.kth.se/courses/53078",
+    "email": "marcus.soderlund04@gmail.com",
+    "assignments": [
+      {
+        "title": "Seminarium 1",
+        "id": "333429",
+        "link": "https://canvas.kth.se/courses/53078/assignments/333429",
+        "content": "No additional details were added for this assignment."
+      },
+      {
+        "title": "Seminarium 2",
+        "id": "333570",
+        "link": "https://canvas.kth.se/courses/53078/assignments/333570",
+        "content": "No additional details were added for this assignment."
+      },
+      {
+        "title": "Seminarium 3",
+        "id": "334253",
+        "link": "https://canvas.kth.se/courses/53078/assignments/334253",
+        "content": "No additional details were added for this assignment."
+      }
+    ]
+  },
+  {
+    "courseName": "CINTE Programrum för Civilingenjörsutbildning i informationsteknik, 300.0 hp",
+    "courseCode": "CINTE",
+    "url": "https://canvas.kth.se/courses/44330",
+    "email": "marcus.soderlund04@gmail.com",
+    "assignments": [
+      {
+        "title": "Informationspass för årskurs 1: Ny på programmet",
+        "id": "248611",
+        "link": "https://canvas.kth.se/courses/44330/assignments/248611",
+        "dueDate": "Inget inlämningsdatum",
+        "content": "Välkommen på informationspass om att vara ny på programmet!\n\nTid: Tisdag 22 augusti kl.13:00\n\nPlats: Sal A, Kistagången 16, vån 2"
+      },
+      {
+        "title": "Kursregistrera dig i Ladok (Period 1)",
+        "id": "248615",
+        "link": "https://canvas.kth.se/courses/44330/assignments/248615",
+        "dueDate": "Inget inlämningsdatum",
+        "content": "Ingen ytterligare information lades till i den här uppgiften."
+      },
+      {
+        "title": "Tentaanmäl dig i Ladok (period 1)",
+        "id": "248620",
+        "link": "https://canvas.kth.se/courses/44330/assignments/248620",
+        "dueDate": "Inget inlämningsdatum",
+        "content": "Ingen ytterligare information lades till i den här uppgiften."
+      },
+      {
+        "title": "Anmäl dig till höstens kurser via antagning.se",
+        "id": "248602",
+        "link": "https://canvas.kth.se/courses/44330/assignments/248602",
+        "dueDate": "15 maj 2023 av 23.59",
+        "content": "Anmälan till kurs inom program (AKP)\n\nSom programstudent på KTH ska du anmäla dig till de kurser inom ditt program som du ska följa under nästkommande termin.\n\nAnmälan kommer att vara öppen 1-15 maj på antagning.se\nLinks to an external site.\n.\n\nVilka kurser som ingår i ditt program ser du i din utbildningsplan\n\nDär hittar du även anmälningskoder och mer information om kurserna, såsom antal platser på kursen, undervisningsspråk och studielokalisering. Du ansvarar själv för att kontrollera att du söker de kurser som finns i ditt programs utbildningsplan och att du uppfyller behörighetskraven.\n\nDu kan anmäla dig till högst 8 kurser och bli antagen till kurser som totalt uppgår till 35 hp (inom programmet).\n\nSå gör du en anmälan\n\nSå anmäler du dig till kurser inom ditt program via antagning.se\n\nFullt sekretesskydd\n\nOm du av UHR har fått fullt sekretesskydd för dina personuppgifter på antagning.se ska du inte följa instruktionen ovan även om du uppmanats att göra det. Du ska istället anmäla dig enligt rutiner som du hittar på antagning.se: Fullt skydd\nLinks to an external site.\n. Där hittar du instruktioner för hur du ska gå tillväga för att anmäla dig, samt kontaktuppgifter till UHR."
+      },
+      {
+        "title": "Anmäl dig till vårens kurser via antagning.se",
+        "id": "248603",
+        "link": "https://canvas.kth.se/courses/44330/assignments/248603",
+        "dueDate": "15 nov 2024 av 23.59",
+        "content": "Anmälan till kurser inom programmet (AKP)\n\nSom programstudent på KTH ska du anmäla dig till de kurser inom ditt program som du ska följa under nästkommande termin.\n\nAnmälan kommer att vara öppen 1-15 november 2024 på antagning.se\nLinks to an external site.\n\nVilka kurser som ingår i ditt program ser du i din utbildningsplan\n\nDär hittar du även anmälningskoder och mer information om kurserna, såsom antal platser på kursen, undervisningsspråk och studielokalisering. Du ansvarar själv för att kontrollera att du söker de kurser som finns i ditt programs utbildningsplan och att du uppfyller behörighetskraven.\n\nDu kan anmäla dig till högst 8 kurser och bli antagen till kurser som totalt uppgår till 35 hp (inom programmet).\n\nSå gör du en anmälan\n\nhttps://www.kth.se/student/studier/val/sa-anmaler-du-dig-till-kurser-inom-ditt-program-1.1098736\n\nOm du av UHR har fått fullt sekretesskydd för dina personuppgifter på antagning.se ska du inte följa instruktionen ovan även om du uppmanats att göra det. Du ska istället anmäla dig enligt rutiner som du hittar på antagning.se: Fullt skydd\nLinks to an external site."
+      }
+    ]
+  },
+  {
+    "courseName": "II1307 VT25 Aktiv karriärstart (CINTE)",
+    "courseCode": "II1307",
+    "url": "https://canvas.kth.se/courses/52615",
+    "email": "marcus.soderlund04@gmail.com",
+    "assignments": [
+      {
+        "title": "Kommunikation i kursen sker via meddelanden i Canvas (inte via mail)",
+        "id": "kommunikation-i-kursen-sker-via-meddelanden-i-canvas-inte-via-mail?module_item_id=1004564",
+        "link": "https://canvas.kth.se/courses/52615/pages/kommunikation-i-kursen-sker-via-meddelanden-i-canvas-inte-via-mail?module_item_id=1004564",
+        "content": "No description"
+      },
+      {
+        "title": "Välkommen till kursen",
+        "id": "valkommen-till-kursen?module_item_id=1006647",
+        "link": "https://canvas.kth.se/courses/52615/pages/valkommen-till-kursen?module_item_id=1006647",
+        "content": "No description"
+      },
+      {
+        "title": "Aktiv karriärstart - Intro",
+        "id": "aktiv-karriarstart-intro?module_item_id=1004566",
+        "link": "https://canvas.kth.se/courses/52615/pages/aktiv-karriarstart-intro?module_item_id=1004566",
+        "content": "No description"
+      },
+      {
+        "title": "VIKTIGT: Kan eventuellt finnas problem med åtkomst till tidigare inlämningar för att kunna se äldre feedback",
+        "id": "viktigt-kan-eventuellt-finnas-problem-med-atkomst-till-tidigare-inlamningar-for-att-kunna-se-aldre-feedback?module_item_id=1036677",
+        "link": "https://canvas.kth.se/courses/52615/pages/viktigt-kan-eventuellt-finnas-problem-med-atkomst-till-tidigare-inlamningar-for-att-kunna-se-aldre-feedback?module_item_id=1036677",
+        "content": "No description"
+      },
+      {
+        "title": "Aktiv karriärstart – Självinventering",
+        "id": "319611?module_item_id=1004567",
+        "link": "https://canvas.kth.se/courses/52615/assignments/319611?module_item_id=1004567",
+        "dueDate": "24 Jan by 19:00",
+        "content": "Om uppgiften\n\nI den här uppgiften ska du arbeta med en självinventering men också kamratbedömningar av era brev och CV. Det är en uppgift du skall vara beredd på att du behöver ägna en hel del eftertanke och omsorg om - eller uttryckt på annat sätt det är inget man gör på en eftermiddag.\n\nFör att kunna skriva bra ansökningsbrev, skapa ett bra CV eller prestera bra i en anställningsintervju behöver man känna sig själv. Det är också viktigt att man är ärlig i de här sammanhangen. För en arbetsgivare är det naturligtvis avgörande att den man tror sig anställa faktiskt är den man anställer. Det är inte helt ovanligt att sökanden överdriver i sina ansökningsbrev och CV:n - något man naturligtvis bör undvika. Att vara medveten om vad som kan uppfattas som varningssignaler för en arbetsgivare och kunna undvika dem är bra att känna till.\n\nFör en arbetsgivare är det en stor kostnad att anställa någon. En ingenjör kostar minst en miljon kronor om året att ha anställd. Det är heller inte så lätt att säga upp någon för bristande kompetens, varken rent arbetsrättsligt eller för att det kan orsaka oro i organisationen.\n\nEn attraktiv tjänst kan locka många sökanden.  Att man kan få in hundratals ansökningar är inte ovanligt. I anställningsprocessen så granskar man därför oftast ansökningarna översiktligt och väljer ut ett antal som står ut i mängden och verkar matcha den profil man söker bra. Ansökningar som inte matchar profilen eller som verkar vara överdrivna/skrytsamma rensas normalt ut direkt.\n\nNästa steg är att granska de utvalda ansökningarna mer noga - bland annat för att upptäcka eventuella lögner/överdrifter (som man också kan leta efter i intervjusituationer).\n\nLäs igenom: http://www.bbc.com/capital/story/20170411-how-to-catch-the-lying-job-applicants-and-what-to-do-next\nLinks to an external site.\n\nDe vars ansökningar passerar granskningen kallas sedan ofta (ibland kallar man bara någon/några av de man tycker är bäst och håller resten som en reserv)  till en eller flera intervjuer. För nyutexaminerade ingenjörer, som ännu inte hunnit skaffa sig en solid uppsättning relevanta referenser, väntar ofta också praktiska prov som en del av anställningsprocessen.\n\nLäs igenom: https://cacm.acm.org/blogs/blog-cacm/242740-talented-programmers-dont-tolerate-chaos/fulltext\nLinks to an external site.\n\n \n\n\"I have an interview with Google soon and the content they gave me to study is literally the same as this course [ID1020].\"\n\n\nKommentar i kursenkät ht19\n\n \n\nEn slutsats man kan dra av det här är att det första steget mot att klara sig bra i anställningsprocesser är att lära känna sig själv, vad man vill, vad man är bra på, vilka brister man har och förstå hur andra uppfattar en.\n\nDet första momentet i kursen är därför att du jobbar igenom och lämnar in en självinventering där du också hittar tips på hur du skriver ditt CV och anställningsbrev. I självinventeringen finns uppgifter där ni studenter ska hjälpa varandra att göra en första granskning av era CV och ansökningsbrev. Det ni ska granska där och skriva om i självinventeringen är era utkast till de CV och brev ni skriver i kursen. Era CV och brev skall vara kompletta men inte nödvändigtvis helt färdig polerade.\n\nOBS! Du måste göra samtliga uppgifter i självinventeringen på ett seriöst sätt för att bli godkänd.\n\nTill exempel innebär det att det för uppgifter där du skall markera saker ska det finnas markeringar (eller en lista), ska du ange ett antal saker där du skall förtydliga dig krävs minst tre svar. \nFör intervjuerna som handlar om hur andra uppfattar dig så accepterar vi inte mer än en intervju med närstående/barndomsvänner. De personerna känner dig i ett sammanhang men för uppgiften handlar det mer om hur du uppfattas i sammanhanget av att vara ingenjör/studera till ingenjör.\nFör intervjun med en ingenjör så gäller samma sak att den inte ska vara utförd med någon närstående (som du ändå vet vad den gör på jobbet). Personen skall ha ett jobb och bakgrund inom området du utbildar dig för. Du ska ange namn, utbildningsbakgrund, tjänst och företag för personen.\nFör uppgifterna som handlar om granskning av CV, brev och rollspelsövningarna om anställningsintervju så ska du samarbeta med studenter som läser kursen samtidigt som du gör det. Du ska ange i din inlämning vilka personer du samarbetat med för respektive uppgift.\n\nInlämningen görs som pdf."
+      },
+      {
+        "title": "Aktiv karriärstart - Du i rollen som arbetsgivare",
+        "id": "319607?module_item_id=1004568",
+        "link": "https://canvas.kth.se/courses/52615/assignments/319607?module_item_id=1004568",
+        "dueDate": "31 Jan by 19:00",
+        "content": "Om uppgiften\n\nFör att få till en lyckad matchning där både den arbetssökande och arbetgivaren blir nöjda så är det viktigt att förstå motparten. Därför bör du när du söker ett jobb försöka sätta dig in i hur arbetsgivaren ser på vem de söker och vad hen ska ha för egenskaper och kvalifikationer.\n\nDet är viktigt att du klarar att bortse från vad du svarat i din självinventering så att du inte ser det som svaren på frågorna nedan.  Istället måste du utan förutfattade meningar utgå från vad arbetsgivarperspektivet och vad en arbetsgivare söker. Om du inte gör det kommer du heller inte kunna se vad du eventuellt kan behöva jobba med själv under din tid på utbildningen för att öka dina chanser att få ditt drömjobb.\n\nTänk igenom följande frågor och lämna in en pdf med det du kom fram till. Din pdf ska innehålla följande:\n\nKopia på annonsen du tänker skriva dina ansökningshandlingar för\nSvar på frågorna 1-7 (se till att det är tydligt vilken fråga svaret avser)\n\nUppgiften bygger på en typ av rollspel (som du kan göra själv, dvs. inte behöver göras i grupp)  där du ska tänka att det är du som äger/ansvarar för det företag eller den del av företaget som har utlyst tjänsten du tänker utforma dina ansökningshandlingar för i den här kursen.\n\nDet här är en uppgift där du gärna får diskutera frågorna med dina kurskamrater - men du måste utforma svaren på frågorna som du lämnar in själv! (dvs. ingen kopiering/plagiering)\n\nFrågor att reflektera kring\n\n1) Att anställa någon är att ta en ekonomisk risk\n\nVad krävs för att ekonomin i att anställa någon ska fungera? Prova att göra en enkel uppskattning av kostnaden för att anställa en person med den lön du skulle vilja ha för att ta tjänsten (se till att du har underlag som kan visa att det du begär är en rimlig lön). Beräkna kostnaden så här:\n\nÅrskostanden för att anställa personen är:  Årslönekostnad + Overhead\nÅrslönekostnad: Månadslön * 12 * 1.6    (faktorn 1.6 är kostnader för sociala avgifter t.ex. pension, som företaget betalar)\nOverhead:  Årslönekostnad* 0.4 (Overheaden inkluderar bland annat: lokalkostnad för personens kontor, dator, telefon, annan utrustning som krävs för jobbet som t.ex. programvarulicenser etc., andel av chefers löner, ekonomiavdelning, HR-avdelning, säljavdelning, m.m.) \n\nAntag att du arbetar som konsult och har 70% beläggning - Hur mycket måste företaget du arbetar fakturera kunden per timma för din arbetstid? (Tips: tag först reda på hur många arbestimmar man brukar räkna att en årsarbetstid är)\n\nRedovisa: 1) den månadslön du utgår från, 2) vad den totala kostnaden blir som arbetsgivaren måste täcka (Årskostnaden) och 3) vad den fakturerade timkostnaden för din arbetstid skulle bli om du arbetar som konsult. Visa dina beräkningar i detalj - annars är det svårt att kunna ge dig tips om vad du kan behöva ändra om något blivit fel.\n\n2) Personliga egenskaper hos den arbetssökande\n\na) Vilka personliga egenskaper vill du som arbetsgivare att den du anställer ska ha? Lista de fem viktigaste egenskaperna och ge en kort motivering!\nb) Vilka personliga egenskaper vill du som arbetgivare inte att den anställde ska ha? Lista minst tre men max fem \"dealbreakers\" och ge en kort motivering!\n\n3) Personliga kunskaper och färdigheter hos den arbetssökande\n\na) Vilka generella kunskaper vill du som arbetgivare att den sökande ska ha? Lista de fem viktigaste generella kunskaperna och ge en kort motivering!\nb) Vilka specifika kunskaper vill du som arbetsgivare att den sökande skall ha? Lista de fem viktigaste specifika kunskaperna och ge en kort motivering!\n\n4) Drivkrafter och motivation\n\na) Vilka drivkrafter och motivation vill du se hos den sökande? Lista de tre viktigaste drivkrafterna du vill se och ge en kort motivering!\nb) Finns det drivkrafter och motivation du helst inte vill se? Lista tre saker du inte vill se och ge en kort motivering!\n\n5) Bakgrund och erfarenheter hos den arbetssökande\n\na) Vad skulle du vilja se som utbildningsbakgrund och arbetslivserfarenhet hos den sökande? Beskriv vad du vill se!\nb) Finns det saker som du inte skulle vilja se i den sökandes bakgrund? Beskriv vad du inte vill se!\nc) Skulle du kunna tänka dig att anställa någon som verkar ha fördomar eller som uppfattar sig utsatt för fördomar? Beskriv hur du tänker! (Mina tankar om fördomar och hur man kan tänka kring dem hittar du längst ner - tjuvkika inte!)\n\n6) Ansökningshandlingar och intervju\n\na) Vad, förutom det rena faktainnehållet, kan ha en positiv inverkan på hur du skulle uppfatta ansökningshandligarna? Beskriv och ge en kort motivering!\nb) Vad, förutom det rena faktainnehållet, kan ha en negativ inverkan på hur du skulle uppfatta ansökningshandligarna? Beskriv och ge en kort motivering!\nc) Vad i det som händer under en anställningsinterju skulle få dig att uppfatta den arbetssökande mer positivt? Beskriv och ge en kort motivering!\nd) Vad i det som händer under en anställningsinterju skulle få dig att uppfatta den arbetssökande mer negativt? Beskriv och ge en kort motivering!\n\n7) Är det något du tänker annorlunda på eller skulle vilja ändra i din självinventering när du tänkt på anställningsprocessen ur ett arbetsgivareperspektiv?\n\nÄr det något du tänker annorlunda på eller skulle gjort annorlunda i uppgiften om Självinventering när du försökt se anställningsprocessen mer ur ett arbetsgivareperspektiv? Om så vad? Beskriv och förklara varför!"
+      },
+      {
+        "title": "Om brev och CV",
+        "id": "om-brev-och-cv?module_item_id=1006211",
+        "link": "https://canvas.kth.se/courses/52615/pages/om-brev-och-cv?module_item_id=1006211",
+        "content": "No description"
+      },
+      {
+        "title": "Saker du ska undvika och saker du bör reflektera över i dina ansöknings­handlingar",
+        "id": "saker-du-ska-undvika-och-saker-du-bor-reflektera-over-i-dina-ansokningshandlingar?module_item_id=1004868",
+        "link": "https://canvas.kth.se/courses/52615/pages/saker-du-ska-undvika-och-saker-du-bor-reflektera-over-i-dina-ansokningshandlingar?module_item_id=1004868",
+        "content": "No description"
+      },
+      {
+        "title": "Aktiv karriärstart – CV",
+        "id": "319609?module_item_id=1004569",
+        "link": "https://canvas.kth.se/courses/52615/assignments/319609?module_item_id=1004569",
+        "dueDate": "14 Feb by 19:00",
+        "content": "Om uppgiften\n\nOBS! Gör klart/lämna in självinventeringen först innan du lämnar in ditt brev och CV - självinventeringen ska ligga till grund för brev och CV! I Självinventeringen finns också uppgifter där ni ska kamratgranska varandras brev och CV.\nDu ska också ha läst igenom alla instruktioner för uppgiften. Genom att lämna in uppgiften intygar du också att du läst dem.\n\nI det här skedet av kursen skall du skriva ett ansökningsbrev (ansökningsbrevet lämnar du in i en annan inlämning) och CV  riktat mot en tjänst som kräver att man läst minst två år på en utbildning liknande det program du läser på KTH.\n\nSteg ett är att du hittar en annons på webben för en sådan tjänst som ligger inom området för din utbildning som du skulle kunna tänka dig att söka. Skriv sedan ett ansökningsbrev och CV utformat för att söka tjänsten. Utgå från vad du gjort i din självinventering och de tips för hur du utformar ditt CV du hittar i övningshäftet. Det finns många exempel på gratis mallar för ditt CV och ditt brev på Internet men också hos Arbetsförmedlingen som du kan använda för inspiration.\n\nI den här inlämningen lämnar du in ditt CV och i filen skall finnas en URL till annonsen och en kopia av annonsen (för säkerhets skull om den hinner tas bort innan ditt ansökningsbrev granskas)\n\nKort om utformningen av ditt CV - personlig introduktion i ditt CV eller inte\n\nBeroende på om arbetgivaren vill ha ansökningar som innehåller både ett personligt brev och ett CV eller bara ett CV så kan man utforma sitt CV på lite olika sätt. Anledningen till att en arbetsgivare endast kan vilja ha in ett CV (och inget brev) i en ansökan är att när man söker mer seniora personer så är normalt de erfarenheter man skaffat sig det absolut viktigaste att bedöma. Därför rationaliserar man ibland bort det personliga brevet. I så fall har man ofta en kort personlig introduktion i sitt CV. Så är till exempel de CV-mallar EU använder utformade.\n\nMen om man har en ansökan som består av både brev och CV blir det lite tårta på tårta att ha en personlig introduktion både i brevet och sitt CV. Därför ska du inte ha en personlig introduktion i ditt CV i den här uppgiften du ska ha en kort introduktion om vem du är som person i ditt brev.\n\nIdag är det vanligast att man skickar in sin ansökan elektroniskt. Därför kan det vara lockande att skriva alla länkar (E-portfölj, utbildningsplan, linkedIn mfl.) som inbäddade länkar eftersom det kan upplevas som snyggare. Men man ska vara medveten om att man i många fall skriver ut intressanta ansökningar på papper för att lättare kunna göra anteckningar, dela med kollegor etc. och då är det en fördel att man skrivit ut länkarna.\n\nKomplett postadress - varför ska man ha det? Skickar man in en ansökan i fysisk form kan den användas för att få ansökan returnerad om man inte blir erbjuden tjänsten. För en elektronisk ansökan är det inte relevant, men även i det fallet kan postadressen vara relevant. Ofta gör man andra typer av bakgrundskontroller och då är en komplett postadress relevant för att man ska kunna identifiera rätt person.\n\nAtt tänka på (för godkänt):\n\nUtforma ditt CV med tanke på vad mottagaren behöver/vill se i ditt CV!\n\nUtforma ditt CV så det blir tydligt varför just du är kvalificerad för tjänsten (vilken utbildning/erfarenhet har du, vad kan du bidra med - tänk på det som nämns i artikeln från ACM och från uppgiften om självinventering)\nHåll ditt CV lagom långt - dvs 1-2 A4 sidor\nAllt du har med i ditt CV bör du kunna styrka\nOrganisera ditt CV så att det som är mest relevant för tjänsten du söker är enkelt att hitta - dvs. att det ligger tidigt i ditt CV och at du skriver i omvänd kronologisk ordning med det senaste mest relevanta överst.\nLägg dina personuppgifter och kontaktuppgifter först\nFundera på hur du uttrycker dina styrkor utan att det uppfattas som överdrivet eller skrytsamt\nFundera på hur långt tillbaka i ditt liv det är relevant att gå för den tjänst du skriver ditt CV för\nLämna inga luckor i den tidsrymd du täcker i ditt CV utan en förklaring\nUndvik floskler och överdrifter!\nSe till att ditt CV är välformulerat, korrekt och rättstavat.\nFormattera och ge ditt CV:t en prydlig, lättnavigerad layout\n(en LinkedIn profil är inte samma sak som ett CV eller en E-portfolio - men är något som är riktigt bra att ha)\nTänk på att läsaren antagligen inte har full kunskap om vad ditt program/utbildning innehåller eller vad en kurskod innebär. Hjälp dem genom att lägga in en länk/adress (om man skriver ut ditt CV på papper) till utbildningsplanen på KTHs webb.\nLägg in länkar/adresser till din E-portfölj och din LinkedIn-profil\nLämna in en kopia av annonsen du skriver ditt CV till (antingen som en separat fil (man kan ladda upp flera filer på en gång)- eller som en del av CV filen) Eftersom du ska utforma ditt CV och brev specifikt för tjänsten du söker kan jag inte bedöma och ge dig feedback på dina inlämningar om du inte lämnar in en kopia av annonsen med både ditt brev och ditt CV."
+      },
+      {
+        "title": "Aktiv karriärstart – Ansökningsbrev",
+        "id": "319608?module_item_id=1004570",
+        "link": "https://canvas.kth.se/courses/52615/assignments/319608?module_item_id=1004570",
+        "dueDate": "14 Feb by 19:00",
+        "content": "Om uppgiften\n\nOBS! Gör klart/lämna in självinventeringen först innan du lämnar in ditt brev och CV - självinventeringen ska ligga till grund för brev och CV! I Självinventeringen finns också uppgifter där ni ska kamratgranska varandras brev och CV.\n\nDu ska också ha läst igenom alla instruktioner för uppgiften. Genom att lämna in uppgiften intygar du också att du läst dem.\n\nFör den här inlämningen skall du skriva ett ansökningsbrev och CV (CV:t lämnar du in i en annan inlämning) riktat mot en tjänst som kräver att man läst minst två år på en utbildning liknande det program du läser på KTH.\n\nSteg ett är att du hittar en annons på webben för en sådan tjänst som ligger inom områdetför din utbildning som du skulle kunna tänka dig att söka. Skriv sedan ett ansökningsbrev och CV utformat för att söka tjänsten. Utgå från vad du gjort i din självinventering och de tips för hur du utformar brevet du hittar i övningshäftet. \n\nI den här inlämningen lämnar du in\n\nditt ansökningsbrev\nen URL till annonsen och en kopia av annonsen (för säkerhets skull om den hinner tas bort innan ditt ansökningsbrev granskas)\n \nAtt tänka på (för godkänt):\n\nDet svåraste i den här uppgiften och i ditt CV brukar vara att tänka på att skriva för mottagaren - vad är mottagaren intresserad av att få reda på och vad kan man förutsätta att mottagaren vet (t.e.x. vet motagaren kanske inte allt om det du vet).\n\nBörja brevet med att presentera dig och tala om vilken tjänst du söker (företag har ofta flera tjänster öppna samtidigt)\nVisa tydligt i brevet varför du är intresserad av just den här tjänsten och det här företaget. (du behöver antagligen ta reda på en del om företaget för att kunna visa det här i ditt brev - och fundera på det som nämns i artikeln från BBC i självinventeringsuppgiften när du utformar brevet)\nVisa tydligt varför just du är kvalificerad för tjänsten (vilken utbildning/erfarenhet har du, vad kan du bidra med)\nHåll brevet lagom kort - dvs c:a en halv A4 sida men absolut inte mer än en A4 sida\nHåll dig till sådant som är relevant för tjänsten i brevet - men låt din person skina igenom så man får en liten inblick i vem du är som person\nDet du skriver i brevet bör du, med få undantag, kunna styrka\nFundera på hur du uttrycker dina styrkor utan att det uppfattas som överdrivet eller skrytsamt (vi är väl alla drivna, professionella, ansvarstagande super-utvecklare!?)\nSvagheter behöver du inte lyfta fram - om de inte är uppenbara och skulle inverka på hur du klarar att utföra tjänsten\nSe till att brevet är korrekt adresserat till den som ska ta emot det\nSe till att dina kontaktuppgifter finns på brevet\nLägg dina kontaktuppgifter högst upp till höger i brevhuvudet - det underlättar att hitta din ansökan om man söker efter den i en hög med brev\nAdressera brevet och lägg information om vilken tjänst du söker (företag har ofta mer en en tjänst utannonserad samtidigt) till vänster innan texten i ditt brev startar\nUnderteckna brevet och datera det med : ort, datum\nUndvik floskler, modeord och överdrifter!\nSe till att brevet är välformulerat, korrekt och rättstavat.\nFormattera brevet prydligt\nBaslayout för brev: Basic layout for letter.pdf"
+      },
+      {
+        "title": "Aktiv karriärstart – E-portfolio",
+        "id": "319610?module_item_id=1004571",
+        "link": "https://canvas.kth.se/courses/52615/assignments/319610?module_item_id=1004571",
+        "dueDate": "14 Feb by 19:00",
+        "content": "Om uppgiften\n\nSpeciellt om man går vidare i en ansökningsprocess vill arbetsgivaren ofta se vad man kan göra konkret. För det ändamålet är det bra att ha en E-portfolio. En E-portfolio är en sida/resurs på  webben som skall innehålla konkreta exempel på vad du gjort (dvs. för arbetsgivaren visar det konkret vad du kan förväntas prestera om du får tjänsten). En E-portolio kan t.ex. byggas upp i Social, github mfl. (En LinkedIn profil är normalt att betrakta som ett CV - dvs. inte en E-portfolio)\n\nNär du bygger upp den tänk på:\n\ndet ska vara enkelt att se vems E-portfolio man hittat till (skriv ut ditt namn och en kort bskrivning om vem du är)\natt den bör vara lätta att navigera i och förstå även för en utomstående (det är lätt att utgå från antagandet att läsaren också vet vad man själv vet om vad som finns i den -  det blir ofta fel)\nska innehålla sådant som är relevant för tjänsten\nska bara innehålla sådant man själv kan stå för\ninte innehålla sådant som andra har äganderätt till (och som då skulle kunna kopieras/spridas)\n\nDu bör också fundera på om du vill ha den helt publik eller om du vill skydda delar från åtkomst. Till exempel bör du inte ha lösningar till examinationsmoment i andra kurser publika då det kan utgöra \"otillbörligt samarbete\" att låta andra ta del av sådana lösningar för sin egen examination.\n\nProjektet du gör i åk2 P4 kan vara en bra startpunkt att bygga upp sin E-portfolio från.\n\nExempel på hur man kan använda/jobba med E-portfolios\n\nPå många universitet runt om i världen jobbar man aktivt med E-portfolios. I många fall är de betydligt mer avancerade än vad som krävs för att bli godkänd i den här kursen. I den här kursen så räcker det att skapa ett empbryo att bygga vidare på men som ändå innehåller allt som gör det till en E-portfolio. Ett bra exempel på hur man jobbar med E-portfolios och där man gör betydligt mer avancerade än vad den här kursen kräver hittar du här: https://www.youtube.com/watch?v=3n8UG3YOOFU\nLinks to an external site.\n\nInlämning\n\nLämna in en länk till din E-portfolio. Din E-portfolio skall för den här uppgiften vara publik - dvs. den skall gå att komma åt utan att man behöver ansluta sig till eller logga in i någon specifik tjänst för att kunna nå den.\n\nObs! En sida i LinkedIn är inte automatiskt en E-portfolio om den inte innehåller konkreta exempel på vad du gjort."
+      },
+      {
+        "title": "Återkoppling",
+        "id": "330189?module_item_id=1063958",
+        "link": "https://canvas.kth.se/courses/52615/assignments/330189?module_item_id=1063958",
+        "content": "Hej,\n\nAtt överhuvud taget få återkopplig på kurser är svårt. Att få bra återkoppling i form av att tillräckligt stor andel studenter som svarar på kursenkäter och som ger konstruktiv återkoppling är ännu svårare.  Så det här är ett litet försök att prova en ny väg. Men uppgiften är inte obligatorisk.\n\n(Du kommer som vanligt också få ett mail med en länk till den obligatoriska kursutvärdering som KTH automatiskt skickar ut - jag hoppas du orkar ta några minuter för att svara på den.)\n\nMen när du nu ändå besöker den här sidan så hoppas jag  jag att du också skriver lite om kursen här. Det behöver inte vara mycket alls. Bara att du skriver något ger mig värdefull information som visar om det här är en bättre (eller sämre) väg att nå er studenter. Att uppgiften inte är anonym kanske kan oroa - men det man skriver här kommer inte påverka min bedömning era examinationsmoment i kursen över huvud taget (ni har ju redan fått era moment bedömda...).\n\nFrågor som skulle vara värdefullt för mig om du vill svara på för att jag ska kunna utveckla kursen är: \n\nVad har varit bra?\nHur kan kursen förbättras?\nHar du läst de anslag (announcements) som jag skickat i kursen?\n\n/Robert"
+      },
+      {
+        "title": "Whoops... Looks like nothing is here!",
+        "id": "%7B%7B%20id%20%7D%7D",
+        "link": "https://canvas.kth.se/courses/52615/modules/items/%7B%7B%20id%20%7D%7D",
+        "content": "No description"
+      }
+    ]
+  }
+]

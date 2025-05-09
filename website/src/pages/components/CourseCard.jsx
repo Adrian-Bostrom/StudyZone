@@ -1,17 +1,13 @@
 import { useNavigate } from "react-router-dom";
 
 const CourseCard = ({ course, courseId }) => {
-  const navigate = useNavigate();
-
-  return (
-    <div 
-      onClick={() => navigate(`/courses/${courseId}`)} 
-      className="bg-white shadow-md rounded-lg p-4 m-4 w-40 cursor-pointer hover:shadow-lg transition-shadow duration-300"
-    >
-      <div className="w-full h-24 bg-blue-500 rounded-lg"></div>
-      <div className="mt-2 text-center font-bold text-gray-700">{course}</div>
-    </div>
-  );
+    const navigate = useNavigate();
+    return (
+      <box onClick={() => navigate(`/courses/${courseId}`)} 
+          className="bg-cyan-700 text-white p-4 rounded-lg shadow-lg w-full h-auto flex items-start justify-start hover:bg-gray-700 transition-colors">
+        <div>{course}</div>
+        </box>
+    )
 };
 
 CourseCard.defaultProps = {
