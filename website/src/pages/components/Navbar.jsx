@@ -1,16 +1,30 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
     const [isLoggedIn, setIsLoggedIn] = useState(localStorage.getItem('userID') != null);
+    const navigate = useNavigate();
 
     useEffect(() => {
-        const handleStorageChange = () => {
+        const handleAuthChange = () => {
             setIsLoggedIn(localStorage.getItem('userID') != null);
         };
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+
+        // Listen for changes to localStorage and custom login-success event
+        window.addEventListener('storage', handleAuthChange);
+
+        // Cleanup listeners on component unmount
+        return () => {
+            window.removeEventListener('storage', handleAuthChange);
+        };
     }, []);
+
+    const handleSignOut = () => {
+        localStorage.removeItem('userID');
+        setIsLoggedIn(false);
+        navigate('/login');
+    };
+
     return (
         <nav className="bg-gray-800 text-white p-4 h-20 flex items-center shadow-md font-thin">
             <div className="container mx-auto flex justify-between items-center">
@@ -24,10 +38,7 @@ const Navbar = () => {
                     {isLoggedIn ? (
                         <li
                             className="hover:text-gray-300 cursor-pointer"
-                            onClick={() => {
-                                localStorage.removeItem('userID');
-                                window.location.href = '/login';
-                            }}
+                            onClick={handleSignOut}
                         >
                             Sign Out
                         </li>
@@ -37,7 +48,7 @@ const Navbar = () => {
                         </li>
                     )}
                     <li className="hover:text-gray-300">
-                        <Link to="/Courses">Courses</Link>
+                        <Link to="/courses">Courses</Link>
                     </li>
                 </ul>
             </div>
