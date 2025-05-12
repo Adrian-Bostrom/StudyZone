@@ -10,7 +10,7 @@ const Overview = () => {
   const bodyData = useMemo(() => ({ userID }), [userID]);
   const navigate = useNavigate();
 
-  const { data: courses, error } = UseFetchJson('http://localhost:5000/courses', bodyData);
+  const { data: courses, error } = UseFetchJson('/courses', bodyData);
   console.log("Fetched courses:", courses);
 
   const handleCourseClick = (courseName) => {
