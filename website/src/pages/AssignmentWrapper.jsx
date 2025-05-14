@@ -7,11 +7,11 @@ import { useNavigate } from "react-router-dom";
 const AssignmentWrapper = () => {
   const navigate = useNavigate();
   const { courseCode, assignmentId } = useParams(); 
-  const userSessionID = localStorage.getItem('userID');
-  console.log(userSessionID);
+  const userID = localStorage.getItem('userID');
+  console.log(userID);
 
-  const bodyData = useMemo(() => ({ userSessionID }), [userSessionID]);
-  console.log(courseCode);
+  const bodyData = useMemo(() => ({ userID }), [userID]);
+  console.log("courseCode: ", courseCode);
 
   const { data: assignments, error, loading } = UseFetchJson(`http://localhost:5000/assignment/${courseCode}`, bodyData);
   console.log("Assignments:", assignments);

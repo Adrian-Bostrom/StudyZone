@@ -13,7 +13,7 @@ router.post("/", async (req, res) => {
     try {
         const user = await addUser(username, password, email); // Call addUser
         const ret = {
-            userID: user.sessionToken, // Return the sessiontoken
+            userID: user.sessionToken, // Return the sessionToken
         };
         const __dirname = path.dirname(fileURLToPath(import.meta.url));
         const userFolderPath = path.join(__dirname,"..", "database", user.id);

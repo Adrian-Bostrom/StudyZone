@@ -18,7 +18,7 @@ router.post("/", async (req, res) => {
         }
         console.log("User logged in!", answer);
         const ret = {
-            userID: answer // Return the sessiontoken
+            userID: answer // Return the sessionToken
         };
         res.status(200).send(ret); // Send success response
     } catch (error) {
