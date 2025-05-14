@@ -20,7 +20,7 @@ Setup backend:
 
 [
 ********
-9. Go to the our website at:
+9. Go to our website at:
 10. Go to the login tab and press the "Signup".
 
 11. Signup with an account using gmail.
