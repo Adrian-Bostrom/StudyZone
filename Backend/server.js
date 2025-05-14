@@ -31,12 +31,7 @@ app.use("/store-user", storeRoute);
 app.use("/store-data", storeDataRoute);
 // Start the server depending if env variable is IP or localhost
 const PORT = 5000;
-if(!process.env.IP){
-  app.listen(PORT, () => {
-    console.log(`Server running on http://localhost:${PORT}`);
-  });
-}else{
-  app.listen(PORT, process.env.IP, () => {
-    console.log(`Server running on your ip at port ${PORT}`);
-  });
-}
+
+app.listen(PORT, "0.0.0.0", () => {
+  console.log(`Server running on your ip at port ${PORT}`);
+});

@@ -3,9 +3,11 @@ import { useState, useEffect } from "react";
 const UseFetchJson = (url, bodyData) => {
   const [data, setData] = useState(null);
   const [error, setError] = useState(null);
-
+  const backendPort = 5000;
+  const baseUrl = `http://studyzone.ddns.net:5000`;
+  const fullUrl = `${baseUrl}${url}`; // Combine base URL with the endpoint
   useEffect(() => {
-    fetch(url, {
+    fetch(fullUrl, {  
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -24,7 +26,7 @@ const UseFetchJson = (url, bodyData) => {
       .catch((err) => {
         setError(err.message);
       });
-  }, [url, bodyData]);
+  }, [fullUrl, bodyData]);
 
   return { data, error };
 };

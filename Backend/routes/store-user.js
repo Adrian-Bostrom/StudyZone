@@ -18,7 +18,6 @@ router.post("/", (req, res) => {
   
     if (existingUser) {
       console.log("User found:", existingUser.username);
-      // fs.writeFileSync(FILE_PATH, JSON.stringify(data, null, 2));
       res.status(200).send(`User ${existingUser.username} found.`);
     } else {
       console.log("User not found");

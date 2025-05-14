@@ -83,7 +83,7 @@ function Calendar() {
 
   const bodyData = useMemo(() => ({ userID }), [userID]);
 
-  const { data: assignments, error } = UseFetchJson('http://localhost:5000/assignment', bodyData);
+  const { data: assignments, error } = UseFetchJson('/assignment', bodyData);
   console.log(assignments);
 
   console.log("potatis");
