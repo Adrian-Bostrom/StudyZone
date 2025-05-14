@@ -71,7 +71,7 @@ function extractSpecificParts(userID) {
     });
 
     const assignmentsFilePath = path.join(courseFolder, "courseDeadlines.json"); //course deadline ids
-    const courseFilePath = path.join(userFolder, "course.json");
+    const courseFilePath = path.join(userFolder, "courses.json");
 
     fs.writeFileSync(assignmentsFilePath, JSON.stringify(id, null, 2));
     fs.writeFileSync(courseFilePath, JSON.stringify(coursesOnly, null, 2));
