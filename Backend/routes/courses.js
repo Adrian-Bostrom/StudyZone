@@ -44,7 +44,7 @@ router.post("/:variable", async (req, res) => {
   console.log("Received Data:", variable);
   const users = await readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessionToken == req.userID);
+  let user = users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
 
     return res.status(400).json({ message: "User not found" });

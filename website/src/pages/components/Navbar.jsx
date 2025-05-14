@@ -5,21 +5,21 @@ import logo from '../../assets/StudyZone-logo.png'; // Adjust the path to your P
 const Navbar = () => {
     
     const navigate = useNavigate();
-    const userID = localStorage.getItem("userID"); // Retrieve userID from local storage
-    const [isLoggedIn, setIsLoggedIn] = useState(userID != null);
+    //Retrieve userID from local storage.
+    const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("userID") !== null);
 
     useEffect(() => {
-        const handleStorageChange = () => {
-            setIsLoggedIn(userID != null);
-        };
+    const syncLoginStatus = () => {
+        setIsLoggedIn(localStorage.getItem("userID") !== null);
+    };
 
-        // Listen for changes to localStorage and custom login-success event
-        window.addEventListener('storage', handleStorageChange);
+    window.addEventListener('storage', syncLoginStatus);
+    window.addEventListener('login-success', syncLoginStatus);
 
-        // Cleanup listeners on component unmount
-        return () => {
-            window.removeEventListener('storage', handleStorageChange);
-        };
+    return () => {
+        window.removeEventListener('storage', syncLoginStatus);
+        window.removeEventListener('login-success', syncLoginStatus);
+    };
     }, []);
     const handleSignOut = () => {
         localStorage.removeItem('userID');

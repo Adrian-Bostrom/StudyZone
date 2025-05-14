@@ -54,6 +54,8 @@ const LoginCard = () => {
             const response = await axios.post(`${backendURL}/login`, hashedFormData);
             if (response.data.userID != null) {
                 localStorage.setItem('userID', response.data.userID);
+                // Event for sign-up correction.
+                window.dispatchEvent(new Event("login-success")); 
                 // Trigger custom login-success event
                 window.dispatchEvent(new Event('storage'));
                 navigate('/overview');

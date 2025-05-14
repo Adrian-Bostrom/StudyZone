@@ -157,3 +157,7 @@ function scrapeAssignmentDetails() {
   };
 }
 
+    await chrome.scripting.executeScript({
+      target: { tabId: tab.id },
+      files: ["./src/content.js"]})
+})

@@ -1,22 +1,23 @@
 import { ChatOpenAI } from '@langchain/openai'
 import { ChatPromptTemplate } from '@langchain/core/prompts'
 import { createStuffDocumentsChain } from "langchain/chains/combine_documents";
-import { MultiFileLoader } from "langchain/document_loaders/fs/multi_file";
 
 import { TextLoader } from "langchain/document_loaders/fs/text";
 import { PDFLoader } from "@langchain/community/document_loaders/fs/pdf";
 
 import { RecursiveCharacterTextSplitter } from "langchain/text_splitter";
 
+import path from 'path';
 import { OpenAIEmbeddings } from "@langchain/openai";
-import { MemoryVectorStore } from "langchain/vectorstores/memory";
 import { createRetrievalChain } from "langchain/chains/retrieval";
 
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
-import { existsSync, mkdirSync } from "fs";
-import { basename } from "path";
+import { existsSync, readdirSync, mkdirSync } from "fs";
 
-import dotenv from "dotenv/config"; 
+
+import * as dotenv from "dotenv";
+import { error } from 'console';
+dotenv.config();
 
 // Set up model
 const model = new ChatOpenAI({
@@ -38,40 +39,68 @@ const chain = await createStuffDocumentsChain({
   prompt
 })
 
-const filePaths = [
-  "OpenAI/documents/Assignments.txt",
-  "OpenAI/documents/Home.txt",
-  "OpenAI/documents/Modules.txt",
-  "OpenAI/documents/Seminar.txt",
-  "OpenAI/documents/pdf.txt",
-  "OpenAI/documents/Software.txt",
-];
-
-const loaders = {    ".txt": (path) => new TextLoader(path),
-  ".pdf": (path) => new PDFLoader(path)}
-
-
-mkdirSync("vector_store", {recursive: true});
-
-const allStores = [];
+const embeddings = new OpenAIEmbeddings({
+  model: "text-embedding-3-small"
+});
 
 const splitter = new RecursiveCharacterTextSplitter({
   chunkSize: 1500,
   chunkOverlap: 300,
 });
 
-const embeddings = new OpenAIEmbeddings({
-  model: "text-embedding-3-small"
-});
+const vectorStoreCache = new Map();
 
+const loaders = {   
+  ".txt": (path) => new TextLoader(path),
+  ".pdf": (path) => new PDFLoader(path)
+}
 
-for (const path of filePaths) {
-  const extension = path.slice(path.lastIndexOf("."));
+async function loadUserVectorStore(userId, storeName) {
+  const allStores = [];
+
+  const filePath = `database/${userId}/${storeName}/context/files/`
+  const storePath = `database/${userId}/${storeName}/context/vector_store/`
+
+  let files = readdirSync(filePath);
+
+  for (const _path of files) {
+
+    await loadFile(filePath + _path, storePath + _path).then((store) => {
+      allStores.push(store);
+    });
+  }
+
+  let allDocs = [];
+
+  for (const store of allStores) {
+    const docs = await store.similaritySearch("", 50); // Get as many as possible
+    allDocs = allDocs.concat(docs);
+  }
+  const globalVectorStore = await FaissStore.fromDocuments(allDocs, embeddings);
+
+  return globalVectorStore;
+}
+
+function getCachedVectorStore(userID) {
+  if(vectorStoreCache.has(userID)) {
+    return vectorStoreCache.get(userID);
+  } else {
+    return undefined;
+  }
+}
+
+function cacheVectorStore(userID, vectorStore) {
+  vectorStoreCache.set(userID, vectorStore);
+}
+
+async function loadFile(filePath, storePath) {
+  console.log(filePath)
+  console.log(storePath)
+  const extension = filePath.slice(filePath.lastIndexOf("."));
   const loaderFn = loaders[extension];
-  if (!loaderFn) continue;
-
-  const name = basename(path, extension);
-  const storePath = `vector_store/${name}`
+  if (!loaderFn) {
+    throw new error(`Loader doenst support : ${extension}`);
+  };
 
   let store;
 
@@ -79,7 +108,7 @@ for (const path of filePaths) {
     store = await FaissStore.load(storePath, embeddings);
     console.log(`Loaded store for ${store}`);
   } else {
-    const loader = loaderFn(path);
+    const loader = loaderFn(filePath);
     const docs = await loader.load();
 
     const splitDocs = await splitter.splitDocuments(docs);
@@ -88,34 +117,36 @@ for (const path of filePaths) {
     console.log(`Created store for ${store}`);
   }
 
-  allStores.push(store);
+  return store;
 }
-let allDocs = [];
 
-for (const store of allStores) {
-  const docs = await store.similaritySearch("", 50); // Get as many as possible
-  allDocs = allDocs.concat(docs);
-}
-const globalVectorStore = await FaissStore.fromDocuments(allDocs, embeddings);
-console.log("Merged and saved global vector store");
+export async function requestChat(question, courseID, userID) {
 
-const retriever = globalVectorStore.asRetriever({k:7});
+  let globalVectorStore = getCachedVectorStore(userID);
 
-const retrievalChain = await createRetrievalChain({
-  combineDocsChain: chain,
-  retriever
-})
+  if(!globalVectorStore) {
+    globalVectorStore = await loadUserVectorStore(userID, courseID);
+    cacheVectorStore(userID, globalVectorStore);
+  }
 
-export async function requestChat(question, chatlog) {
-    
-    chatlog.push({"role": "user", "content": question});
+  const retriever = globalVectorStore.asRetriever({k:7});
 
+  const retrievalChain = await createRetrievalChain({
+    combineDocsChain: chain,
+    retriever
+  })
+
+  console.log("Ready!")
+
+  try {
     const response = await retrievalChain.invoke({
       input : question
     })
 
-    console.log(response);
+    return response.answer; 
+  } catch(error) {
+    console.error('Error during chat request:', error);
+    return 'Sorry, there was an error processing your request.';
+  }
 
-    chatlog.push({"role": "assistant", "content": response.answer});
-    return chatlog;
 }
