@@ -7,13 +7,35 @@ setTimeout(() => {
         title: link.innerText.trim(),
         url: link.href
         }));
-
-    data += "Links available on this page: " + JSON.stringify(links);
+    
     const url = window.location.href;
-  
-    chrome.runtime.sendMessage({
-      type: "extractedData",
-      data,
-      url
-    });
-  }, 2000);
+    
+    if(url.includes("/assignments")) {
+        const title = document.querySelector("h1")?.innerText.trim() || "Untitled";
+        let dueDate = document.querySelector(".date_text")?.innerText.trim() || "No due date";
+        if (dueDate == "No due date"){
+            dueDate = document.querySelector('span[data-html-tooltip-title]')?.getAttribute("data-html-tooltip-title");
+        }
+        const content = document.querySelector(".description")?.innerText.trim() || "No description";
+        const assignmentID = window.location.href.split("/").pop(); // Gets the assignmentID from the last "/"
+
+        chrome.runtime.sendMessage({
+            type: "extractedData",
+            text: data,
+            links,
+            url,
+            id: assignmentID,
+            title: title,
+            dueDate: dueDate,
+            content: content,
+        });
+    } else {
+        chrome.runtime.sendMessage({
+            type: "extractedData",
+            text: data,
+            links,
+            url,
+            document
+        });
+    }
+}, 1);

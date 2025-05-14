@@ -4,23 +4,16 @@ const Footer = () => {
         <footer style={styles.footer}>
             <div style={styles.container}>
                 <div style={styles.section}>
-                    <h4>About Us</h4>
-                    <p>We are dedicated to providing the best study resources for students worldwide.</p>
                 </div>
                 <div style={styles.section}>
-                    <h4>Quick Links</h4>
+                    <h4>Quick Links:</h4>
                     <ul style={styles.list}>
-                        <li><a href="/about" style={styles.link}>About</a></li>
                         <li><a href="/contact" style={styles.link}>Contact</a></li>
                         <li><a href="/faq" style={styles.link}>FAQ</a></li>
                     </ul>
                 </div>
                 <div style={styles.section}>
-                    <h4>Follow Us</h4>
                     <div style={styles.socialIcons}>
-                        <a href="https://facebook.com" style={styles.icon}>Facebook</a>
-                        <a href="https://twitter.com" style={styles.icon}>Twitter</a>
-                        <a href="https://instagram.com" style={styles.icon}>Instagram</a>
                     </div>
                 </div>
             </div>
