@@ -3,9 +3,9 @@ const banlist = ["grade", "people", "users", "user", "grades", "discussion", "di
 if (window.location.pathname.includes("/courses/")) {
     const nav = document.querySelector("#section-tabs");
     const courseID = window.location.href.split("/").pop(); // Gets the courseID from the last "/"
-
-    // const courseID = document.title.split(" ")[0];
-    chrome.runtime.sendMessage({type : "courseIDFound", data : courseID});
+    // const courseName = document.title.split(" ")[0];
+    const courseName = document.title;
+    chrome.runtime.sendMessage({type : "courseIDFound", data : courseID, name : courseName});
 
     if (nav) {
       const links = Array.from(nav.querySelectorAll("a"))

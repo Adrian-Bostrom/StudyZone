@@ -9,7 +9,7 @@ const router = express.Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const logFilePath = path.join(__dirname, "..", "database", "chatlog.json");
 
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
 
     const sessiontoken = req.body.sessiontoken;
 
@@ -18,18 +18,24 @@ router.post("/", (req, res) => {
       return;
     }
     
-    const users = readUsers();
-    let userID = users.find((user) => user.sessionToken == sessiontoken).id;
+    try {
+      const users = await readUsers();
+      let userID = users.find((user) => user.sessionToken == sessiontoken).id;
 
-    const { message } = req.body;
-    requestChat(message, "52615", userID)
-      .then((answer) => {
-        return res.json({ reply: answer });
-      })
-      .catch((error) => {
-        console.error("Error in requestChat:", error);
-        res.status(500).json({ error: "Internal Server Error" });
-      }); 
+      const { message } = req.body;
+      console.log("Hello")
+      requestChat(message, "52615", userID)
+        .then((answer) => {
+          return res.json({ reply: answer });
+        })
+        .catch((error) => {
+          console.error("Error in requestChat:", error);
+          res.status(500).json({ error: "Internal Server Error" });
+        }); 
+    } catch (error) {
+      console.error("Error in chat route:", error);
+      res.status(500).json({ error: "Internal Server Error" });
+    }
 });
 
 export default router;
