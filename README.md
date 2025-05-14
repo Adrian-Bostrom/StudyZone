@@ -6,6 +6,7 @@ Installation Guide:
 2. Unzip the file.
 
 Setup backend:
+
 3. Go to the "Backend" directory in the Studyzone-main folder using a terminal.
 
 4. Write in the terminal: npm i
