@@ -20,9 +20,6 @@ const Navbar = () => {
                     <Link to={userID ? "/" : "/overview"}>StudyZone</Link>
                 </div>
                 <ul className="flex space-x-4">
-                    <li className="hover:text-gray-300">
-                        <Link to="/about">About</Link>
-                    </li>
                     {isLoggedIn ? (
                         <li
                             className="hover:text-gray-300 cursor-pointer"
@@ -43,6 +40,9 @@ const Navbar = () => {
                     </li>
                     <li className="hover:text-gray-300">
                         <Link to="/Schedule">Schedule</Link>
+                    </li>
+                     <li className="hover:text-gray-300">
+                        <Link to="/about">About</Link>
                     </li>
                 </ul>
             </div>
