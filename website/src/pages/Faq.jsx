@@ -19,13 +19,13 @@ function Faq() {
         <div>
           <h2 className="text-xl font-semibold">Is there a fee to use StudyZone?</h2>
           <p className="mt-1 text-base">
-            StudyZone is free!
+            No, StudyZone is free!
           </p>
         </div>
         <div>
           <h2 className="text-xl font-semibold">How can I contact support?</h2>
           <p className="mt-1 text-base">
-            You can contact our support team by clicking on the "Contact" link at the bottom of the homepage.
+            You can contact our support by clicking on the "Contact" link at the bottom of the homepage.
           </p>
         </div>
         <div>

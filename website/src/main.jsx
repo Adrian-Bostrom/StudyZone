@@ -17,6 +17,7 @@ import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the Ass
 import Schedule from './pages/Schedule.jsx';
 import Faq from './pages/Faq.jsx';
 import ProtectedRoute from './pages/components/ProtectedRoute.jsx';
+
 import { createBrowserRouter, RouterProvider, Outlet, Link, } from 'react-router-dom';
 
 // Layout component to include Navbar
@@ -101,7 +102,12 @@ const router = createBrowserRouter([
       {
         path: '/faq',
         element: <Faq />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
       }
+
     ],
   },
 ]);
