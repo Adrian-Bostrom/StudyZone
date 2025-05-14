@@ -27,6 +27,8 @@ Setup frontend - OPTIONAL (only if you want to host the page yourself):
 
 10. Write in terminal: npm i 
 
+10.5. If you get any vulnerabilities, when performin npm i, please write in terminal: npm audit fix, then press enter.
+
 11. Write in terminal: npm run dev 
 
 Setup Account:
