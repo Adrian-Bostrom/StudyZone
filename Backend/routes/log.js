@@ -110,6 +110,12 @@ function getUserIdByEmail(email) {
 
 router.post("/", (req, res) => {
     const { url, title, id, dueDate, content, courseName, email, courseCode } = req.body;
+
+    // Skip saving if access is denied
+    if (title === "Access denied" || title === "Untitled") {
+      console.log("Access denied assignment detected. Skipping save.");
+      return res.status(200).send("Access denied assignment was not saved.");
+    }
   
     const match = url.match(/(https:\/\/canvas\.kth\.se\/courses\/\d+)/);
     if (!match) {
@@ -136,12 +142,17 @@ router.post("/", (req, res) => {
     if (courseIndex !== -1) {
       const course = assignmentsData[courseIndex];
   
-      const existingAssignmentIndex = course.assignments.findIndex((a) => a.link === url);
-      if (existingAssignmentIndex !== -1) {
-        course.assignments[existingAssignmentIndex] = assignmentEntry;
-      } else {
-        course.assignments.push(assignmentEntry);
-      }
+      // Normalize link (remove query/hash if needed)
+    const normalizedUrl = url.split(/[?#]/)[0];
+
+    const isDuplicate = course.assignments.some(a => 
+      a.id === id || a.link.split(/[?#]/)[0] === normalizedUrl
+    );
+
+    if (!isDuplicate) {
+      course.assignments.push(assignmentEntry);
+    }
+
     } else {
       assignmentsData.push({
         courseName,

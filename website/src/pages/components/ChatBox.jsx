@@ -25,19 +25,17 @@ function ChatBox() {
         const loadingBotMessage = { text: "", sender: "bot", loading: true };
         setMessages((prev) => [...prev, loadingBotMessage]);
 
-        // setLoading(true);
-
         try {
             const response = await fetch(`${backendURL}/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ message: input })
+                body: JSON.stringify({ message: input, 
+                sessiontoken: window.localStorage.getItem("userID")
+                }),
             })
             const data = await response.json();
-
-            // Add the response from the backend to the chat
 
             setMessages((prev) => {
                 const msgs = [...prev];
@@ -47,10 +45,6 @@ function ChatBox() {
 
                 return msgs;
             })
-
-
-            // const botMessage = { text: data.reply, sender: "bot" };
-            // setMessages((prev) => [...prev, botMessage]);
 
         } catch (error) {
             console.error("Error sending message:", error);

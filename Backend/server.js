@@ -10,6 +10,7 @@ import assignmentRoute from "./routes/assignment.js"
 import contentRoute from "./routes/content.js"
 // used by extension
 import storeRoute from "./routes/store-user.js"
+import storeDataRoute from "./routes/store-course-page.js"
 import logRoute from "./routes/log.js"
 
 const app = express();
@@ -27,9 +28,10 @@ app.use("/content", contentRoute);
 //used by extension
 app.use("/log", logRoute);
 app.use("/store-user", storeRoute);
+app.use("/store-data", storeDataRoute);
 // Start the server depending if env variable is IP or localhost
 const PORT = 5000;
-if(process.env.IP){
+if(!process.env.IP){
   app.listen(PORT, () => {
     console.log(`Server running on http://localhost:${PORT}`);
   });
