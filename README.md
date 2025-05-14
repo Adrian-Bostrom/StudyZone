@@ -43,16 +43,18 @@ Setup web extension:
 
 18. Head to the main page of canvas, login, enable kortvy/cardview.
 
-19. Enter the web extension and press "ENTER THE ZONE".
+19. Insure that you are completely logged in, so your profile is visibly logged in at the top of the page.
 
-20. If successful, folders in database with the user info should get populated.
+20. Enter the web extension and press "ENTER THE ZONE".
+
+21. If successful, folders in database with the user info should get populated.
 
 If you don't get anything, retry
 ---------------------------------------------------------------------------------------
 Setup frontend:
 
-21. Go to "StudyZone-main\website" directory using terminal.
+22. Go to "StudyZone-main\website" directory using terminal.
 
-22. Write in terminal: npm i 
+23. Write in terminal: npm i 
 
-23. Write in terminal: npm run dev 
+24. Write in terminal: npm run dev 
