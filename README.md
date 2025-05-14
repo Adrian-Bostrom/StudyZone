@@ -1,50 +1,52 @@
 # StudyZone
+Requirements: Node manager, tutorial: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 Installation Guide:
-Download Github file zip
-Unzip
+1. Download this project in a zip file using Github.
+2. Unzip the file.
 
 Setup backend:
-go to the backend directory in the Studyzone-main folder using terminal
+3. Go to the "Backend" directory in the Studyzone-main folder using a terminal.
 
-write in terminal: npm i
+4. Write in the terminal: npm i
+5. Press enter.
 
-when done write node .\server.js
+6. When done, write: node .\server.js
+7. Press enter.
 
-in backend\database directory, remove any user folders (they have numbers and letters and shit)
+8. In "Backend\database" directory, remove any user folders (they have random numbers and letters).
 
-Signup with an account using gmail
+9. Signup with an account using gmail.
 
-Login! (If successful, information should show up in the terminal)
+10. Login! (If successful, information should show up in the terminal).
 
 ---------------------------------------------------------------------------------------
 Setup web extension:
 
-Go to Chrome web browser
+11. Go to Chrome web browser.
 
-Go to webextensions in the browser
+12. Go to webextensions in the browser.
 
-Enable programing mode/Developer mode (On the right side of the page)
+13. Enable Programmerings läge/Developer mode (On the right side of the page).
 
-Press load unpacked/lägg okomprimerad tillägg (to the left) and go to StudyZone-main\Extension and select the src folder
+14. Press load unpacked/lägg okomprimerad tillägg (to the left) and go to "StudyZone-main\Extension" and select the src folder.
 
-Enable the data grabber extension
+15. Enable the data grabber extension.
 
-Head to the main page of canvas, login, enable kortvy/cardview
+16. Head to the main page of canvas, login, enable kortvy/cardview.
 
-Enter the web extension and press "ENTER THE ZONE"
+17. Enter the web extension and press "ENTER THE ZONE".
 
-Now you get virus :)
+17.5 Now you get virus :)
 
-If successful, folders in database with the user info should get populated
+18. If successful, folders in database with the user info should get populated.
 
 If you don't get anything, retry
 ---------------------------------------------------------------------------------------
 Setup frontend:
 
-Go to StudyZone-main\website directory using terminal
+19. Go to "StudyZone-main\website" directory using terminal.
 
-Write in terminal: npm i 
+20. Write in terminal: npm i 
 
-Write in terminal: npm run dev 
-
+21. Write in terminal: npm run dev 
