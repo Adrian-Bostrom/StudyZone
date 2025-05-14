@@ -1,13 +1,7 @@
-<<<<<< React,ed upstream
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
-=======
-import React, { useState, useMemo } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
 import UseFetchJson from './UseFetchJson.jsx';
->>>>>>> Stashed changes
 import sha256 from 'crypto-js/sha256';
 
 const LoginCard = () => {
@@ -40,37 +34,10 @@ const LoginCard = () => {
         });
     };
 
-<<<<<<< Updated upstream
-    const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
-    const navigate = useNavigate();
-
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        const hashedFormData = {
-            ...formData,
-            password: sha256(formData.password).toString(),
-        };
-        try {
-            const response = await axios.post(`${backendURL}/login`, hashedFormData);
-            if (response.data.userID != null) {
-                localStorage.setItem('userID', response.data.userID);
-                // Event for sign-up correction.
-                window.dispatchEvent(new Event("login-success")); 
-                // Trigger custom login-success event
-                window.dispatchEvent(new Event('storage'));
-                navigate('/overview');
-            } else {
-                console.error('Login failed: Invalid credentials');
-            }
-        } catch (error) {
-            console.error('Error during login:', error);
-        }
-=======
     // Handle form submission
     const handleSubmit = (e) => {
         e.preventDefault();
         setTriggerFetch(true); // Trigger the fetch
->>>>>>> Stashed changes
     };
 
     // Handle the response from UseFetchJson
