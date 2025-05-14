@@ -67,9 +67,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
         traversedUrls.push(url.url);
 
         chrome.tabs.create({ url: url.url }, (tab) => {
-          const scriptFile = url.url.includes("assignments")
-            ? "src/assignmentScraper.js"
-            : "src/scraper.js";
+          const scriptFile = "src/scraper.js";
 
           chrome.scripting.executeScript({
             target: { tabId: tab.id },
@@ -87,7 +85,7 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     storePageDataToServer(userEmail, courseID, message.text, message.url);
 
-    if(message.url.includes("assignments/")) {
+    if(message.url.includes("assignments/") || message.url.includes("quizzes/")) {
       const assignmentData = message;
       assignmentData.courseName = courseName;
       assignmentData.courseCode = courseName.split(" ")[0];
