@@ -14,39 +14,44 @@ Setup backend:
 6. When done, write: node .\server.js
 7. Press enter.
 
-8. In "Backend\database" directory, remove any user folders (they have random numbers and letters) and empty "users.json" so there is only an empty json file with a set of brackets.
+8. In "Backend\database" directory, remove any user folders (they have random numbers and letters) and empty "users.json" so there is only an empty json file with a set of brackets like this:
+********   
+[
 
-9. Signup with an account using gmail.
+[
+********
+9. Go to the our website at:
+10. Go to the login tab and press the "Signup".
 
-10. Login! (If successful, information should show up in the terminal).
+11. Signup with an account using gmail.
+
+12. Login! (If successful, information should show up in the terminal).
 
 ---------------------------------------------------------------------------------------
 Setup web extension:
 
-11. Go to Chrome web browser.
+13. Go to Chrome web browser.
 
-12. Go to webextensions in the browser.
+14. Go to web extensions in the browser or just search in the web browser: chrome://extensions/ 
 
-13. Enable Programmerings läge/Developer mode (On the right side of the page).
+15. Enable Programmerings läge/Developer mode (On the right side of the page).
 
-14. Press load unpacked/lägg okomprimerad tillägg (to the left) and go to "StudyZone-main\Extension" and select the src folder.
+16. Press load unpacked/lägg okomprimerad tillägg (to the left) and go to "StudyZone-main\Extension" and select the src folder.
 
-15. Enable the data grabber extension.
+17. Enable the data grabber extension.
 
-16. Head to the main page of canvas, login, enable kortvy/cardview.
+18. Head to the main page of canvas, login, enable kortvy/cardview.
 
-17. Enter the web extension and press "ENTER THE ZONE".
+19. Enter the web extension and press "ENTER THE ZONE".
 
-17.5 Now you get virus :)
-
-18. If successful, folders in database with the user info should get populated.
+20. If successful, folders in database with the user info should get populated.
 
 If you don't get anything, retry
 ---------------------------------------------------------------------------------------
 Setup frontend:
 
-19. Go to "StudyZone-main\website" directory using terminal.
+21. Go to "StudyZone-main\website" directory using terminal.
 
-20. Write in terminal: npm i 
+22. Write in terminal: npm i 
 
-21. Write in terminal: npm run dev 
+23. Write in terminal: npm run dev 
