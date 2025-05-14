@@ -120,12 +120,12 @@ async function loadFile(filePath, storePath) {
   return store;
 }
 
-export async function requestChat(question, chatlog, userID) {
+export async function requestChat(question, courseID, userID) {
 
   let globalVectorStore = getCachedVectorStore(userID);
 
   if(!globalVectorStore) {
-    globalVectorStore = await loadUserVectorStore(userID, "II1307");
+    globalVectorStore = await loadUserVectorStore(userID, courseID);
     cacheVectorStore(userID, globalVectorStore);
   }
 

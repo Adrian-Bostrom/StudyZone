@@ -1,6 +1,5 @@
 setTimeout(() => {
     const content = document.querySelectorAll(".ic-Layout-contentMain")[0];
-    const courseID = document.title.split(" ")[0];
     
     let data = content.innerText;
     const links = Array.from(content.querySelectorAll("a"))
@@ -11,10 +10,32 @@ setTimeout(() => {
     
     const url = window.location.href;
     
-    chrome.runtime.sendMessage({
-        type: "extractedData",
-        text: data,
-        links,
-        url
-    });
+    if(url.includes("/assignments")) {
+        const title = document.querySelector("h1")?.innerText.trim() || "Untitled";
+        let dueDate = document.querySelector(".date_text")?.innerText.trim() || "No due date";
+        if (dueDate == "No due date"){
+            dueDate = document.querySelector('span[data-html-tooltip-title]')?.getAttribute("data-html-tooltip-title");
+        }
+        const content = document.querySelector(".description")?.innerText.trim() || "No description";
+        const assignmentID = window.location.href.split("/").pop(); // Gets the assignmentID from the last "/"
+
+        chrome.runtime.sendMessage({
+            type: "extractedData",
+            text: data,
+            links,
+            url,
+            id: assignmentID,
+            title: title,
+            dueDate: dueDate,
+            content: content,
+        });
+    } else {
+        chrome.runtime.sendMessage({
+            type: "extractedData",
+            text: data,
+            links,
+            url,
+            document
+        });
+    }
 }, 1);

@@ -11,6 +11,9 @@ let FILE_PATH = "./database";
 function purifyURL(url) {
     let cleanUrl = url.replace(/^https?:\/\//, '');
     cleanUrl = cleanUrl.replace(/[<>:"/\\|?*\x00-\x1F]/g, '_');
+    if(cleanUrl.length > 100) {
+        cleanUrl.slice(0,100);
+    }
     return cleanUrl;
 }
 

@@ -1,3 +1,5 @@
+let email;
+
 chrome.identity.getAuthToken({ interactive: true }, (token) => {
   if (chrome.runtime.lastError) {
     console.error("Auth error:", chrome.runtime.lastError);
@@ -12,7 +14,7 @@ chrome.identity.getAuthToken({ interactive: true }, (token) => {
     .then(res => res.json())
     .then(userInfo => {
       console.log("User email:", userInfo.email);
-      const email = userInfo.email;
+      email = userInfo.email;
       sendUserInfoToServer(email);
       // Now you can send this to your server
     });
@@ -31,6 +33,19 @@ function sendUserInfoToServer(email) {
     .catch(err => console.error("Error sending user info:", err));
 }
 
+function storePageDataToServer(email, course, data, url) {
+  const userInfo = { email }; // wrap it in an object
+
+  fetch("http://localhost:5000/store-data", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({email : userInfo, data, course, url})
+  })
+    .then(res => res.text())
+    .then(result => console.log("Data stored:", result))
+    .catch(err => console.error("Error storing data:", err));
+}
+
 let extractedDataArray = [];
 let numDataExtractions = 0; 
 let dataReceivedCount = 0;
@@ -39,11 +54,12 @@ let courseID = "";
 let traversedUrls = [];
 
 chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-
-  if(message.type == "courseLinksFound") {
+  if(message.type == "courseIDFound") {
+    courseID = message.data;
+  } else if(message.type == "courseLinksFound") {
     const courseUrls = message.data;
     numDataExtractions = courseUrls.length
-    console.log(traversedUrls);
+
     for (const url of courseUrls) {
       traversedUrls.push(url.url);
       chrome.tabs.create({ url: url.url }, (tab) => {
@@ -57,6 +73,26 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
 
     if (sender.tab && sender.tab.id) {
       chrome.tabs.remove(sender.tab.id);
+    }
+
+    storePageDataToServer(email, courseID, message.text, message.url);
+
+    if(message.url.includes("assignments/")) {
+      const assignmentData = message;
+      assignmentData.courseName = courseID;
+      assignmentData.courseCode = "courseCode";
+      assignmentData.email = email;
+      
+      console.log(assignmentData);
+
+      fetch("http://localhost:5000/log", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(assignmentData),
+      })
+        .then(res => res.text())
+        .then(result => console.log("Logged assignment:", result))
+        .catch(err => console.error("Error logging assignment:", err));
     }
 
     const urls = message.links;
@@ -77,91 +113,4 @@ chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
       }
     }, 1);
   }
-})
-// chrome.runtime.onMessage.addListener((message, sender, sendResponse) => {
-//     switch (message.type) {
-//       case "courseIDFound":
-//         courseID = message.data;
-//         break;
-//       case "courseLinksFound":
-//         handleCourseLinks(message);
-//         break;
-//       case "extractedData":
-//         handleExtractedData(message);
-//         break;
-//       default:
-//         break;
-//     }
-
-//     if(allDataReceived()) {
-//         sendDataToAPI().then(() => {
-//           extractedDataArray = [];
-//           numDataExtractions = 0;
-//           dataReceivedCount = 0;
-//         });
-//     }
-//   });
-
-//   function handleCourseLinks(message) {
-//     const courseUrls = message.data;
-//     numDataExtractions = courseUrls.length
-//     for (const url of courseUrls) {
-//       chrome.tabs.create({ url : url.url }); 
-//     }
-//   }
-
-//   function handleExtractedData(message) {
-//     dataReceivedCount++;
-//     if (!extractedDataArray.find(d => d.data === message.data)) {
-//       extractedDataArray.push(message);
-//     }
-//   }
-
-//   function allDataReceived() {
-//     return dataReceivedCount === numDataExtractions && numDataExtractions > 0;
-//   }
-
-//   async function sendDataToAPI() {
-//     try {
-//         const kthRes = await fetch(`https://api.kth.se/api/kopps/v2/course/${courseID}/detailedinformation`, {
-//             method: "GET",
-//             headers: {
-//                 "Content-Type": "application/json",
-//             }
-//         });
-
-//         const resJSON = await kthRes.json();
-
-//         const additionalData = {
-//             syllabus : resJSON.publicSyllabusVersions.at(-1),
-//             course : resJSON.course,
-//             examiners : resJSON.examiners,
-//             mainSubjects : resJSON.mainSubjects,
-//             roundInfo : resJSON.roundInfos.at(-1)
-//         };
-
-//         // Create a fresh payload instead of mutating the original array
-//         const payloadToSend = [
-//             ...extractedDataArray, // original extracted messages
-//             "The json below this is lower priority and information may be ignored if any inconsistencies are found between it and the json above.",
-//             JSON.stringify(additionalData)
-//         ];
-
-//         console.log("Sending the following payload to the API:", payloadToSend);
-
-//         // Example of sending it to your backend API (optional)
-//         const response = await fetch("http://localhost:5000/chat", {
-//             method: "POST",
-//             headers: {
-//                 "Content-Type": "application/json"
-//             },
-//             body: JSON.stringify({ message: JSON.stringify(payloadToSend), storeFile : "context", store : true, courseID : courseID })
-//         });
-
-//         const responseData = await response.json();
-//         console.log("API Response:", responseData);
-
-//     } catch (error) {
-//         console.error("Error sending data to API:", error);
-//     }
-// }
+});

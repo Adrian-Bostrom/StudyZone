@@ -8,10 +8,6 @@ const router = express.Router();
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
-function addContent(contentFilePath, course){
-    
-}
-
 router.post("/", (req, res) => {
   console.log("Received Data:", req);
   const users = readUsers();
