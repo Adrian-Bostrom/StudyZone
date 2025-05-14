@@ -14,7 +14,7 @@ Setup backend:
 6. When done, write: node .\server.js
 7. Press enter.
 
-8. In "Backend\database" directory, remove any user folders (they have random numbers and letters).
+8. In "Backend\database" directory, remove any user folders (they have random numbers and letters) and "users.json".
 
 9. Signup with an account using gmail.
 
