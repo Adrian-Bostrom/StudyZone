@@ -1,32 +1,44 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
-    const userID = localStorage.getItem("userID"); // Retrieve userID from local storage
-
-    const [isLoggedIn, setIsLoggedIn] = useState(userID != null);
+    
+    const navigate = useNavigate();
+    //Retrieve userID from local storage.
+    const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("userID") !== null);
 
     useEffect(() => {
-        const handleStorageChange = () => {
-            setIsLoggedIn(userID != null);
-        };
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+    const syncLoginStatus = () => {
+        setIsLoggedIn(localStorage.getItem("userID") !== null);
+    };
+
+    window.addEventListener('storage', syncLoginStatus);
+    window.addEventListener('login-success', syncLoginStatus);
+
+    return () => {
+        window.removeEventListener('storage', syncLoginStatus);
+        window.removeEventListener('login-success', syncLoginStatus);
+    };
     }, []);
+
+
+    const handleSignOut = () => {
+        localStorage.removeItem('userID');
+        setIsLoggedIn(false);
+        navigate('/login');
+    };
+
     return (
         <nav className="bg-gray-800 text-white p-4 h-20 flex items-center shadow-md font-thin">
             <div className="container mx-auto flex justify-between items-center">
                 <div className="text-xl font-bold">
-                    <Link to={userID ? "/" : "/overview"}>StudyZone</Link>
+                    <Link to={isLoggedIn ? "/" : "/overview"}>StudyZone</Link>
                 </div>
                 <ul className="flex space-x-4">
                     {isLoggedIn ? (
                         <li
                             className="hover:text-gray-300 cursor-pointer"
-                            onClick={() => {
-                                localStorage.removeItem('userID');
-                                window.location.href = '/login';
-                            }}
+                            onClick={handleSignOut}
                         >
                             Sign Out
                         </li>
