@@ -1,8 +1,10 @@
-const banlist = ["grade", "people", "users", "user", "grades", "discussion", "discuss", "evaluation", "announcement", "file"]
+const banlist = ["grade", "people", "users", "user", "grades", "discussion", "discuss", "evaluation", "announcement", "file", "anslag", "rubric"]
 
 if (window.location.pathname.includes("/courses/")) {
     const nav = document.querySelector("#section-tabs");
-    const courseID = document.title.split(" ")[0];
+    const courseID = window.location.href.split("/").pop(); // Gets the courseID from the last "/"
+
+    // const courseID = document.title.split(" ")[0];
     chrome.runtime.sendMessage({type : "courseIDFound", data : courseID});
 
     if (nav) {

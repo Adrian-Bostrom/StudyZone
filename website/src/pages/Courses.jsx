@@ -6,9 +6,6 @@ import ModuleCard from "./components/ModuleCard";
 import DeadlineBox from "./components/DeadlineBox";
 
 function Courses({CourseCode, CourseName, CourseDescription}) {
-    if (!localStorage.getItem("userID")) {
-      return <Navigate to="/login" />;
-    }
     return (
       <>
       <div className="flex flex-row min-h-screen">

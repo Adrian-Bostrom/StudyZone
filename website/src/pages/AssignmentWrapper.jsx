@@ -5,9 +5,6 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 const AssignmentWrapper = () => {
-  if (!localStorage.getItem("userID")) {
-    return <Navigate to="/login" />;
-  }
   const navigate = useNavigate();
   const { courseCode, assignmentId } = useParams(); 
   const userID = localStorage.getItem('userID');
