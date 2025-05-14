@@ -18,6 +18,16 @@ import { basename } from "path";
 
 import dotenv from "dotenv/config"; 
 
+//Variables for adding current year, month, day and hours and minutes locally 
+//Used by the AI prompt
+const date = new Date();
+
+const year = date.getFullYear();
+const month = date.getMonth() + 1;
+const day = date.getDate();
+const hour = date.getHours();
+const minutes = date.getMinutes();
+
 // Set up model
 const model = new ChatOpenAI({
   modelName: "gpt-4o-mini",
@@ -28,7 +38,12 @@ const model = new ChatOpenAI({
 
 // Set up prompt template
 const prompt = ChatPromptTemplate.fromTemplate(
-  `Answer the user's question from the following context: 
+  `The time now is ${year}-${month}-${day}, ${hour}:${minutes}. Answer the user's question, which are in two formats, 
+  either a normal question about courses which are given in the context or 
+  a question/help about scheduling an event, where you have to at the end give a
+  json file with 3 categories... 1.Title (which describes what the name of the event is)
+  2. Start (which describes time in a standard format) 3. End (which describes time in a standard format). If the question is a normal one, don't insert a JSON
+  as an answer under any circumstances. Only when the question is about scheduling something: 
   {context}
   Question: {input}`
 )

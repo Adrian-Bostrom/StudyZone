@@ -12,6 +12,9 @@ import parseDateToISO from "./components/parseDate.jsx";
 import UseFetchJson from "./components/UseFetchJson.jsx";
 import { useMemo } from "react";
 
+//Chatbox functionality
+import ChatBox from "./components/ChatBox";
+
 const fetchAndParseICalData = async (url) => {
   try {
     const response = await fetch(`${url}`);
@@ -44,6 +47,20 @@ const fetchAndParseICalData = async (url) => {
 function Calendar() {
   const [iCalLink, setICalLink] = React.useState('');
   const [iCalData, setICalData] = React.useState([]);
+  const [aiEvents, setAiEvents] = React.useState([]);
+
+  // Load AI events from localStorage
+  React.useEffect(() => {
+    const stored = localStorage.getItem("aiEvents");
+    if (stored) setAiEvents(JSON.parse(stored));
+    // Listen for changes (optional, for live updates)
+    const onStorage = () => {
+      const updated = localStorage.getItem("aiEvents");
+      setAiEvents(updated ? JSON.parse(updated) : []);
+    };
+    window.addEventListener("storage", onStorage);
+    return () => window.removeEventListener("storage", onStorage);
+  }, []);
 
   //Loads an already used iCalLink to from storage
   React.useEffect(() => {
@@ -103,35 +120,34 @@ function Calendar() {
             name="iCalLink"
             value={iCalLink}
             onChange={(e) => setICalLink(e.target.value)}
-            style={{
-              flex: "1",
-              padding: "10px",
-              border: "1px solid #ccc",
-              borderRadius: "5px",
-              fontSize: "14px",
-              outline: "none",
-            }}
+            style={styles.iCalInsertionWindow}
             placeholder="Enter your TimeEdit link here..."
           />
           <button
             type="submit"
-            style={{
-              padding: "10px 20px",
-              backgroundColor: "#2c3e50",
-              color: "white",
-              border: "none",
-              borderRadius: "5px",
-              cursor: "pointer",
-              fontSize: "14px",
-              fontWeight: "bold",
-              transition: "background-color 0.3s ease",
-            }}
+            style={styles.insertICalButton}
             onMouseOver={(e) => (e.target.style.backgroundColor = "#1a252f")}
             onMouseOut={(e) => (e.target.style.backgroundColor = "#2c3e50")}
           >
             Submit
           </button>
+          <button
+            onClick={() => {
+              localStorage.removeItem("iCalLink");
+              localStorage.removeItem("aiEvents")
+              setICalLink('');
+              setICalData([]);
+              setAiEvents([]);
+            }}
+            type="button"
+            style={styles.removeICalButton}
+            onMouseOver={(e) => (e.target.style.backgroundColor = "#1a252f")}
+            onMouseOut={(e) => (e.target.style.backgroundColor = "#2c3e50")}
+          >
+            Reset Links
+          </button>
         </div>
+
       </form>
 
       {/* Calendar */}
@@ -154,11 +170,52 @@ function Calendar() {
           // Assignments from ICalURL
           {
             events: iCalData
+          },
+          // AI events
+          {
+            events: aiEvents
           }
         ]}
       />
+
+      {/* AI Chatbox */}
+      <ChatBox />
+      
     </div>
   );
 }
+
+const styles = {
+  removeICalButton: {
+    padding: "10px 10px",
+    backgroundColor: "#2c3e50",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "bold",
+    transition: "background-color 0.3s ease",
+  },
+  insertICalButton: {
+    padding: "10px 20px",
+    backgroundColor: "#2c3e50",
+    color: "white",
+    border: "none",
+    borderRadius: "5px",
+    cursor: "pointer",
+    fontSize: "14px",
+    fontWeight: "bold",
+    transition: "background-color 0.3s ease",
+  },
+  iCalInsertionWindow: {
+    flex: "1",
+    padding: "10px",
+    border: "1px solid #ccc",
+    borderRadius: "5px",
+    fontSize: "14px",
+    outline: "none",
+  },
+};
 
 export default Calendar;

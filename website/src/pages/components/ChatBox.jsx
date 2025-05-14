@@ -15,6 +15,31 @@ function ChatBox() {
 
     const outputFieldRef = useRef(null);
 
+    // Add this helper function in ChatBox.jsx (top or inside the component)
+    function extractJsonFromMessage(message) {
+      // Try to extract JSON from a code block first
+      const codeBlockMatch = message.match(/```json\s*([\s\S]*?)```/i);
+      if (codeBlockMatch) {
+        try {
+          // Remove any leading/trailing whitespace
+          const jsonString = codeBlockMatch[1].trim();
+          return JSON.parse(jsonString);
+        } catch (e) {
+          // If parsing fails, continue to fallback
+        }
+      }
+      // Fallback: try to find the first JSON object in the string
+      const jsonMatch = message.match(/{[\s\S]*?}/);
+      if (jsonMatch) {
+        try {
+          return JSON.parse(jsonMatch[0]);
+        } catch (e) {
+          return null;
+        }
+      }
+      return null;
+    }
+
     const sendMessage = async () => {
         if (input.trim() === "") return;
         
@@ -25,8 +50,6 @@ function ChatBox() {
         const loadingBotMessage = { text: "", sender: "bot", loading: true };
         setMessages((prev) => [...prev, loadingBotMessage]);
 
-        // setLoading(true);
-
         try {
             const response = await fetch(`${backendURL}/chat`, {
                 method: "POST",
@@ -34,23 +57,29 @@ function ChatBox() {
                     "Content-Type": "application/json"
                 },
                 body: JSON.stringify({ message: input })
-            })
+            });
             const data = await response.json();
 
-            // Add the response from the backend to the chat
+            // Extract JSON from the bot's reply
+            const eventJson = extractJsonFromMessage(data.reply);
+            if (eventJson) {
+                // Save to localStorage for the calendar to use
+                const prev = JSON.parse(localStorage.getItem("aiEvents") || "[]");
+                prev.push({
+                    title: eventJson.Title,
+                    start: eventJson.Start,
+                    end: eventJson.End,
+                    description: eventJson.Description || "",
+                });
+                localStorage.setItem("aiEvents", JSON.stringify(prev));
+            }
 
             setMessages((prev) => {
                 const msgs = [...prev];
                 const loadingIndex = msgs.findIndex(m => m.loading);
-
-                msgs[loadingIndex] = {text : data.reply, sender : "bot", loading : false};
-
+                msgs[loadingIndex] = { text: data.reply, sender: "bot", loading: false };
                 return msgs;
-            })
-
-
-            // const botMessage = { text: data.reply, sender: "bot" };
-            // setMessages((prev) => [...prev, botMessage]);
+            });
 
         } catch (error) {
             console.error("Error sending message:", error);
@@ -66,9 +95,9 @@ function ChatBox() {
     }, [messages]);
 
     return (
-        <div className='z-10'>
+        <div className='z-[9999]'>
             {isOpen ? (
-                <div className='w-[40vh] h-fit fixed bg-gray-100 right-10 bottom-10 rounded-2xl overflow-clip shadow-2xl'>
+                <div className='w-[40vh] h-fit fixed bg-gray-100 right-10 bottom-10 rounded-2xl overflow-clip shadow-2xl z-[9999]'>
                     <div className='w-full h-[6vh] flex'>
                         <img src={crossIcon} alt="Close chat" onClick={() => setIsOpen(false)} className='h-[1em] m-auto mr-5 cursor-pointer' />
                     </div>
@@ -127,7 +156,7 @@ function ChatBox() {
                 </div>
             </div>
                 ) : (
-                    <button className="fixed right-10 bottom-10 bg-blue-500 text-white px-2 py-2 cursor-pointer rounded-full shadow-lg hover:scale-110 transform transition duration-150 ease-in-out"
+                    <button className="fixed right-10 bottom-10 bg-blue-500 text-white px-2 py-2 cursor-pointer rounded-full shadow-lg hover:scale-110 transform transition duration-150 ease-in-out z-[9999]"
                         onClick={() => setIsOpen(true)}
                         >
 
