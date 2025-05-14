@@ -1,12 +1,9 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
-import { useNavigate } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import axios from 'axios';
 import sha256 from 'crypto-js/sha256';
-import localStorage from 'local-storage-fallback'; // Use local-storage-fallback for better compatibility
 
 const LoginCard = () => {
-
     const [formData, setFormData] = useState({
         email: '',
         password: '',
@@ -20,29 +17,27 @@ const LoginCard = () => {
         });
     };
 
-    const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000"; // Fallback to localhost if not set
-
-    const navigate = useNavigate(); // Use useNavigate for programmatic navigation
-
+    const backendURL = import.meta.env.VITE_BACKEND_URL || "http://localhost:5000";
+    const navigate = useNavigate();
 
     const handleSubmit = async (e) => {
         e.preventDefault();
         const hashedFormData = {
             ...formData,
-            password: sha256(formData.password).toString(), // Hash the password
+            password: sha256(formData.password).toString(),
         };
-        console.log(hashedFormData);
         try {
             const response = await axios.post(`${backendURL}/login`, hashedFormData);
-            console.log('Login request was successful:', response.data);
             if (response.data.userID != null) {
-                localStorage.setItem('userID', response.data.userID); 
-                console.log('User ID stored in local storage:', response.data.userID);
-                navigate('/Overview');
+                localStorage.setItem('userID', response.data.userID);
+                // Trigger custom login-success event
+                window.dispatchEvent(new Event('storage'));
+                navigate('/overview');
+            } else {
+                console.error('Login failed: Invalid credentials');
             }
         } catch (error) {
             console.error('Error during login:', error);
-            // Handle error (e.g., show error message)
         }
     };
 
@@ -138,4 +133,4 @@ const styles = {
     },
 };
 
-export default LoginCard;  
+export default LoginCard;

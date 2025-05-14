@@ -1,18 +1,32 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
+    
+    const navigate = useNavigate();
     const userID = localStorage.getItem("userID"); // Retrieve userID from local storage
-
     const [isLoggedIn, setIsLoggedIn] = useState(userID != null);
 
     useEffect(() => {
         const handleStorageChange = () => {
             setIsLoggedIn(userID != null);
         };
+
+        // Listen for changes to localStorage and custom login-success event
         window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+
+        // Cleanup listeners on component unmount
+        return () => {
+            window.removeEventListener('storage', handleStorageChange);
+        };
     }, []);
+
+    const handleSignOut = () => {
+        localStorage.removeItem('userID');
+        setIsLoggedIn(false);
+        navigate('/login');
+    };
+
     return (
         <nav className="bg-gray-800 text-white p-4 h-20 flex items-center shadow-md font-thin">
             <div className="container mx-auto flex justify-between items-center">
@@ -26,10 +40,7 @@ const Navbar = () => {
                     {isLoggedIn ? (
                         <li
                             className="hover:text-gray-300 cursor-pointer"
-                            onClick={() => {
-                                localStorage.removeItem('userID');
-                                window.location.href = '/login';
-                            }}
+                            onClick={handleSignOut}
                         >
                             Sign Out
                         </li>
