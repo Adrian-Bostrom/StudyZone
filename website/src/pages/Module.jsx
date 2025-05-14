@@ -1,7 +1,9 @@
 import ChatBox  from "./components/ChatBox";
 import fileIcon from "../assets/fileIcon.svg"
+import useAuthRedirect from "../hooks/useAuthRedirect";
 
 function Course() {
+    useAuthRedirect();
     return (
       <>
         <div className="flex h-[calc(100vh-80px)] bg-gray-100 p-12 flex-row">

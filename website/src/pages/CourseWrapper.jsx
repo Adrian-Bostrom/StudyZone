@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 import { useMemo } from "react";
 import React from "react";
 import { useNavigate } from "react-router-dom";
+import useAuthRedirect from "../hooks/useAuthRedirect";
 
 const CourseWrapper = () => {
+  useAuthRedirect();
   const navigate = useNavigate();
   const { courseCode } = useParams();
   const userID = localStorage.getItem('userID');
