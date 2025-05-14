@@ -6,7 +6,7 @@ import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
 const Overview = () => {
-  const userID = localStorage.getItem("userID");
+  const userID = localStorage.getItem('userID');
   const bodyData = useMemo(() => ({ userID }), [userID]);
   const navigate = useNavigate();
 
@@ -16,6 +16,9 @@ const Overview = () => {
   const handleCourseClick = (courseCode) => {
     navigate(`/courses/${courseCode}`);
   };
+
+  // Extract courseCodes as an array from courses
+  const courseCodes = courses ? courses.map(course => course.courseCode) : [];
 
   return (
     <div className="flex flex-row min-h-screen bg-gray-100">
@@ -42,13 +45,9 @@ const Overview = () => {
 
       {/* Right Side - DeadlineBoxes */}
       <div className="w-1/3 border-l bg-white p-6 overflow-y-auto shadow-inner">
-        
-        {courses &&
-          courses.map((course) => (
-            <div key={course.courseId} className="mb-4">
-              <DeadlineBox courseCode={course.courseCode} />
-            </div>
-          ))}
+        <div className="mb-4">
+          <DeadlineBox courseCodes={courseCodes} />
+        </div>
       </div>
     </div>
   );
