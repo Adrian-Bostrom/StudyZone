@@ -1,10 +1,10 @@
 document.getElementById("sendData").addEventListener("click", async () => {
+  console.log("Gotten to start of popup.js");
   chrome.identity.getAuthToken({ interactive: true }, async (token) => {
     if (chrome.runtime.lastError) {
       console.error("Auth error:", chrome.runtime.lastError);
       return;
     }
-
     const userInfo = await fetch("https://www.googleapis.com/oauth2/v3/userinfo", {
       headers: { Authorization: `Bearer ${token}` },
     }).then(res => res.json());
@@ -45,7 +45,6 @@ document.getElementById("sendData").addEventListener("click", async () => {
               }
             }, async (results) => {
               const courseNames = results[0].result;
-              console.log(courseNames);
               console.log("Extracted course names:", courseNames);
               // Use the extracted course URLs and course name
               let i = 0;
@@ -53,6 +52,7 @@ document.getElementById("sendData").addEventListener("click", async () => {
                 let courseName = courseNames[i];
                 let words = courseName.split(" "); // Split the sentence by spaces
                 let courseCode = words[0];
+                console.log("Course info:", courseUrl, courseName, courseCode, email);
                 await processCourse(courseUrl, courseName, courseCode, email);  // Pass the courseName to the processCourse function
                 i++;
               }
@@ -71,26 +71,27 @@ async function processCourse(courseUrl, courseName, courseCode, email) {
       const assignmentsUrl = courseUrl + "/assignments";
 
       chrome.tabs.update(tabId, { url: assignmentsUrl });
-
       chrome.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
         if (updatedTabId === tabId && changeInfo.status === "complete") {
           chrome.tabs.onUpdated.removeListener(listener);
-
+          console.log("Assignments page loaded:", assignmentsUrl);
           // Removed the part that extracts the course name
           // Instead, directly extract the assignment links
-          chrome.scripting.executeScript({
-            target: { tabId: tabId },
-            func: extractAssignmentLinks
-          }, async (injectionResults) => {
-            const links = injectionResults[0].result;
+          setTimeout(() => {
+            chrome.scripting.executeScript({
+              target: { tabId: tabId },
+              func: extractAssignmentLinks
+            }, (injectionResults) => {
+              const links = injectionResults[0].result;
+              console.log("Extracted assignment links:", links);
+              // Since we no longer have the courseName, we can skip passing it to visitAssignmentPage
+              for (const link of links) {
+                visitAssignmentPage(tabId, link, courseName, courseCode, email);  // Now only passing email
+              }
 
-            // Since we no longer have the courseName, we can skip passing it to visitAssignmentPage
-            for (const link of links) {
-              await visitAssignmentPage(tabId, link, courseName, courseCode, email);  // Now only passing email
-            }
-
-            setTimeout(resolve, 1000);
-          });
+              setTimeout(resolve, 1000);
+            });
+          }, 2000); // Wait for 2 seconds
         }
       });
     });
@@ -99,14 +100,15 @@ async function processCourse(courseUrl, courseName, courseCode, email) {
 
 // Extract assignment links from the /assignments page
 function extractAssignmentLinks() {
-  return [...document.querySelectorAll("a.ig-title")].map(a => a.href);
+  const links = document.querySelectorAll("a.ig-title");
+  console.log("Found assignment link elements:", links);
+  return [...links].map(a => a.href);
 }
 
 // Visit each assignment page and extract info
 async function visitAssignmentPage(tabId, link, courseName, courseCode, email) {
   return new Promise((resolve) => {
     chrome.tabs.update(tabId, { url: link });
-
     chrome.tabs.onUpdated.addListener(function listener(updatedTabId, changeInfo) {
       if (updatedTabId === tabId && changeInfo.status === "complete") {
         chrome.tabs.onUpdated.removeListener(listener);
@@ -119,7 +121,6 @@ async function visitAssignmentPage(tabId, link, courseName, courseCode, email) {
           assignmentData.courseName = courseName;
           assignmentData.courseCode = courseCode;
           assignmentData.email = email; // Attach email
-
           fetch("http://localhost:5000/log", {
             method: "POST",
             headers: { "Content-Type": "application/json" },

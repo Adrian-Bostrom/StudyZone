@@ -109,6 +109,7 @@ function getUserIdByEmail(email) {
 }
 
 router.post("/", (req, res) => {
+    console.log("Received Data:", req.body);
     const { url, title, id, dueDate, content, courseName, email, courseCode } = req.body;
   
     const match = url.match(/(https:\/\/canvas\.kth\.se\/courses\/\d+)/);
