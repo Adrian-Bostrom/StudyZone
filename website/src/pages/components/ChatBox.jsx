@@ -62,20 +62,6 @@ const ChatBox = forwardRef((props, ref) => {
             })
             const data = await response.json();
 
-            // Extract JSON from the bot's reply
-            const eventJson = extractJsonFromMessage(data.reply);
-            if (eventJson) {
-                // Save to localStorage for the calendar to use
-                const prev = JSON.parse(localStorage.getItem("aiEvents") || "[]");
-                prev.push({
-                    title: eventJson.Title,
-                    start: eventJson.Start,
-                    end: eventJson.End,
-                    description: eventJson.Description || "",
-                });
-                localStorage.setItem("aiEvents", JSON.stringify(prev));
-            }
-
             setMessages((prev) => {
                 const msgs = [...prev];
                 const loadingIndex = msgs.findIndex(m => m.loading);
