@@ -123,7 +123,9 @@ router.post("/", (req, res) => {
       return res.status(400).send("Invalid assignment URL format");
     }
     const userid = getUserIdByEmail(email);
-    FILE_PATH =  "./database/" + userid + "/courseAndAssignments.json"
+    // FILE_PATH =  "./database/" + userid + "/courseAndAssignments.json"
+    FILE_PATH = path.join(__dirname, "..", "database", userid, "/courseAndAssignments.json");
+
   
     const courseUrl = match[1];
     const assignmentEntry = {
