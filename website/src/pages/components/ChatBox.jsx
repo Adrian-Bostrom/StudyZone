@@ -1,12 +1,30 @@
-import React, { useState, useEffect, useRef } from 'react';
-import { motion, AnimatePresence } from 'framer-motion';
+import React, { useState, useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
+import { motion, AnimatePresence, m } from 'framer-motion';
 
 import sendIcon from '../../assets/paperplaneIcon.svg'
 import crossIcon from '../../assets/crossIcon.svg'
 import chatIcon from '../../assets/chatIcon.svg'
 const backendURL = import.meta.env.VITE_BACKEND_URL||"http://localhost:5000"; // Fallback to localhost if not set
 
-function ChatBox() {
+function getCourseCode(url) {
+    const match = url.match(/\/courses\/([A-Za-z0-9]+)/);
+    const courseCode = match ? match[1] : null;
+    return courseCode;
+}
+
+function cleanHTMLBlock(input) {
+    return input
+      .replace(/^```html\s*/i, '')   // Remove starting ```html
+      .replace(/```$/, '')           // Remove ending ```
+      .trim();                       // Remove leading/trailing whitespace
+  }
+
+const ChatBox = forwardRef((props, ref) => {
+    useImperativeHandle(ref, () => ({
+        sendMessage,       // expose sendMessage function to parent
+        openChat: () => setIsOpen(true),
+        closeChat: () => setIsOpen(false),
+    }));
 
     const [messages, setMessages] = useState([]);
     const [input, setInput] = useState("");
@@ -15,24 +33,31 @@ function ChatBox() {
 
     const outputFieldRef = useRef(null);
 
-    const sendMessage = async () => {
-        if (input.trim() === "") return;
+    const sendMessage = async (externalInput) => {
+
+        let message = externalInput;
+
+        if(externalInput == undefined) {
+            message = input;
+        }
+
+        if (message.trim() === "") return;
         
-        const userMessage = { text: input, sender: "user", loading: false };
+        const userMessage = { text: message, sender: "user", loading: false };
         setMessages([...messages, userMessage]);
         setInput("");
         
         const loadingBotMessage = { text: "", sender: "bot", loading: true };
         setMessages((prev) => [...prev, loadingBotMessage]);
-
         try {
             const response = await fetch(`${backendURL}/chat`, {
                 method: "POST",
                 headers: {
                     "Content-Type": "application/json"
                 },
-                body: JSON.stringify({ message: input, 
-                sessiontoken: window.localStorage.getItem("userID")
+                body: JSON.stringify({ message: message, 
+                sessiontoken: window.localStorage.getItem("userID"),
+                courseCode: getCourseCode(window.location.href)
                 }),
             })
             const data = await response.json();
@@ -41,7 +66,7 @@ function ChatBox() {
                 const msgs = [...prev];
                 const loadingIndex = msgs.findIndex(m => m.loading);
 
-                msgs[loadingIndex] = {text : data.reply, sender : "bot", loading : false};
+                msgs[loadingIndex] = {text : cleanHTMLBlock(data.reply), sender : "bot", loading : false};
 
                 return msgs;
             })
@@ -60,7 +85,7 @@ function ChatBox() {
     }, [messages]);
 
     return (
-        <div className='z-10'>
+        <div className='relative z-1000'>
             {isOpen ? (
                 <div className='w-[40vh] h-fit fixed bg-gray-100 right-10 bottom-10 rounded-2xl overflow-clip shadow-2xl'>
                     <div className='w-full h-[6vh] flex'>
@@ -91,21 +116,13 @@ function ChatBox() {
                                 animate={{ opacity: 1 }}
                                 transition={msg.sender === "bot" ? { duration: 0.4, delay: 0.1 } : {duration: 0.1, delay: 0}}
                                 >
-                                {msg.text}
+                                <div className='cv-tips' dangerouslySetInnerHTML={{ __html: msg.text }} />
+                                {console.log((msg.text))}
                               </motion.div>
                                 )   
                         }
                         </motion.div> 
                     ))}
-                    {/* {loading && (
-                        <div className="self-start bg-gray-300 text-black p-2 rounded-lg text-sm my-1 flex items-center space-x-1 min-h-[2.5rem]">
-                            
-                                <span className="w-1 h-1 bg-gray-500 rounded-full animate-bounce [animation-delay:0s]"></span>
-                                <span className="w-1 h-1 bg-gray-500 rounded-full animate-bounce [animation-delay:0.2s]"></span>
-                                <span className="w-1 h-1 bg-gray-500 rounded-full animate-bounce [animation-delay:0.4s]"></span>
-                            
-                        </div>
-                    )} */}
                      
                 </div>
                 <div id='input-section' className='w-full h-[5vw] bg-gray-800 text-zinc-300 flex items-center'>
@@ -131,6 +148,6 @@ function ChatBox() {
             }
         </div>
     );
-};
+});
 
 export default ChatBox

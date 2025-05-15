@@ -14,10 +14,13 @@ import { createRetrievalChain } from "langchain/chains/retrieval";
 import { FaissStore } from "@langchain/community/vectorstores/faiss";
 import { existsSync, readdirSync, mkdirSync } from "fs";
 
+import { fileURLToPath } from "url";
 
 import * as dotenv from "dotenv";
 import { error } from 'console';
 dotenv.config();
+
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 // Set up model
 const model = new ChatOpenAI({
@@ -29,10 +32,21 @@ const model = new ChatOpenAI({
 
 // Set up prompt template
 const prompt = ChatPromptTemplate.fromTemplate(
-  `Answer the user's question from the following context: 
-  {context}
-  Question: {input}`
-)
+  `You are a helpful assistant, you do not own this course. Using the context provided below, answer the user's question. Format the response in valid HTML. Use the following tags as needed: 
+  - <strong> for bold text
+  - <br> for line breaks
+  - <p> for paragraphs
+  - <ul>/<li> for lists
+  - <a> for hyperlinks
+  - <h1>–<h6> for headings
+  Use emojis when applicable.
+Context:
+{context}
+
+Question:
+{input}`
+);
+
 
 const chain = await createStuffDocumentsChain({
   llm : model,
@@ -57,15 +71,14 @@ const loaders = {
 
 async function loadUserVectorStore(userId, storeName) {
   const allStores = [];
-
-  const filePath = `database/${userId}/${storeName}/context/files/`
-  const storePath = `database/${userId}/${storeName}/context/vector_store/`
-
+  const filePath = path.join(__dirname, "..", "database", `${userId}`,`${storeName}`, "context", "files");
+  const storePath = path.join(__dirname, "..", "database", `${userId}`,`${storeName}`, "context", "vector_store");
+  
   let files = readdirSync(filePath);
 
   for (const _path of files) {
 
-    await loadFile(filePath + _path, storePath + _path).then((store) => {
+    await loadFile(filePath + "/" + _path, storePath + "/" + _path).then((store) => {
       allStores.push(store);
     });
   }

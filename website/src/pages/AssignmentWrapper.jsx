@@ -4,6 +4,8 @@ import { useParams } from "react-router-dom";
 import { useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 
+import ChatBox from "./components/ChatBox";
+
 const AssignmentWrapper = () => {
   const navigate = useNavigate();
   const { courseCode, assignmentId } = useParams(); 
@@ -48,6 +50,7 @@ const AssignmentWrapper = () => {
 
   return (
     <div className="p-6 min-h-screen bg-gray-100">
+      <ChatBox/>
       {/* Header Section */}
       <div className="bg-cyan-600 text-white p-6 rounded-lg shadow-lg">
         <h1 className="text-4xl font-bold">{assignment.title}</h1>

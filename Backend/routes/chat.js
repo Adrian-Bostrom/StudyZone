@@ -22,9 +22,12 @@ router.post("/", async (req, res) => {
       const users = await readUsers();
       let userID = users.find((user) => user.sessionToken == sessiontoken).id;
 
+      const courses = JSON.parse(fs.readFileSync(path.join(__dirname, "..", "database", userID, "courses.json")));
+      const courseID = courses.find((course) => course.courseCode == req.body.courseCode).courseId;
+
       const { message } = req.body;
-      console.log("Hello")
-      requestChat(message, "52615", userID)
+
+      requestChat(message, courseID, userID)
         .then((answer) => {
           return res.json({ reply: answer });
         })

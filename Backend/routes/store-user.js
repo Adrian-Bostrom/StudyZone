@@ -6,7 +6,6 @@ import { fileURLToPath } from 'url';
 const router = express.Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "..", "database", "users.json");
-let FILE_PATH = "./database";
 
 router.post("/", (req, res) => {
     const { email } = req.body.email;
