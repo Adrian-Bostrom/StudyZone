@@ -9,7 +9,7 @@ const router = express.Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 
 function readCourses(userID) {
-  const courseFilePath = path.join(__dirname, "..", "database", userID, "course.json");
+  const courseFilePath = path.join(__dirname, "..", "database", userID, "courses.json");
   try {
     if (!fs.existsSync(courseFilePath)) {
       fs.writeFileSync(courseFilePath, JSON.stringify([])); // Create file if it doesn't exist
@@ -28,7 +28,7 @@ router.post("/", async (req, res) => {
   const users = await readUsers();
   // Find the user by session token
   console.log("Users data:", users); 
-  let user = users.find((user) => user.sessiontoken == req.body.userID);
+  let user = users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
     return res.status(404).json({ message: "User not found" });
   }
@@ -39,13 +39,14 @@ router.post("/", async (req, res) => {
   }
 });
 
-router.post("/:variable", (req, res) => {
+router.post("/:variable", async (req, res) => {
   const { variable } = req.params;
   console.log("Received Data:", variable);
-  const users = readUsers();
+  const users = await readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessiontoken == req.userID);
+  let user = users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
+
     return res.status(400).json({ message: "User not found" });
   }
   else {

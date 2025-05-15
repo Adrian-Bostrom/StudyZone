@@ -1,35 +1,55 @@
 import React, { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import logo from '../../assets/StudyZone-logo.png'; // Adjust the path to your PNG file
 
 const Navbar = () => {
-    const userID = localStorage.getItem("userID"); // Retrieve userID from local storage
-
-    const [isLoggedIn, setIsLoggedIn] = useState(userID != null);
+    const navigate = useNavigate();
+    const [isLoggedIn, setIsLoggedIn] = useState(() => localStorage.getItem("userID") !== null);
+    const userID = localStorage.getItem("userID"); // <-- Add this line
 
     useEffect(() => {
-        const handleStorageChange = () => {
-            setIsLoggedIn(userID != null);
+        const syncLoginStatus = () => {
+            setIsLoggedIn(localStorage.getItem("userID") !== null);
         };
-        window.addEventListener('storage', handleStorageChange);
-        return () => window.removeEventListener('storage', handleStorageChange);
+
+        window.addEventListener('storage', syncLoginStatus);
+        window.addEventListener('login-success', syncLoginStatus);
+
+        return () => {
+            window.removeEventListener('storage', syncLoginStatus);
+            window.removeEventListener('login-success', syncLoginStatus);
+        };
     }, []);
+
+    const handleSignOut = () => {
+        localStorage.removeItem('userID');
+        setIsLoggedIn(false);
+        navigate('/login');
+    };
+
     return (
-        <nav className="bg-gray-800 text-white p-4 h-20 flex items-center shadow-md font-thin">
-            <div className="container mx-auto flex justify-between items-center">
-                <div className="text-xl font-bold">
-                    <Link to={userID ? "/" : "/overview"}>StudyZone</Link>
+        <nav className="bg-gray-800 text-white h-20 flex items-center shadow-md font-thin">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center">
+                {/* Logo Section */}
+                <div className="flex items-center space-x-2">
+                    <Link to={userID ? "/" : "/overview"}>
+                        <img
+                            src={logo}
+                            alt="Logo"
+                            className="w-16 h-auto object-contain"
+                        />
+                    </Link>
+                    <div className="text-xl font-bold hidden sm:block">
+                        <Link to={userID ? "/" : "/overview"}>StudyZone</Link>
+                    </div>
                 </div>
+
+                {/* Navigation Links */}
                 <ul className="flex space-x-4">
-                    <li className="hover:text-gray-300">
-                        <Link to="/about">About</Link>
-                    </li>
                     {isLoggedIn ? (
                         <li
                             className="hover:text-gray-300 cursor-pointer"
-                            onClick={() => {
-                                localStorage.removeItem('userID');
-                                window.location.href = '/login';
-                            }}
+                            onClick={handleSignOut}
                         >
                             Sign Out
                         </li>
@@ -43,6 +63,9 @@ const Navbar = () => {
                     </li>
                     <li className="hover:text-gray-300">
                         <Link to="/Schedule">Schedule</Link>
+                    </li>
+                    <li className="hover:text-gray-300">
+                        <Link to="/about">About</Link>
                     </li>
                 </ul>
             </div>

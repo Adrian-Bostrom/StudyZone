@@ -4,17 +4,19 @@ import './index.css';
 import Home from './pages/Home.jsx';
 import Login from './pages/Login.jsx';
 import About from './pages/About.jsx';
-import Courses from './pages/Courses.jsx';
 import Signup from './pages/Signup.jsx';
 import Navbar from './pages/components/Navbar.jsx';
 import Footer from './pages/components/Footer.jsx';
 import Overview from './pages/Overview.jsx';
 import Module from './pages/Module.jsx';
-import courses from './data/courses.json';
+import Contact from './pages/Contact.jsx';
+import CourseWrapper from './pages/CourseWrapper.jsx';
 import AssignmentWrapper from './pages/AssignmentWrapper.jsx'; // Import the AssignmentWrapper component
 import Schedule from './pages/Schedule.jsx';
+import Faq from './pages/Faq.jsx';
+import ProtectedRoute from './pages/components/ProtectedRoute.jsx';
 
-import { createBrowserRouter, RouterProvider, Outlet, Link, useParams } from 'react-router-dom';
+import { createBrowserRouter, RouterProvider, Outlet, Link, } from 'react-router-dom';
 
 // Layout component to include Navbar
 const Layout = () => (
@@ -33,21 +35,6 @@ const ErrorPage = () => (
     <Link to="/" className="mt-4 text-blue-600 hover:underline">Go back to Home</Link>
   </div>
 );
-
-const CourseWrapper = () => {
-  const { courseCode } = useParams();
-  const course = courses.find(c => c.CourseCode === courseCode);
-  if (!course) {
-    return <ErrorPage />;
-  }
-  return (
-    <Courses
-      CourseCode={course.CourseCode}
-      CourseName={course.CourseName}
-      CourseDescription={course.CourseDescription}
-    />
-  );
-};
 
 const router = createBrowserRouter([
   {
@@ -68,11 +55,19 @@ const router = createBrowserRouter([
       },
       {
         path: '/courses/:courseCode',
-        element: <CourseWrapper />,
+        element: (
+          <ProtectedRoute>
+            <CourseWrapper />
+          </ProtectedRoute>
+        ),
       },
       {
-        path: '/assignments/:id', // Dynamic route for assignments
-        element: <AssignmentWrapper />, // Use the wrapper component
+        path: '/courses/:courseCode/:assignmentId',
+        element: (
+          <ProtectedRoute>
+            <AssignmentWrapper />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/signup',
@@ -80,16 +75,37 @@ const router = createBrowserRouter([
       },
       {
         path: '/overview',
-        element: <Overview />,
+        element: (
+          <ProtectedRoute>
+            <Overview />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/Schedule',
-        element: <Schedule />,
+        element: (
+          <ProtectedRoute>
+            <Schedule />
+          </ProtectedRoute>
+        ),
       },
       {
         path: '/module',
-        element: <Module />,
+        element: (
+          <ProtectedRoute>
+            <Module />
+          </ProtectedRoute>
+        ),
+      },
+      {
+        path: '/faq',
+        element: <Faq />,
+      },
+      {
+        path: '/contact',
+        element: <Contact />,
       }
+
     ],
   },
 ]);

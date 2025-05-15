@@ -3,9 +3,31 @@ const parseDateToISO = (dateStr) => {
     return null;
   }
 
-  // Regex matches: [day] [month] [optional year] av/by [HH:MM or HH.MM]
+  // Handle relative days (e.g., Monday by 23:59)
+  const weekdayMatch = dateStr.match(/(monday|tuesday|wednesday|thursday|friday|saturday|sunday) by (\d{1,2})[:.]?(\d{2})/i);
+  if (weekdayMatch) {
+    const [, weekdayStr, hourStr, minuteStr] = weekdayMatch;
+    const weekdays = {
+      sunday: 0, monday: 1, tuesday: 2, wednesday: 3,
+      thursday: 4, friday: 5, saturday: 6
+    };
+    const targetDay = weekdays[weekdayStr.toLowerCase()];
+    if (targetDay === undefined) return null;
+
+    const now = new Date();
+    const currentDay = now.getDay();
+    let diff = targetDay - currentDay;
+    if (diff < 0) diff += 7; // Go to next week if already passed
+
+    const dueDate = new Date(now);
+    dueDate.setDate(now.getDate() + diff);
+    dueDate.setHours(parseInt(hourStr), parseInt(minuteStr), 0, 0);
+    return dueDate.toISOString();
+  }
+
+  // Match absolute format: 4 May by 23:59
   const match = dateStr.match(
-    /(\d{1,2}) (\w+)(?: (\d{4}))? (?:av|by) (\d{1,2})[:.]?(\d{2})/i
+    /(\d{1,2}) (\w+)(?: (\d{4}))? (?:av|by|kl|at) (\d{1,2})[:.]?(\d{2})/i
   );
   if (!match) return null;
 

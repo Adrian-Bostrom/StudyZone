@@ -89,7 +89,7 @@ function Calendar() {
   //Fetches userID and uses it to find the users assignments
   const userID = localStorage.getItem('userID');
   const bodyData = useMemo(() => ({ userID }), [userID]);
-  const { data: assignments, error } = UseFetchJson('http://localhost:5000/assignment', bodyData);
+  const { data: assignments, error } = UseFetchJson('/assignment', bodyData);
     
   //Converts the assignment JSON to a usable format for the calendar
   const assignmentEvents = assignments

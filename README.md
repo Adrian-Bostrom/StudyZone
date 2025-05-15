@@ -1,50 +1,64 @@
 # StudyZone
+Requirements: Node manager, tutorial: https://docs.npmjs.com/downloading-and-installing-node-js-and-npm
 
 Installation Guide:
-Download Github file zip
-Unzip
+1. Download this project in a zip file using Github.
+2. Unzip the file.
 
-Setup backend:
-go to the backend directory in the Studyzone-main folder using terminal
+Setup backend - OPTIONAL (only if you want to host the page yourself):
 
-write in terminal: npm i
+3. Go to the "Backend" directory in the Studyzone-main folder using a terminal.
 
-when one write node .\server.js
+4. Write in the terminal: npm i
+5. Press enter.
 
-in backend\database directory, remove any user folders (they have numbers and letters and shit)
+6. When done, write: node .\server.js
+7. Press enter.
 
-Signup with an account using gmail
+8. In "Backend\database" directory, remove any user folders (they have random numbers and letters) and empty "users.json" so there is only an empty json file with a set of brackets like this:
+********   
+[
 
-Login! (If successful, information should show up in the terminal)
+[
+********
+Setup frontend - OPTIONAL (only if you want to host the page yourself):
+
+9. Open another terminal and go to "StudyZone-main\website" directory.
+
+10. Write in terminal: npm i 
+
+11. Write in terminal: npm run dev 
+
+Setup Account:
+
+12. Go to our website at:
+ 
+13. Go to the login tab and press the "Signup".
+
+14. Signup with an account using gmail.
+
+15. Login! (If successful, information should show up in the terminal).
 
 ---------------------------------------------------------------------------------------
 Setup web extension:
 
-Go to Chrome web browser
+16. Go to Chrome web browser.
 
-Go to webextensions in the browser
+17. Go to web extensions in the browser or just search in the web browser: chrome://extensions/ 
 
-Enable programing mode/Developer mode (On the right side of the page)
+18. Enable Programmerings läge/Developer mode (On the right side of the page).
 
-Press load unpacked/lägg okomprimerad tillägg (to the left) and go to StudyZone-main\Extension and select the src folder
+19. Press load unpacked/lägg okomprimerad tillägg (to the left) and go to "StudyZone-main\Extension" and select the src folder.
 
-Enable the data grabber extension
+20. Enable the data grabber extension.
 
-Head to the main page of canvas, login, enable kortvy/cardview
+21. Head to the main page of canvas, login, enable kortvy/cardview.
 
-Enter the web extension and press "ENTER THE ZONE"
+22. Insure that you are completely logged in, so your profile is visibly logged in at the top of the page.
 
-Now you get virus :)
+23. Enter the web extension and press "ENTER THE ZONE".
 
-If successful, folders in database with the user info should get populated
+24. If successful, folders in database with the user info should get populated.
 
 If you don't get anything, retry
 ---------------------------------------------------------------------------------------
-Setup frontend:
-
-Go to StudyZone-main\website directory using terminal
-
-Write in terminal: npm i 
-
-Write in terminal: npm run dev 
-

@@ -1,10 +1,12 @@
-import { Link, useNavigate } from 'react-router-dom';
 import React, { useState, useMemo } from 'react';
+import { Link } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import UseFetchJson from './UseFetchJson.jsx';
 import sha256 from 'crypto-js/sha256';
 
-const LoginCard = () => {
+const SignUpCard = () => {
     const [formData, setFormData] = useState({
+        username: '',
         email: '',
         password: '',
     });
@@ -21,8 +23,8 @@ const LoginCard = () => {
         };
     }, [triggerFetch, formData]);
 
-    // UseFetchJson hook to send the login request
-    const { data: response, error } = UseFetchJson(triggerFetch ? '/login' : null, hashedFormData);
+    // UseFetchJson hook to send the signup request
+    const { data: response, error } = UseFetchJson(triggerFetch ? '/signup' : null, hashedFormData);
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -41,20 +43,33 @@ const LoginCard = () => {
 
     // Handle the response from UseFetchJson
     if (response) {
-        console.log('Login request was successful:', response);
+        console.log('Signup request was successful:', response);
         if (response.userID) {
             localStorage.setItem('userID', response.userID);
             console.log('User ID stored in local storage:', response.userID);
             navigate('/overview'); // Navigate to the overview page
         } else {
-            console.error('Invalid login credentials.');
+            console.error('Signup failed:', response.message);
         }
     }
 
+
     return (
         <div style={styles.card}>
-            <h2 style={styles.title}>Login</h2>
+            <h2 style={styles.title}>Sign Up</h2>
             <form onSubmit={handleSubmit} style={styles.form}>
+                <div style={styles.inputGroup}>
+                    <label htmlFor="username" style={styles.label}>Username</label>
+                    <input
+                        type="text"
+                        id="username"
+                        name="username"
+                        value={formData.username}
+                        onChange={handleChange}
+                        style={styles.input}
+                        required
+                    />
+                </div>
                 <div style={styles.inputGroup}>
                     <label htmlFor="email" style={styles.label}>Email</label>
                     <input
@@ -79,10 +94,10 @@ const LoginCard = () => {
                         required
                     />
                 </div>
-                <button type="submit" style={styles.button}>Login</button>
+                <button type="submit" style={styles.button}>Sign Up</button>
             </form>
-            <p style={styles.signupText}>
-                Don't have an account? <Link to="/signup" style={styles.signupLink}>Signup</Link>
+            <p style={styles.loginText}>
+                Already have an account? <Link to="/login" style={styles.loginLink}>Login</Link>
             </p>
         </div>
     );
@@ -132,15 +147,20 @@ const styles = {
         borderRadius: '4px',
         cursor: 'pointer',
     },
-    signupText: {
+    error: {
+        color: 'red',
+        fontSize: '14px',
+        marginTop: '10px',
+    },
+    loginText: {
         marginTop: '15px',
         fontSize: '14px',
         color: '#555',
     },
-    signupLink: {
+    loginLink: {
         color: '#007BFF',
         textDecoration: 'none',
     },
 };
 
-export default LoginCard;
+export default SignUpCard;

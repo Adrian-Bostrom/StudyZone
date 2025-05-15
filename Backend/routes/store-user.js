@@ -1,13 +1,15 @@
 import express from "express";
 import fs from "fs";
 import path from "path";
-import { fileURLToPath } from "url";
+import { fileURLToPath } from 'url';
+
 const router = express.Router();
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const usersFilePath = path.join(__dirname, "..", "database", "users.json");
+let FILE_PATH = "./database";
 
 router.post("/", (req, res) => {
-    const { email } = req.body;
+    const { email } = req.body.email;
     console.log("Received email from extension:", email);
   
     const users = JSON.parse(fs.readFileSync(usersFilePath, "utf8"));
@@ -16,7 +18,6 @@ router.post("/", (req, res) => {
   
     if (existingUser) {
       console.log("User found:", existingUser.username);
-      fs.writeFileSync(usersFilePath, JSON.stringify(data, null, 2));
       res.status(200).send(`User ${existingUser.username} found.`);
     } else {
       console.log("User not found");
