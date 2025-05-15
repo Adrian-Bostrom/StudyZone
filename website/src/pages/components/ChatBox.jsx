@@ -62,6 +62,20 @@ const ChatBox = forwardRef((props, ref) => {
             })
             const data = await response.json();
 
+            // Extract JSON from the bot's reply
+            const eventJson = extractJsonFromMessage(data.reply);
+            if (eventJson) {
+                // Save to localStorage for the calendar to use
+                const prev = JSON.parse(localStorage.getItem("aiEvents") || "[]");
+                prev.push({
+                    title: eventJson.Title,
+                    start: eventJson.Start,
+                    end: eventJson.End,
+                    description: eventJson.Description || "",
+                });
+                localStorage.setItem("aiEvents", JSON.stringify(prev));
+            }
+
             setMessages((prev) => {
                 const msgs = [...prev];
                 const loadingIndex = msgs.findIndex(m => m.loading);
@@ -69,7 +83,7 @@ const ChatBox = forwardRef((props, ref) => {
                 msgs[loadingIndex] = {text : cleanHTMLBlock(data.reply), sender : "bot", loading : false};
 
                 return msgs;
-            })
+            });
 
         } catch (error) {
             console.error("Error sending message:", error);
@@ -87,7 +101,7 @@ const ChatBox = forwardRef((props, ref) => {
     return (
         <div className='relative z-1000'>
             {isOpen ? (
-                <div className='w-[40vh] h-fit fixed bg-gray-100 right-10 bottom-10 rounded-2xl overflow-clip shadow-2xl'>
+                <div className='w-[40vh] h-fit fixed bg-gray-100 right-10 bottom-10 rounded-2xl overflow-clip shadow-2xl z-[9999]'>
                     <div className='w-full h-[6vh] flex'>
                         <img src={crossIcon} alt="Close chat" onClick={() => setIsOpen(false)} className='h-[1em] m-auto mr-5 cursor-pointer' />
                     </div>
@@ -138,7 +152,7 @@ const ChatBox = forwardRef((props, ref) => {
                 </div>
             </div>
                 ) : (
-                    <button className="fixed right-10 bottom-10 bg-blue-500 text-white px-2 py-2 cursor-pointer rounded-full shadow-lg hover:scale-110 transform transition duration-150 ease-in-out"
+                    <button className="fixed right-10 bottom-10 bg-blue-500 text-white px-2 py-2 cursor-pointer rounded-full shadow-lg hover:scale-110 transform transition duration-150 ease-in-out z-[9999]"
                         onClick={() => setIsOpen(true)}
                         >
 

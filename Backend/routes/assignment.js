@@ -34,15 +34,16 @@ router.post("/", async (req, res) => {
   console.log("Received Data:", req.body);
   const users = await readUsers();
   // Find the user by session token
-  let user = users.find((user) => user.sessionToken == req.body.userID);
+  console.log("users found: ",users)
+  let user = await users.find((user) => user.sessionToken == req.body.userID);
   if (!user) {
-    console.log("User not found:", req.body.userID);
+    console.log("User not found", user);
     return res.status(404).json({ message: "User not found" });
   }
   else {
     // Read the user's assignment
     const asses = readAssignments(user.id);
-    console.log("Assignments:", asses);
+    console.log("Assignments found:", asses);
     return res.status(200).json(asses);
   }
 });
@@ -69,7 +70,6 @@ router.post("/:variable", async (req, res) => {
           const asses = readAssignments(user.id);
           response.push(asses.find((ass) => ass.id == assignmentID));
         });
-
         return res.status(200).json(response);
       } catch{
           return res.status(400).json({message: "Assignment id not found"});
